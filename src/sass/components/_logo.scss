@@ -1,0 +1,19 @@
+.logo {
+  display: inline-block;
+  margin-right: auto;
+}
+
+.logo__title {
+  margin-left: 10px;
+
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.16;
+  color: #ffffff;
+
+  transition: color 250ms var(--timing-function);
+
+  @include mobile-only {
+    display: none;
+  }
+}
