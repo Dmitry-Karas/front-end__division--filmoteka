@@ -1,3 +1,52 @@
 <div class="modal">
     <!-- модальное окно -->
+    <div class="backdrop">
+    <div class="modal-window">
+    <img class="card-poster"
+        src='https://pixabay.com/get/ge15644cc2496caeb59875ffb53d8c4ef882fc8a512d73e2d47b46656e9fd9265d74cc2e555ed0da6a6b6fe46a3770a92ab88257632635eff4b61c5c0af20a9d7_640.jpg'
+        alt="poster">
+
+    <div>
+        <div class="card-details">
+            <h2 class="card-title">A FISTFUL OF LEAD</h2>
+            <ul class="card-list">
+                <li class="card-item">
+                    <p class="card-item__about">Vote / Votes</p>
+                    <p><span class="vote">7.3</span> / 1260</p>
+                </li>
+                <li class="card-item">
+                    <p class="card-item__about">Popularity</p>
+                    <p>100.2</p>
+                </li>
+                <li class="card-item">
+                    <p class="card-item__about">Original Title</p>
+                    <p>A FISTFUL OF LEAD</p>
+                </li>
+                <li class="card-item">
+                    <p class="card-item__about">Genre</p>
+                    <ul>
+                        {{#each }}
+                        <li>Western</li>
+
+                        {{/each}}
+                    </ul>
+                </li>
+            </ul>
+            <h3 class="card-about">About</h3>
+            <p class="card-description">Four of the West’s most infamous outlaws assemble to steal a huge stash of gold
+                from the most corrupt settlement of the
+                gold rush towns. But not all goes to plan one is killed and the other three escapes with bags of gold
+                hide out in the
+                abandoned gold mine where they happen across another gang of three – who themselves were planning to hit
+                the very same
+                bank! As tensions rise, things go from bad to worse as they realise the bags of gold are filled with
+                lead... they’ve
+                been double crossed – but by who and how?</p>
+
+        </div>
+        <button class="button-modal button-watched" type="button">add to watched</button>
+        <button class="button-modal button-queue" type="button">add to queue</button>
+    </div>
+    </div>
+    </div>
 </div>
