@@ -1,32 +1,33 @@
-main {
+.catalog {
   display: block;
   padding-top: 60px;
   padding-bottom: 60px;
   margin: 0 auto;
 }
 
-.movie {
+.catalog__movie {
   display: flex;
   margin: -15px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.movie__card {
+.movie {
   width: 274px;
   height: 100%;
   margin: 15px;
 }
 
-.movie-card__photo {
+.movie__photo {
   display: block;
-  width: 274px;
+  width: 280px;
   height: 398px;
+  margin-left: 0;
   margin-bottom: 10px;
   border-radius: 5px;
 }
 
-.movie-card__name {
+.movie__name {
   margin-bottom: 5px;
 
   font-style: normal;
@@ -38,11 +39,11 @@ main {
   color: #000000;
 }
 
-.movie-card__info {
+.movie__info {
   display: flex;
 }
 
-.movie-card__genres {
+.movie__genres {
   margin-right: 10px;
 
   font-style: normal;
@@ -50,10 +51,10 @@ main {
   font-size: 12px;
   line-height: 16px;
 
-  color: #ff6b01;
+  color: var(--color-accent);
 }
 
-.movie-card__rating {
+.movie__rating {
   display: inline;
   width: 36px;
   height: 14px;
@@ -66,44 +67,58 @@ main {
   line-height: 16px;
 
   color: #ffffff;
-  background-color: #ff6b01;
+  background-color: var(--color-accent);
 }
 
 @media screen and (max-width: 767px) {
-  main {
+  .catalog {
     max-width: 320px;
   }
 
-  .movie {
+  .catalog__movie {
     max-width: 320px;
     margin: 0;
   }
 
-  .movie__card {
+  .movie {
     width: 280px;
   }
 }
 
 @media screen and (min-width: 768px) {
-  main {
+  .catalog {
     max-width: 768px;
   }
 
-  .movie__card {
+  .movie {
     width: 294px;
   }
 
-  .movie-card__rating {
+  .movie__rating {
     height: 16px;
+  }
+
+  .movie__photo {
+    width: 294px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  main {
+  .catalog {
     max-width: 1024px;
   }
 
-  .movie__card {
+  .movie {
     width: 274px;
+  }
+
+  .movie__photo {
+    width: 274px;
+  }
+
+  .catalog__movie {
+    justify-content: start;
+    flex-wrap: wrap;
+    padding-left: 71px;
   }
 }
