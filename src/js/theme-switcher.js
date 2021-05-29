@@ -9,14 +9,12 @@ const Theme = {
 (function checkSavedTheme() {
   const savedTheme = localStorage.getItem('theme');
 
-  if (savedTheme === Theme.LIGHT) {
-    switchTheme(Theme.LIGHT);
-  }
-
   if (savedTheme === Theme.DARK) {
     themeSwitcherRef.checked = true;
 
     switchTheme(Theme.DARK);
+  } else {
+    switchTheme(Theme.LIGHT);
   }
 })();
 
