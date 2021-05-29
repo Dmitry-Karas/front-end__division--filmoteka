@@ -10,6 +10,25 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+
+  transition: color 150ms var(--timing-function), background-color 250ms var(--timing-function);
+
+  &.light-theme {
+    background-color: #ffffff;
+
+    & .theme-switch {
+      color: #ff6b01aa;
+    }
+  }
+
+  &.dark-theme {
+    background-color: #333333;
+    color: #fff;
+
+    & .theme-switch {
+      color: #f7f7f7aa;
+    }
+  }
 }
 
 a {
