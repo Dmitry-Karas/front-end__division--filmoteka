@@ -1,29 +1,37 @@
 .backdrop {
   position: fixed;
+  left: 0;
   top: 0;
-  right: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.25);
+  transition: 1000ms cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
 
+  overflow-y: scroll;
+}
+
+.backdrop.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: 0.25s;
 }
 
 .modal {
   transition-duration: 0.25s;
 }
 
-
-
 .body {
   overflow: hidden;
 }
 
 .modal-window {
-  position: absolute;
-  // position: fixed;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+
   background-color: #ffffff;
 }
 
@@ -44,20 +52,18 @@
 }
 
 .vote {
-display: inline-block;
-border-radius: 5px;
-font-style: normal;
-font-weight: 500;
-font-size: 12px;
-text-align: center;
-line-height: 17px;
+  display: inline-block;
+  border-radius: 5px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+  line-height: 17px;
   color: #ffffff;
   background-color: var(--color-accent);
   width: 36px;
   height: 16px;
 }
-
-
 
 .card-item__about {
   color: var(--color-title);
@@ -70,10 +76,16 @@ line-height: 17px;
 }
 
 .card-description {
+  font-style: normal;
+  font-weight: 500;
   font-size: 12px;
   line-height: 1.67;
 }
-
+.card-button-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .button-modal {
   display: inline-block;
@@ -81,16 +93,13 @@ line-height: 17px;
   height: 44px;
   border: 0;
   border-radius: 5px;
-
+  text-align: center;
   font-size: 12px;
   line-height: 1.67;
   text-transform: uppercase;
   border: 1px solid #000000;
   background-color: #ffffff;
 }
-
-
-
 
 .button-modal:hover,
 .button-modal:focus {
@@ -99,31 +108,30 @@ line-height: 17px;
   background-color: var(--color-accent);
 }
 
-
-
 @media screen and (max-width: 767px) {
   .modal-window {
     width: 280px;
     height: 958px;
+    padding-top: 48px;
+    padding-bottom: 41px;
     padding-right: 20px;
     padding-left: 20px;
+    margin: 20px;
   }
   .card-details {
     width: 240px;
   }
-.vote{
-  height: 16px;
-}
+  .vote {
+    height: 16px;
+  }
   .card-poster {
-    width: 280px;
+    min-width: 240px;
+    height: 357px;
     margin-bottom: 30px;
   }
-  .card-button-modal{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+
   .button-modal {
+    // display: inline-flex;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
@@ -147,18 +155,20 @@ line-height: 17px;
 @media screen and (min-width: 768px) {
   .modal-window {
     display: flex;
-    padding-top: 60px;
-    padding-right: 75px;
-    padding-left: 75px;
-    width: 768px;
-    height: 574px;
+    padding-top: 42px;
+    padding-bottom: 40px;
+    padding-right: 30px;
+    padding-left: 28px;
+    margin: 231px 75px;
+    width: 618px;
+    height: 562px;
     size: initial;
   }
 
   .card-poster {
-    width: 294px;
-    height: 416px;
-    margin-right: 30px;
+    width: 264px;
+    height: 374px;
+    margin-right: 32px;
   }
 
   .card-description {
@@ -173,7 +183,6 @@ line-height: 17px;
   }
 }
 
-
 @media screen and (min-width: 1024px) {
   .modal-window {
     display: flex;
@@ -186,8 +195,8 @@ line-height: 17px;
   }
 
   .card-poster {
-    width: 426px;
-    height: 514px;
+    width: 396px;
+    height: 478px;
     object-fit: cover;
     object-position: 0 20;
     margin-right: 30px;
@@ -201,11 +210,76 @@ line-height: 17px;
   .card-details {
     width: 426px;
   }
-  .card-button-modal{
+  .card-button-modal {
     justify-content: start;
   }
 
   .button-watched {
     margin-right: 15px;
   }
+}
+
+.cl-btn {
+  display: flex;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+}
+
+.cl-btn div {
+  cursor: pointer;
+  position: relative;
+  height: 20px;
+  width: 20px;
+}
+
+.cl-btn .leftright {
+  height: 2px;
+  width: 20px;
+  position: absolute;
+  margin-top: 15px;
+  background-color: #000000;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transition: all 0.3s ease-in;
+}
+
+.cl-btn .rightleft {
+  height: 2px;
+  width: 20px;
+  position: absolute;
+  margin-top: 15px;
+  background-color: #000000;
+  border-radius: 2px;
+  transform: rotate(-45deg);
+  transition: all 0.3s ease-in;
+}
+
+.cl-btn .close-btn {
+  margin: 25px 0 0 -5px;
+  position: absolute;
+  color: var(--color-accent);
+  font-family: Tahoma, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in;
+  opacity: 0;
+}
+
+.cl-btn div:hover .leftright {
+  transform: rotate(-45deg);
+  background-color: var(--color-accent);
+}
+
+.cl-btn div:hover .rightleft {
+  transform: rotate(45deg);
+  background-color: var(--color-accent);
+}
+
+.cl-btn div:hover .close-btn {
+  opacity: 1;
 }
