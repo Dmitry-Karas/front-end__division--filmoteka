@@ -6,3 +6,5 @@ export const libraryButtonRef = document.querySelector('[data-button="library"]'
 export const headerDynamicContainerRef = document.querySelector('header .js-dynamic-container');
 export const themeSwitcherRef = document.querySelector('#theme-switch-toggle');
 export const containerRef = document.querySelector('section .container');
+
+export const hederMeder = document.querySelector('#page-control');

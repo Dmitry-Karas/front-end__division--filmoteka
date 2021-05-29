@@ -9,9 +9,12 @@ import {
   homeButtonRef,
   libraryButtonRef,
   headerDynamicContainerRef,
+  containerRef,
 } from './common/refs';
+import listenInput from './provideFilms';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
+listenInput();
 
 // Меняет интерфейс хэдэра при выборе страницы
 function onPageChange(e) {
@@ -35,6 +38,7 @@ function onPageChange(e) {
     const home = pageHeaderHomeTpl();
 
     changePage(home);
+    listenInput();
   }
 
   // Рендер разметки библиотеки при клике на кнопку my library
@@ -42,6 +46,7 @@ function onPageChange(e) {
     const library = pageHeaderLibraryTpl();
 
     changePage(library);
+    clearMarkup(containerRef);
   }
 
   // Смена класса активной кнопки

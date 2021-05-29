@@ -8,14 +8,12 @@ const debounce = require('lodash.debounce');
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
-const inputRef = document.querySelector('.search-form__input');
-// resetPage(containerRef);
+export default function listenInput() {
+  const inputRef = document.querySelector('.search-form__input');
 
-// function resetPage() {
-//   containerRef.innerHTML = '';
-//   console.log('containerRef', containerRef);
-// }
-inputRef.addEventListener('input', debounce(searchNewFilm, 1000));
+  inputRef.addEventListener('input', debounce(searchNewFilm, 1000));
+  showPopularFilms();
+}
 
 async function showPopularFilms() {
   try {
@@ -32,13 +30,18 @@ async function showPopularFilms() {
 
 async function searchNewFilm(e) {
   try {
-    newFetchApiFilms.query = e.target.value;
+    if (e.target.value === '') {
+      resetPage(containerRef);
+      showPopularFilms();
+    } else {
+      newFetchApiFilms.query = e.target.value;
 
-    const films = await newFetchApiFilms.fetchApiFilms().then(response => response.data.results);
+      const films = await newFetchApiFilms.fetchApiFilms().then(response => response.data.results);
 
-    resetPage(containerRef);
-    addGenreToFilm(films);
-    renderMarkup(containerRef, filmsGalleryTmp(films));
+      resetPage(containerRef);
+      addGenreToFilm(films);
+      renderMarkup(containerRef, filmsGalleryTmp(films));
+    }
   } catch (error) {
     console.log(error);
   }
