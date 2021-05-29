@@ -1,5 +1,24 @@
 <header class="page-header page-header--home js-page-header">
   <div class="container">
+    <div class="theme-switch">
+      <i class="material-icons theme-switch__icon" role="img" aria-label="Иконка солнца"
+        >light_mode</i
+      >
+
+      <div class="theme-switch__control">
+        <input
+          class="theme-switch__toggle"
+          type="checkbox"
+          name="theme"
+          id="theme-switch-toggle"
+          aria-label="Переключить между тёмной и светлой темой"
+        />
+        <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle"> </label>
+        <div aria-hidden="true" class="theme-switch__marker"></div>
+      </div>
+
+      <i class="material-icons theme-switch__icon" aria-label="Иконка луны">dark_mode</i>
+    </div>
     <nav class="site-nav">
       <a href="#" class="logo js-logo">
         <svg width="24" height="24"><use href="./images/sprite.svg#icon-film"></use></svg>
