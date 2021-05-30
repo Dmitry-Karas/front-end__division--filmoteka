@@ -9,7 +9,7 @@ import {
   homeButtonRef,
   libraryButtonRef,
   headerDynamicContainerRef,
-  containerRef,
+  listFilmsRef,
 } from './common/refs';
 import listenInput from './provideFilms';
 
@@ -46,7 +46,7 @@ function onPageChange(e) {
     const library = pageHeaderLibraryTpl();
 
     changePage(library);
-    clearMarkup(containerRef);
+    clearMarkup(listFilmsRef);
   }
 
   // Смена класса активной кнопки

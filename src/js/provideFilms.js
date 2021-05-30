@@ -2,9 +2,9 @@ import NewFetchApiFilms from './apiService';
 import clearMarkup from './common/clear-markup';
 import filmsGalleryTmp from '../templates/films-gallery.hbs';
 import renderMarkup from './common/render-markup';
-import { containerRef } from './common/refs';
+import { listFilmsRef } from './common/refs';
 
-const debounce = require('lodash.debounce');
+import debounce from 'lodash.debounce';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -22,7 +22,7 @@ async function showPopularFilms() {
       .then(response => response.data.results);
 
     addGenreToFilm(films);
-    renderMarkup(containerRef, filmsGalleryTmp(films));
+    renderMarkup(listFilmsRef, filmsGalleryTmp(films));
   } catch (error) {
     console.log(error);
   }
@@ -31,16 +31,16 @@ async function showPopularFilms() {
 async function searchNewFilm(e) {
   try {
     if (e.target.value === '') {
-      clearMarkup(containerRef);
+      clearMarkup(listFilmsRef);
       showPopularFilms();
     } else {
       newFetchApiFilms.query = e.target.value;
 
       const films = await newFetchApiFilms.fetchApiFilms().then(response => response.data.results);
 
-      clearMarkup(containerRef);
+      clearMarkup(listFilmsRef);
       addGenreToFilm(films);
-      renderMarkup(containerRef, filmsGalleryTmp(films));
+      renderMarkup(listFilmsRef, filmsGalleryTmp(films));
     }
   } catch (error) {
     console.log(error);
