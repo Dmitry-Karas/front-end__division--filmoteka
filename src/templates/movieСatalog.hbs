@@ -1,0 +1,16 @@
+<section>
+    <div class="container">
+        <ul class="catalog__movie">
+            {{#each this}}
+            <li class="movie">
+                <img class="movie__photo" src="https://api.themoviedb.org/3/{{}}" data-src="{{}}" alt="" />
+                <h2 class="movie__name"> {{}} </h2>
+                <div class="movie__info">
+                    <p class="movie__genres"> {{}} | {{}} </p>
+                    <p class="movie__rating">{{}}</p>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</section>
