@@ -21,4 +21,4 @@ var e,t=arguments[3];!function(t,r){"object"==typeof exports&&"object"==typeof m
 },{"./common/refs":"OsqH"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("./js/page-header"),require("./js/theme-switcher");
 },{"./sass/main.scss":"clu1","./js/page-header":"CWwk","./js/theme-switcher":"keXy"}]},{},["Focm"], null)
-//# sourceMappingURL=/test-team-project/src.4cb6718a.js.map
+//# sourceMappingURL=/test-team-project/src.41d5fc7a.js.map
