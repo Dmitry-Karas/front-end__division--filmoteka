@@ -22,7 +22,6 @@ async function showPopularFilms() {
       .then(response => response.data.results);
 
     addGenreToFilm(films);
-    renderMarkup(listFilmsRef, filmsGalleryTmp(films));
   } catch (error) {
     console.log(error);
   }
@@ -40,7 +39,6 @@ async function searchNewFilm(e) {
 
       clearMarkup(listFilmsRef);
       addGenreToFilm(films);
-      renderMarkup(listFilmsRef, filmsGalleryTmp(films));
     }
   } catch (error) {
     console.log(error);
@@ -51,9 +49,14 @@ async function addGenreToFilm(films) {
   const genres = await newFetchApiFilms.fetchGenreList().then(response => response.data.genres);
 
   const filmsWithGenre = films.map(film => {
-    const genreArray = film.genre_ids.map(id => {
-      return genres.find(genre => genre.id == id).name;
-    });
-    return { ...film, genre: genreArray };
+    const genreArray = film.genre_ids
+      .map(id => {
+        return genres.find(genre => genre.id == id).name;
+      })
+      .join(', ');
+    return { ...film, genre: genreArray, release_date: Number.parseInt(film.release_date) };
   });
+  console.log('filmsWithGenre', filmsWithGenre);
+
+  renderMarkup(listFilmsRef, filmsGalleryTmp(filmsWithGenre));
 }
