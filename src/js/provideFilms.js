@@ -1,5 +1,5 @@
 import NewFetchApiFilms from './apiService';
-import resetPage from './common/clear-markup';
+import clearMarkup from './common/clear-markup';
 import filmsGalleryTmp from '../templates/films-gallery.hbs';
 import renderMarkup from './common/render-markup';
 import { containerRef } from './common/refs';
@@ -31,14 +31,14 @@ async function showPopularFilms() {
 async function searchNewFilm(e) {
   try {
     if (e.target.value === '') {
-      resetPage(containerRef);
+      clearMarkup(containerRef);
       showPopularFilms();
     } else {
       newFetchApiFilms.query = e.target.value;
 
       const films = await newFetchApiFilms.fetchApiFilms().then(response => response.data.results);
 
-      resetPage(containerRef);
+      clearMarkup(containerRef);
       addGenreToFilm(films);
       renderMarkup(containerRef, filmsGalleryTmp(films));
     }

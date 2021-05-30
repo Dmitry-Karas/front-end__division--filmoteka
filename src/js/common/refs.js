@@ -7,4 +7,4 @@ export const headerDynamicContainerRef = document.querySelector('header .js-dyna
 export const themeSwitcherRef = document.querySelector('#theme-switch-toggle');
 export const containerRef = document.querySelector('section .container');
 
-export const hederMeder = document.querySelector('#page-control');
+
