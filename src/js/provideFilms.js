@@ -1,9 +1,7 @@
 import NewFetchApiFilms from './apiService';
-import clearMarkup from './common/clear-markup';
-import filmsGalleryTmp from '../templates/films-gallery.hbs';
-import renderMarkup from './common/render-markup';
+import filmsGalleryTmp from '../templates/movieСatalog.hbs';
+import { renderMarkup, clearMarkup } from './common/functions';
 import { listFilmsRef } from './common/refs';
-
 import debounce from 'lodash.debounce';
 
 const newFetchApiFilms = new NewFetchApiFilms();
@@ -15,7 +13,7 @@ export default function listenInput() {
   showPopularFilms();
 }
 
-async function showPopularFilms() {
+export async function showPopularFilms(e) {
   try {
     const films = await newFetchApiFilms
       .fetchApiPopularFilms()
@@ -45,7 +43,7 @@ async function searchNewFilm(e) {
   }
 }
 
-async function addGenreToFilm(films) {
+export async function addGenreToFilm(films) {
   const genres = await newFetchApiFilms.fetchGenreList().then(response => response.data.genres);
 
   const filmsWithGenre = films.map(film => {

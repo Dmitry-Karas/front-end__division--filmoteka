@@ -1,7 +1,7 @@
 import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
-import renderMarkup from './common/render-markup';
-import clearMarkup from './common/clear-markup';
+import { renderMarkup, clearMarkup } from './common/functions';
+import listenInput from './provideFilms';
 import {
   headerRef,
   logoRef,
@@ -11,7 +11,6 @@ import {
   headerDynamicContainerRef,
   listFilmsRef,
 } from './common/refs';
-import listenInput from './provideFilms';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();

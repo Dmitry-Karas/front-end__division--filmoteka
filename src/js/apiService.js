@@ -1,7 +1,7 @@
 import { BASE_URL, API_KEY } from './common/constants';
 const axios = require('axios');
 
-export default class NewFetchApiImage {
+export default class NewFetchApiFilms {
   constructor() {
     this.url = BASE_URL;
     this.key = API_KEY;
@@ -10,7 +10,9 @@ export default class NewFetchApiImage {
   }
 
   async fetchApiFilms() {
-    return await axios(`${this.url}search/movie?api_key=${this.key}&query=${this.searchQuery}`);
+    return await axios(
+      `${this.url}search/movie?api_key=${this.key}&query=${this.searchQuery}&language=en-US`,
+    );
   }
 
   async fetchApiPopularFilms() {
@@ -26,9 +28,12 @@ export default class NewFetchApiImage {
   incrementPage() {
     this.page += 1;
   }
+  decrementPage() {
+    this.page -= 1;
+  }
 
-  resetPageNum() {
-    this.page = 1;
+  selectsPageNumber(num) {
+    this.page = num;
   }
 
   get query() {
