@@ -10,11 +10,11 @@
   overflow-y: scroll;
 }
 
-.backdrop.is-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transition-duration: 0.25s;
-}
+// .backdrop.is-hidden {
+//   opacity: 0;
+//   pointer-events: none;
+//   transition-duration: 0.25s;
+// }
 
 .modal {
   transition-duration: 0.25s;
@@ -30,6 +30,9 @@
   margin-right: auto;
 
   background-color: #ffffff;
+}
+.card-poster{
+  object-fit: cover;
 }
 
 .card-list {
@@ -68,6 +71,10 @@
 }
 
 .card-about {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
   margin-bottom: 10px;
   text-transform: uppercase;
 }
@@ -113,7 +120,8 @@
     padding-bottom: 41px;
     padding-right: 20px;
     padding-left: 20px;
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px; 
   }
   .card-details {
     width: 240px;
@@ -126,6 +134,7 @@
     height: 357px;
     margin-bottom: 30px;
   }
+ 
 
   .button-modal {
     // display: inline-flex;
@@ -168,12 +177,7 @@
     height: 374px;
     margin-right: 32px;
   }
-  .card-about {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-  }
+ 
   .card-description {
     margin-bottom: 20px;
   }
@@ -199,7 +203,6 @@
   .card-poster {
     width: 396px;
     height: 478px;
-    object-fit: cover;
     object-position: 0 20;
     margin-right: 30px;
   }
@@ -231,12 +234,12 @@
   top: 10px;
   right: 10px;
   justify-content: center;
+  cursor: pointer;
   width: 30px;
   height: 30px;
 }
 
 .cl-btn div {
-  cursor: pointer;
   position: relative;
   height: 20px;
   width: 20px;
@@ -276,16 +279,19 @@
   opacity: 0;
 }
 
-.cl-btn div:hover .leftright {
+.cl-btn:hover .leftright {
   transform: rotate(-45deg);
   background-color: var(--color-accent);
 }
 
-.cl-btn div:hover .rightleft {
+.cl-btn:hover .rightleft {
   transform: rotate(45deg);
   background-color: var(--color-accent);
 }
 
-.cl-btn div:hover .close-btn {
+.cl-btn:hover .close-btn {
   opacity: 1;
 }
+
+
+
