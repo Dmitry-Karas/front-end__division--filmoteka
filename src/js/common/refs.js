@@ -5,3 +5,4 @@ export const homeButtonRef = document.querySelector('[data-button="home"]');
 export const libraryButtonRef = document.querySelector('[data-button="library"]');
 export const headerDynamicContainerRef = document.querySelector('header .js-dynamic-container');
 export const themeSwitcherRef = document.querySelector('#theme-switch-toggle');
+export const listFilmsRef = document.querySelector('section .movie__list');

@@ -18,47 +18,13 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body>
-
     <!-- Так добавляются фрагменты в главные HTML-файлы страниц. -->
     <include src="./partials/page-header.html"></include>
 
     <main>
-      <section>
+      <section class="movie">
         <div class="container">
-          <ul class="catalog__movie">
-            <li class="movie">
-              <img class="movie__photo" src="https://api.themoviedb.org/3/{{}}" data-src="{{}}" alt="" />
-              <h2 class="movie__name"> {{}} </h2>
-              <div class="movie__info">
-                <p class="movie__genres"> {{}} | {{}} </p>
-                <p class="movie__rating">{{}}</p>
-              </div>
-            </li>
-            <li class="movie">
-              <img class="movie__photo" src="https://api.themoviedb.org/3/{{}}" data-src="{{}}" alt="" />
-              <h2 class="movie__name"> {{}} </h2>
-              <div class="movie__info">
-                <p class="movie__genres"> {{}} | {{}} </p>
-                <p class="movie__rating">{{}}</p>
-              </div>
-            </li>
-            <li class="movie">
-              <img class="movie__photo" src="https://api.themoviedb.org/3/{{}}" data-src="{{}}" alt="" />
-              <h2 class="movie__name"> {{}} </h2>
-              <div class="movie__info">
-                <p class="movie__genres"> {{}} | {{}} </p>
-                <p class="movie__rating">{{}}</p>
-              </div>
-            </li>
-            <li class="movie">
-              <img class="movie__photo" src="https://api.themoviedb.org/3/{{}}" data-src="{{}}" alt="" />
-              <h2 class="movie__name"> {{}} </h2>
-              <div class="movie__info">
-                <p class="movie__genres"> {{}} | {{}} </p>
-                <p class="movie__rating">{{}}</p>
-              </div>
-            </li>
-          </ul>
+          <ul class="movie__list"></ul>
         </div>
       </section>
     </main>
