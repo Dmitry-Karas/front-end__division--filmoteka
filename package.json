@@ -26,7 +26,9 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "lodash.debounce": "^4.0.8",
+    "spin.js": "^4.1.0",
     "src": "^1.1.2",
     "templates": "^1.2.9"
   }
