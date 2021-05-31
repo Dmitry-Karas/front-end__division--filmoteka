@@ -1,4 +1,5 @@
 .backdrop {
+  @include flex-centered;
   position: fixed;
   left: 0;
   top: 0;
@@ -8,13 +9,9 @@
   transition: 1000ms cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 100;
   overflow-y: scroll;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
-
-// .backdrop.is-hidden {
-//   opacity: 0;
-//   pointer-events: none;
-//   transition-duration: 0.25s;
-// }
 
 .modal {
   transition-duration: 0.25s;
@@ -26,12 +23,11 @@
 
 .modal-window {
   position: relative;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
 
   background-color: #ffffff;
 }
-.card-poster{
+.card-poster {
   object-fit: cover;
 }
 
@@ -103,6 +99,8 @@
   text-transform: uppercase;
   border: 1px solid #000000;
   background-color: #ffffff;
+
+  transition: all 250ms var(--timing-function);
 }
 
 .button-modal:hover,
@@ -120,12 +118,8 @@
     padding-bottom: 41px;
     padding-right: 20px;
     padding-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px; 
   }
-  .card-details {
-    width: 240px;
-  }
+
   .vote {
     height: 16px;
   }
@@ -134,15 +128,17 @@
     height: 357px;
     margin-bottom: 30px;
   }
- 
+
+  .card-details {
+    margin-bottom: 21px;
+  }
 
   .button-modal {
-    // display: inline-flex;
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
-    margin-top: 21px;
+
     width: 112px;
     height: 44px;
   }
@@ -161,14 +157,13 @@
 @media screen and (min-width: 768px) {
   .modal-window {
     display: flex;
+    width: 618px;
+    min-height: 562px;
     padding-top: 42px;
     padding-bottom: 40px;
     padding-right: 30px;
-    padding-left: 28px;
-    margin-top: 231px;
-    margin-bottom: 231px;
-    width: 618px;
-    min-height: 562px;
+    padding-left: 30px;
+
     size: initial;
   }
 
@@ -177,8 +172,8 @@
     height: 374px;
     margin-right: 32px;
   }
- 
-  .card-description {
+
+  .card-details {
     margin-bottom: 20px;
   }
 
@@ -194,8 +189,7 @@
     padding-bottom: 40px;
     padding-right: 30px;
     padding-left: 30px;
-    margin-top: 100px;
-    margin-bottom: 100px;
+
     width: 882px;
     min-height: 568px;
   }
@@ -212,9 +206,6 @@
     width: 162px;
   }
 
-  .card-details {
-    width: 426px;
-  }
   .card-title {
     font-size: 30px;
     line-height: 1.16;
@@ -292,6 +283,3 @@
 .cl-btn:hover .close-btn {
   opacity: 1;
 }
-
-
-
