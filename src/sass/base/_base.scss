@@ -28,6 +28,11 @@ body {
       color: #ff6b01aa;
     }
   }
+
+  &.modal-open,
+  &.menu-open {
+    overflow: hidden;
+  }
 }
 
 a {
