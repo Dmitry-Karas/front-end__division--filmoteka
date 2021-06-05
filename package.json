@@ -3,10 +3,10 @@
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://dmitry-karas.github.io/test-team-project",
+  "homepage": "https://dmitry-karas.github.io/front-end__division--filmoteka",
   "scripts": {
     "dev": "parcel src/*.html -p 80",
-    "build": "parcel build src/*.html --public-url /test-team-project/"
+    "build": "parcel build src/*.html --public-url /front-end__division--filmoteka/"
   },
   "repository": {
     "type": "git",
