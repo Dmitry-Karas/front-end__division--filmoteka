@@ -5,7 +5,13 @@ import authForm from '../templates/authForm.hbs';
 
 export const authModal = {
   title: 'Sign in',
-  html: authForm(),
+  html: `
+  <form class="auth-form">
+    <input type="email" id="email" class="swal2-input auth-modal__input" placeholder="Email" autocomplete="">
+    <input type="password" id="password" class="swal2-input auth-modal__input" placeholder="Password">
+    <p class="auth-modal__text">Don't have account? <button class="auth-modal__button" type="button">Create!</button></p>
+    </form>
+  `,
   customClass: {
     container: '...',
     popup: 'auth-modal',
@@ -70,7 +76,7 @@ export async function invalidEmailErrMsg() {
       popup: 'colored-toast',
     },
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
   });
   await Toast.fire({
@@ -107,7 +113,7 @@ export async function signedInMsg() {
       popup: 'colored-toast',
     },
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
   });
   await Toast.fire({
@@ -126,7 +132,7 @@ export async function signedOutMsg() {
       popup: 'colored-toast',
     },
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
   });
   await Toast.fire({

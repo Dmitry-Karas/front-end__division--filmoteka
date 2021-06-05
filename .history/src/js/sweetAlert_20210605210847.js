@@ -70,7 +70,7 @@ export async function invalidEmailErrMsg() {
       popup: 'colored-toast',
     },
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
   });
   await Toast.fire({
@@ -107,7 +107,7 @@ export async function signedInMsg() {
       popup: 'colored-toast',
     },
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
   });
   await Toast.fire({
@@ -126,7 +126,7 @@ export async function signedOutMsg() {
       popup: 'colored-toast',
     },
     showConfirmButton: false,
-    timer: 3000,
+    timer: 5000,
     timerProgressBar: true,
   });
   await Toast.fire({

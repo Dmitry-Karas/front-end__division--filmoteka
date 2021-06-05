@@ -142,7 +142,7 @@
   position: absolute;
   top: 10px;
 
-  padding: 4px 10px;
+  padding: 4px;
   border: 1px solid;
   border-radius: 4px;
   border-color: var(--color-accent);
@@ -164,8 +164,8 @@
   }
 
   &:hover {
-    border-color: var(--color-accent);
-    background-color: var(--color-accent);
+    border-color: var(--color-light);
+    color: var(--color-accent);
   }
 }
 
