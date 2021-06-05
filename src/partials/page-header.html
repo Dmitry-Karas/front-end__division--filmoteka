@@ -1,0 +1,54 @@
+<header class="page-header page-header--home js-page-header">
+  <div class="container">
+    <button class="auth-button" data-button="auth" type="button">
+      Sign In
+    </button>
+    <div class="theme-switch">
+      <i class="material-icons theme-switch__icon" role="img" aria-label="Иконка солнца"
+        >light_mode</i
+      >
+
+      <div class="theme-switch__control">
+        <input
+          class="theme-switch__toggle"
+          type="checkbox"
+          name="theme"
+          id="theme-switch-toggle"
+          aria-label="Переключить между тёмной и светлой темой"
+        />
+        <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle"> </label>
+        <div aria-hidden="true" class="theme-switch__marker"></div>
+      </div>
+
+      <i class="material-icons theme-switch__icon" aria-label="Иконка луны">dark_mode</i>
+    </div>
+    <nav class="site-nav">
+      <a href="#" class="logo js-logo">
+        <svg width="24" height="24"><use href="./images/sprite.svg#icon-film"></use></svg>
+        <span class="logo__title">Filmoteka</span></a
+      >
+      <ul class="site-nav__list js-navigation-list">
+        <li class="site-nav__item">
+          <button
+            class="site-nav__button site-nav__button--current"
+            data-button="home"
+            type="button"
+          >
+            Home
+          </button>
+        </li>
+        <li class="site-nav__item">
+          <button class="site-nav__button" data-button="library" type="button">
+            My library
+          </button>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="js-dynamic-container"></div>
+
+    <p class="search-error visually-hidden">
+      Search result not successful! Enter the correct movie name.
+    </p>
+  </div>
+</header>

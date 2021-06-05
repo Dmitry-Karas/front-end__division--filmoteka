@@ -1,0 +1,126 @@
+// Outline всем элементам для удобства верстки,
+// при необходимости раскомментировать и НЕ ЗАБЫВАТЬ КОММЕНТИРОВАТЬ ОБРАТНО при любых коммитах
+// =========================
+
+* {
+  outline-color: var(--color-accent);
+  // outline: 1px solid red;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+
+  transition: color 150ms var(--timing-function), background-color 250ms var(--timing-function);
+
+  &.light-theme {
+    background-color: #ffffff;
+
+    & .theme-switch {
+      color: #f7f7f7aa;
+    }
+  }
+
+  &.dark-theme {
+    background-color: #333333;
+    color: #fff;
+
+    & .theme-switch {
+      color: #ff6b01aa;
+    }
+  }
+
+  &.modal-open,
+  &.menu-open {
+    overflow: hidden;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  padding: 0;
+  margin: 0;
+
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  color: #fff;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+.colored-toast.swal2-icon-success {
+  background-color: #a5dc86 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+  background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+  background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+  background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-title {
+  color: white;
+}
+
+.colored-toast .swal2-close {
+  color: white;
+}
+
+.colored-toast .swal2-content {
+  color: white;
+}
