@@ -1,0 +1,35 @@
+.auth-modal {
+  width: 400px !important;
+
+  @include mobile-only {
+    width: 300px !important;
+  }
+}
+
+.auth-form {
+  width: 100% !important;
+}
+
+.auth-form__input {
+  width: 100% !important;
+  margin: 0 !important;
+
+  &:not(:last-child) {
+    margin-bottom: 20px !important;
+  }
+}
+
+.auth-form__text {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.auth-form__button {
+  // display: inline-block;
+  white-space: pre;
+  margin-top: 10px;
+  border: none;
+  color: inherit;
+  background-color: transparent;
+  text-decoration: underline;
+}
