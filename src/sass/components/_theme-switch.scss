@@ -1,10 +1,6 @@
 .theme-switch {
   position: absolute;
   top: 10px;
-<<<<<<< HEAD
-=======
-  right: 10px;
->>>>>>> dev
   display: flex;
   align-items: center;
 
@@ -12,13 +8,8 @@
 }
 
 .theme-switch__icon {
-<<<<<<< HEAD
   height: 20px;
   width: 20px;
-=======
-  height: 24px;
-  width: 24px;
->>>>>>> dev
   margin-right: 8px;
   margin-left: 8px;
   color: currentColor;
@@ -29,13 +20,8 @@
   align-items: center;
   flex-shrink: 0;
   position: relative;
-<<<<<<< HEAD
   width: 58px;
   height: 26px;
-=======
-  width: 64px;
-  height: 32px;
->>>>>>> dev
   border-radius: 50em;
   padding: 3px 0;
 }
@@ -70,13 +56,8 @@
 
 .theme-switch__marker {
   position: relative;
-<<<<<<< HEAD
   width: 22px;
   height: 22px;
-=======
-  width: 26px;
-  height: 26px;
->>>>>>> dev
   border-radius: 50%;
   z-index: 2;
   pointer-events: none;
@@ -93,10 +74,6 @@
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {
-<<<<<<< HEAD
   transform: translateX(33px);
-=======
-  transform: translateX(35px);
->>>>>>> dev
   //   background-color: #ff6b01aa;
 }
