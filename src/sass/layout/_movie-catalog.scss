@@ -71,6 +71,10 @@
 
   .movie__item {
     &:not(:last-child) {
+<<<<<<< HEAD
+=======
+      width: 100%;
+>>>>>>> dev
       margin-bottom: 20px;
     }
   }
