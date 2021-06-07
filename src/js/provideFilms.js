@@ -54,7 +54,6 @@ export async function addGenreToFilm(films) {
       .join(', ');
     return { ...film, genre: genreArray, release_date: Number.parseInt(film.release_date) };
   });
-  console.log('filmsWithGenre', filmsWithGenre);
 
   renderMarkup(listFilmsRef, filmsGalleryTmp(filmsWithGenre));
 }
