@@ -6,3 +6,7 @@ export const libraryButtonRef = document.querySelector('[data-button="library"]'
 export const headerDynamicContainerRef = document.querySelector('header .js-dynamic-container');
 export const themeSwitcherRef = document.querySelector('#theme-switch-toggle');
 export const listFilmsRef = document.querySelector('section .movie__list');
+export const openedModal = document.querySelector('.main');
+export const modal = document.querySelector('.modal');
+export const body = document.querySelector('body');
+export const backdrop = document.querySelector('.backdrop');
