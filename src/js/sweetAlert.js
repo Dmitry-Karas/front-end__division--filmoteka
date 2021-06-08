@@ -28,9 +28,12 @@ export const authModal = {
   },
   confirmButtonText: 'Sign in',
   confirmButtonColor: 'lightgreen',
+  buttonsStyling: false,
   // buttonsStyling: false,
   // showCloseButton: true,
   focusConfirm: true,
+  allowEnterKey: true,
+  autoClose: false,
 
   preConfirm: () => {
     const email = Swal.getPopup().querySelector('#email').value;
@@ -42,98 +45,139 @@ export const authModal = {
   },
 };
 
-export async function incorrectPasswordErrMsg() {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-right',
-    iconColor: 'white',
-    customClass: {
-      popup: 'colored-toast',
-    },
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  });
-  await Toast.fire({
-    icon: 'error',
-    // title: 'Error',
-    title: 'Incorrect password!',
-  });
-}
+export class AuthMessage {
+  static async incorrectPassword() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'error',
+      // title: 'Error',
+      title: 'Incorrect password!',
+    });
+  }
 
-export async function invalidEmailErrMsg() {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-right',
-    iconColor: 'white',
-    customClass: {
-      popup: 'colored-toast',
-    },
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  });
-  await Toast.fire({
-    icon: 'error',
-    title: 'Invalid email!',
-    text: 'Make sure the email address you entered is correct',
-  });
-}
+  static async invalidEmail() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'error',
+      title: 'Invalid email!',
+      text: 'Make sure the email address you entered is correct',
+    });
+  }
 
-export async function userNotFoundMsg() {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-right',
-    iconColor: 'white',
-    customClass: {
-      popup: 'colored-toast',
-    },
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  });
-  await Toast.fire({
-    icon: 'warning',
-    title: 'User not found :(',
-  });
-}
+  static async notFound() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'error',
+      title: 'User not found :(',
+    });
+  }
 
-export async function signedInMsg() {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-right',
-    iconColor: 'white',
-    customClass: {
-      popup: 'colored-toast',
-    },
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  });
-  await Toast.fire({
-    icon: 'success',
-    title: 'Welcome!',
-    text: 'You are successfully signed in',
-  });
-}
+  static async alreadyExists() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 6000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'warning',
+      title: 'Sorry :(',
+      text:
+        'User with this email address already exists. Please try a different, or sign in to your account',
+    });
+  }
 
-export async function signedOutMsg() {
-  const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-right',
-    iconColor: 'white',
-    customClass: {
-      popup: 'colored-toast',
-    },
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-  });
-  await Toast.fire({
-    icon: 'info',
-    title: 'See you!',
-    text: 'You are signed out. Come back soon ;)',
-  });
+  static async signedIn() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 4000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'success',
+      title: 'Welcome!',
+      text: 'You are successfully signed in',
+    });
+  }
+
+  static async signedUp() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'success',
+      title: 'Registration successful!',
+      text: 'Now you can use the library ;)',
+    });
+  }
+
+  static async signedOut() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'info',
+      title: 'See you!',
+      text: 'You are signed out. Come back soon ;)',
+    });
+  }
 }
 
 //   await Toast.fire({
@@ -152,4 +196,3 @@ export async function signedOutMsg() {
 //     icon: 'question',
 //     title: 'Question',
 //   });
-// passwordErr();

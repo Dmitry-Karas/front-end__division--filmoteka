@@ -4,13 +4,14 @@ import firebase from 'firebase/app';
 // import axios from 'axios';
 // import Swal from 'sweetalert2';
 import { authBtnRef } from './common/refs';
-import {
-  incorrectPasswordErrMsg,
-  invalidEmailErrMsg,
-  userNotFoundMsg,
-  signedInMsg,
-  signedOutMsg,
-} from './sweetAlert';
+// import {
+//   incorrectPasswordErrMsg,
+//   invalidEmailErrMsg,
+//   userNotFoundMsg,
+//   signedInMsg,
+//   signedOutMsg,
+// } from './sweetAlert';
+import { AuthMessage } from './sweetAlert';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBYSrEIV_a6q1SjawRWqEforeGVAaOm1g4',
@@ -27,10 +28,21 @@ firebase.initializeApp(firebaseConfig);
 export const Auth = {
   async signUp(email, password) {
     try {
-      await firebase.auth().createUserWithEmailAndPassword(email, password).user;
+      if (password.length < 6) {
+        console.log('menshe');
+        return;
+      }
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+
+      AuthMessage.signedUp();
     } catch (error) {
       const errorCode = error.code;
-      const errorMessage = error.message;
+
+      switch (errorCode) {
+        case 'auth/email-already-in-use':
+          AuthMessage.alreadyExists();
+          break;
+      }
     }
   },
 
@@ -38,21 +50,21 @@ export const Auth = {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
 
-      signedInMsg();
+      AuthMessage.signedIn();
     } catch (error) {
       const errorCode = error.code;
 
       switch (errorCode) {
         case 'auth/wrong-password':
-          incorrectPasswordErrMsg();
+          AuthMessage.incorrectPassword();
           break;
 
         case 'auth/invalid-email':
-          invalidEmailErrMsg();
+          AuthMessage.invalidEmail();
           break;
 
         case 'auth/user-not-found':
-          userNotFoundMsg();
+          AuthMessage.notFound();
           break;
       }
     }
@@ -61,7 +73,7 @@ export const Auth = {
   signOut() {
     firebase.auth().signOut();
 
-    signedOutMsg();
+    AuthMessage.signedOut();
   },
 
   checkUser() {
