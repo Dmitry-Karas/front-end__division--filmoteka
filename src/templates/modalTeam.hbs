@@ -1,0 +1,21 @@
+<div class="team__overlay">
+
+    <div class="team__content">
+        <div class="team-title">
+            <button type="button" class="team__button-close" data-action="close-btn-team"></button>
+        </div>
+        <ul class="team-list">
+            {{#each this}}
+            <li class="team-item">
+                <a class="team-item__link" href="{{github}}" target="_blank">
+                    <img class="team-item__img" src="{{photo}}" width="180" height="180" alt="{{name}} {{surname}}">
+                </a>
+                <p class="team-item__about">
+                    <span class="team-item__name">{{name}}</span>
+                    <span class="team-item__surname">{{surname}}</span>
+                </p>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>
