@@ -1,15 +1,12 @@
 import modalTeam from '../templates/modalTeam.hbs';
 import teamList from './team.js';
-import { clearMarkup, renderMarkup } from './common/functions';
+// import { clearMarkup, renderMarkup } from './common/functions';
 
 const refs = {
   team: document.querySelector('.team'),
   modalFooterEl: document.querySelector('.js-team'),
   teamBtn: document.querySelector('.button-team'),
 };
-
-
-
 
 function renderModalTeam() {
   const markup = modalTeam(teamList);
