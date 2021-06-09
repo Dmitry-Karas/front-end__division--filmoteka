@@ -1,23 +1,27 @@
 import Swal from 'sweetalert2';
-import { Auth } from './authService';
+import { Authentication } from './firebase';
 import { authBtnRef } from './common/refs';
 import { authModal } from './sweetAlert';
 
-authBtnRef.addEventListener('click', onAuthModalOpen);
+Authentication.getUser();
 
-function onAuthModalOpen(e) {
+authBtnRef.addEventListener('click', onAuthBtnClick);
+
+function onAuthBtnClick(e) {
   const signed = e.currentTarget.textContent === 'Sign out';
 
   if (signed) {
-    return Auth.signOut();
+    return Authentication.signOut();
   }
 
   Swal.fire(authModal);
 
-  window.addEventListener('click', windowHandler);
+  const authModalRef = document.querySelector('.auth-modal');
+
+  authModalRef.addEventListener('click', onAuthModalOpen);
 }
 
-function windowHandler(e) {
+function onAuthModalOpen(e) {
   const target = e.target;
   const modalTitleRef = document.querySelector('.auth-modal__title');
   const confirmBtnRef = document.querySelector('.auth-modal__button');
@@ -30,42 +34,41 @@ function windowHandler(e) {
     return;
   }
 
-  if (target === formBtnRef) {
-    modalTitleRef.textContent === 'Sign in'
-      ? (modalTitleRef.textContent = 'Registration')
-      : (modalTitleRef.textContent = 'Sign in');
+  switch (target) {
+    case formBtnRef:
+      modalTitleRef.textContent === 'Sign in'
+        ? (modalTitleRef.textContent = 'Registration')
+        : (modalTitleRef.textContent = 'Sign in');
 
-    confirmBtnRef.textContent === 'Sign in'
-      ? (confirmBtnRef.textContent = 'Sign up')
-      : (confirmBtnRef.textContent = 'Sign in');
+      confirmBtnRef.textContent === 'Sign in'
+        ? (confirmBtnRef.textContent = 'Sign up')
+        : (confirmBtnRef.textContent = 'Sign in');
 
-    formTextRef.textContent === 'Already registered?'
-      ? (formTextRef.textContent = "Don't have account?")
-      : (formTextRef.textContent = 'Already registered?');
+      formTextRef.textContent === 'Already registered?'
+        ? (formTextRef.textContent = "Don't have account?")
+        : (formTextRef.textContent = 'Already registered?');
 
-    formBtnRef.textContent === 'Sign in!'
-      ? (formBtnRef.textContent = 'Register!')
-      : (formBtnRef.textContent = 'Sign in!');
-  }
+      formBtnRef.textContent === 'Sign in!'
+        ? (formBtnRef.textContent = 'Register!')
+        : (formBtnRef.textContent = 'Sign in!');
+      break;
 
-  if (target === confirmBtnRef) {
-    const email = emailInputRef.value;
-    const password = passwordInputRef.value;
+    case confirmBtnRef:
+      const email = emailInputRef.value;
+      const password = passwordInputRef.value;
 
-    if (!email || !password) {
-      return;
-    }
+      if (!email || !password || password.length < 6) {
+        return;
+      }
 
-    switch (target.textContent) {
-      case 'Sign in':
-        Auth.signIn(email, password);
-        break;
+      switch (target.textContent) {
+        case 'Sign in':
+          Authentication.signIn(email, password);
+          break;
 
-      case 'Sign up':
-        Auth.signUp(email, password);
-        break;
-    }
+        case 'Sign up':
+          Authentication.signUp(email, password);
+          break;
+      }
   }
 }
-
-Auth.checkUser();

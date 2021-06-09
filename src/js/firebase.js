@@ -1,16 +1,7 @@
 import 'firebase/auth';
 import 'firebase/database';
 import firebase from 'firebase/app';
-// import axios from 'axios';
-// import Swal from 'sweetalert2';
 import { authBtnRef } from './common/refs';
-// import {
-//   incorrectPasswordErrMsg,
-//   invalidEmailErrMsg,
-//   userNotFoundMsg,
-//   signedInMsg,
-//   signedOutMsg,
-// } from './sweetAlert';
 import { AuthMessage } from './sweetAlert';
 
 const firebaseConfig = {
@@ -25,8 +16,10 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-export const Auth = {
-  async signUp(email, password) {
+// const database = firebase.database();
+
+export class Authentication {
+  static async signUp(email, password) {
     try {
       if (password.length < 6) {
         console.log('menshe');
@@ -42,11 +35,15 @@ export const Auth = {
         case 'auth/email-already-in-use':
           AuthMessage.alreadyExists();
           break;
+
+        case 'auth/invalid-email':
+          AuthMessage.invalidEmail();
+          break;
       }
     }
-  },
+  }
 
-  async signIn(email, password) {
+  static async signIn(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
 
@@ -68,33 +65,42 @@ export const Auth = {
           break;
       }
     }
-  },
+  }
 
-  signOut() {
+  static signOut() {
     firebase.auth().signOut();
 
     AuthMessage.signedOut();
-  },
+  }
 
-  checkUser() {
+  static getUser() {
     return firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        const name = user.displayName;
-        const email = user.email;
-        const photoUrl = user.photoURL;
-        const emailVerified = user.emailVerified;
-        const uid = user.uid;
+        console.log('~ user', user.uid);
+        // const name = user.displayName;
+        // const email = user.email;
+        // const photoUrl = user.photoURL;
+        // const emailVerified = user.emailVerified;
 
         authBtnRef.textContent = 'Sign out';
-
-        console.log('~ name', name);
-        console.log('~ email', email);
-        console.log('~ photoUrl', photoUrl);
-        console.log('~ emailVerified', emailVerified);
-        console.log('~ uid', uid);
       } else {
         authBtnRef.textContent = 'Sign in';
       }
     });
-  },
-};
+  }
+}
+
+// Authentication.getUser()
+
+// function writeUserData(userId, name, email, imageUrl) {
+//   firebase
+//     .database()
+//     .ref('users/' + userId)
+//     .set({
+//       username: name,
+//       email: email,
+//       profile_picture: imageUrl,
+//     });
+// }
+
+// console.log(Authentication.getUser());

@@ -11,7 +11,7 @@ export const authModal = {
     popup: 'auth-modal',
     // header: '...',
     title: 'auth-modal__title',
-    // closeButton: '...',
+    // closeButton: '',
     // icon: '...',
     // image: '...',
     // content: '...',
@@ -29,19 +29,22 @@ export const authModal = {
   confirmButtonText: 'Sign in',
   confirmButtonColor: 'lightgreen',
   buttonsStyling: false,
-  // buttonsStyling: false,
-  // showCloseButton: true,
-  focusConfirm: true,
+  showCloseButton: true,
+  // focusConfirm: true,
   allowEnterKey: true,
-  autoClose: false,
 
   preConfirm: () => {
     const email = Swal.getPopup().querySelector('#email').value;
     const password = Swal.getPopup().querySelector('#password').value;
     if (!email || !password) {
-      Swal.showValidationMessage(`Please enter email and password`);
+      return Swal.showValidationMessage(`Please enter email and password`);
     }
-    return { email, password };
+
+    if (password.length < 6) {
+      return Swal.showValidationMessage(`Password must be at least 6 characters long`);
+    }
+
+    return false;
   },
 };
 
@@ -111,14 +114,13 @@ export class AuthMessage {
         popup: 'colored-toast',
       },
       showConfirmButton: false,
-      timer: 6000,
+      timer: 3000,
       timerProgressBar: true,
     });
     await Toast.fire({
-      icon: 'warning',
-      title: 'Sorry :(',
-      text:
-        'User with this email address already exists. Please try a different, or sign in to your account',
+      icon: 'error',
+      title: 'Email is already registered!',
+      // text: 'Sign in or try another email',
     });
   }
 
@@ -131,7 +133,7 @@ export class AuthMessage {
         popup: 'colored-toast',
       },
       showConfirmButton: false,
-      timer: 4000,
+      timer: 3000,
       timerProgressBar: true,
     });
     await Toast.fire({
@@ -179,20 +181,3 @@ export class AuthMessage {
     });
   }
 }
-
-//   await Toast.fire({
-//     icon: 'success',
-//     title: 'Success',
-//   });
-//   await Toast.fire({
-//     icon: 'warning',
-//     title: 'Warning',
-//   });
-//   await Toast.fire({
-//     icon: 'info',
-//     title: 'Info',
-//   });
-//   await Toast.fire({
-//     icon: 'question',
-//     title: 'Question',
-//   });
