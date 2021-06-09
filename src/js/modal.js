@@ -1,69 +1,62 @@
-
 import modalCard from '../templates/modal.hbs';
 import { clearMarkup, renderMarkup } from './common/functions';
-// import { API_KEY, BASE_URL_MODAL } from './common/constants';
+import NewFetchApiFilms from './apiService';
 import { openedModal, modal, body, backdrop } from './common/refs';
+
+const newFetchApiFilms = new NewFetchApiFilms();
 
 openedModal.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
+window.addEventListener('keydown', onPressEscKey);
 
-// const closeBtn = document.querySelector('[data-action="close-btn"]');
-// closeBtn.addEventListener('clisk', closeModal);
-const BASE_URL = 'https://api.themoviedb.org/3/movie';
+async function openModal(e) {
+  try {
+    const movieId = e.target.dataset.src;
+    if (e.target.nodeName !== 'IMG') {
+      return;
+    }
+    backdrop.classList.remove('is-hidden');
+    body.classList.add('body');
 
-function fetchMovie(id) {
-  const url = `${BASE_URL}/${id}?api_key=e46b87edbe0418b9678f5579382a8e13&language=en-US`;
-  return fetch(url)
-    .then(list => list.json())
-    .catch(error => {
-      console.log(error);
-    });
-}
-
-// function fetchMovie(id) {
-//   const URL = `${BASE_URL}movie/${id}?api_key=${API_KEY}&language=en-US`;
-//   return fetch(URL)
-//     .then(list => list.json())
-//     .catch(error => {
-//       console.log(error);
-//     });
-// }
-
-function openModal(e) {
-  const movieId = e.target.dataset.src;
-  if (e.target.nodeName !== 'IMG') {
-    return;
+    const film = await newFetchApiFilms
+      .fetchMovieById(movieId)
+      .then(film => film.data)
+      .catch(error => {
+        console.log(error);
+      });
+    renderModalCard(film);
+    clickIconClose();
+  } catch (error) {
+    console.log(error);
   }
-  modal.classList.remove('is-hidden');
-  body.classList.add('body');
-  fetchMovie(movieId)
-    .then(renderModalCard)
-    .catch(error => {
-      console.log(error);
-    });
-
-  window.addEventListener('keydown', closeModal);
 }
 
 function onOverlayClick(e) {
-  if (e.target === e.currentTarget || onOverlaykey(e)) {
+  if (e.target === e.currentTarget) {
     closeModal();
   }
-  window.addEventListener('keydown', onOverlaykey);
 }
 
-function onOverlaykey(e) {
+function onPressEscKey(e) {
   const ESC_KEY_CODE = 'Escape';
-  const isEscKey = e.code === ESC_KEY_CODE;
+
+  if (e.code === ESC_KEY_CODE) {
+    closeModal();
+  }
 }
 
-function closeModal() {
-  modal.classList.add('is-hidden');
+function clickIconClose() {
+  const closeBtn = document.querySelector('.cl-btn');
+  closeBtn.addEventListener('click', closeModal);
+}
+
+function closeModal(e) {
+  backdrop.classList.add('is-hidden');
   body.classList.remove('body');
   clearMarkup(backdrop);
 }
 
-function renderModalCard(data) {
-  const markup = modalCard(data);
+function renderModalCard(film) {
+  const markup = modalCard(film);
   renderMarkup(backdrop, markup);
 }
