@@ -15,7 +15,7 @@ async function openModal(e) {
     if (e.target.nodeName !== 'IMG') {
       return;
     }
-    modal.classList.remove('is-hidden');
+    backdrop.classList.remove('is-hidden');
     body.classList.add('body');
 
     const film = await newFetchApiFilms
@@ -51,7 +51,7 @@ function clickIconClose() {
 }
 
 function closeModal(e) {
-  modal.classList.add('is-hidden');
+  backdrop.classList.add('is-hidden');
   body.classList.remove('body');
   clearMarkup(backdrop);
 }
