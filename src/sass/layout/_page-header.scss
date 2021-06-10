@@ -228,7 +228,8 @@
 
   transition: transform 250ms var(--timing-function), color 250ms var(--timing-function);
 
-  .search-form__input:focus + & {
+  .search-form__input:focus + &,
+  .search-form__input:not(:placeholder-shown) + & {
     cursor: default;
     color: var(--color-accent);
     transform: translateY(-20px);
