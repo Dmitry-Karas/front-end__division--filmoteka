@@ -11,3 +11,4 @@ export const openedModal = document.querySelector('.main');
 export const modal = document.querySelector('.modal');
 export const body = document.querySelector('body');
 export const backdrop = document.querySelector('.backdrop');
+export const searchErrRef = document.querySelector('.search-error');

@@ -27,15 +27,14 @@ export const authModal = {
     // footer: '....',
   },
   confirmButtonText: 'Sign in',
-  confirmButtonColor: 'lightgreen',
   buttonsStyling: false,
-  showCloseButton: true,
-  // focusConfirm: true,
   allowEnterKey: true,
+  // showCloseButton: true,
 
   preConfirm: () => {
     const email = Swal.getPopup().querySelector('#email').value;
     const password = Swal.getPopup().querySelector('#password').value;
+
     if (!email || !password) {
       return Swal.showValidationMessage(`Please enter email and password`);
     }
@@ -43,8 +42,6 @@ export const authModal = {
     if (password.length < 6) {
       return Swal.showValidationMessage(`Password must be at least 6 characters long`);
     }
-
-    return false;
   },
 };
 
@@ -178,6 +175,46 @@ export class AuthMessage {
       icon: 'info',
       title: 'See you!',
       text: 'You are signed out. Come back soon ;)',
+    });
+  }
+}
+
+export class Notify {
+  static async needToSignIn() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'info',
+      title: 'Hold on!',
+      text: 'You need to sign in before use the library',
+    });
+  }
+
+  static async thereIsNothingHere() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'info',
+      title: 'Oops.',
+      text: 'There is nothing here yet',
     });
   }
 }

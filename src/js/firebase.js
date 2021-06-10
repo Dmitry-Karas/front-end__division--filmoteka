@@ -3,7 +3,13 @@ import 'firebase/database';
 import firebase from 'firebase/app';
 import { authBtnRef } from './common/refs';
 import { AuthMessage } from './sweetAlert';
-import { saveCurrentUser, getCurrentUser, removeCurrentUser } from './authentication';
+import {
+  saveCurrentUser,
+  getCurrentUser,
+  removeCurrentUser,
+  addUserLibraryToLocalStorage,
+  removeUserLibraryFromLocalStorage,
+} from './authentication';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBYSrEIV_a6q1SjawRWqEforeGVAaOm1g4',
@@ -91,23 +97,19 @@ export class Authentication {
 }
 
 export class Database {
-  static writeUserData(userId, email) {
-    firebase
-      .database()
-      .ref('users/' + userId)
-      .set({
-        email: email,
-      });
-  }
+  static async writeUserLibrary(watched, queue) {
+    const user = getCurrentUser();
 
-  static async writeUserLibrary(watched) {
-    await firebase
-      .database()
-      .ref(`library/${userId}`)
-      .set({
-        watched: watched,
-        queue: ['movie', 'movie', 'movie'],
-      });
+    if (!user) {
+      return;
+    }
+
+    await firebase.database().ref(`library/${user.uid}`).set({
+      watched: watched,
+      queue: queue,
+    });
+
+    addUserLibraryToLocalStorage(watched, queue);
   }
 
   static async getUserLibrary() {
@@ -117,16 +119,60 @@ export class Database {
       return;
     }
 
-    const movies = await dbRef.child('movies').child(user.uid).get().val();
+    const movies = await dbRef.child('library').child(user.uid).get();
 
     if (!movies) {
       return;
     }
 
-    const { watched, queue } = movies;
+    const { watched, queue } = movies.val();
 
     addUserLibraryToLocalStorage(watched, queue);
   }
 }
 
-Database.getUserLibrary();
+// const watched = [
+//   {
+//     title: 'title',
+//     genre: 'genre',
+//     poster: 'poster',
+//     rating: 'rating',
+//   },
+//   {
+//     title: 'title',
+//     genre: 'genre',
+//     poster: 'poster',
+//     rating: 'rating',
+//   },
+//   {
+//     title: 'title',
+//     genre: 'genre',
+//     poster: 'poster',
+//     rating: 'rating',
+//   },
+// ];
+
+// const queue = [
+//   {
+//     title: 'title',
+//     genre: 'genre',
+//     poster: 'poster',
+//     rating: 'rating',
+//   },
+//   {
+//     title: 'title',
+//     genre: 'genre',
+//     poster: 'poster',
+//     rating: 'rating',
+//   },
+//   {
+//     title: 'title',
+//     genre: 'genre',
+//     poster: 'poster',
+//     rating: 'rating',
+//   },
+// ];
+
+// Database.writeUserLibrary(watched, queue);
+
+// Database.getUserLibrary();

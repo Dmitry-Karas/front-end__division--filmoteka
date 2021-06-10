@@ -2,6 +2,7 @@ import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
 import listenInput from './provideFilms';
+import { getCurrentUser } from './authentication';
 import {
   headerRef,
   logoRef,
@@ -11,6 +12,7 @@ import {
   headerDynamicContainerRef,
   listFilmsRef,
 } from './common/refs';
+import { Notify } from './sweetAlert';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();
@@ -42,6 +44,13 @@ function onPageChange(e) {
 
   // Рендер разметки библиотеки при клике на кнопку my library
   if (target === libraryButtonRef) {
+    const user = getCurrentUser();
+
+    if (!user) {
+      Notify.needToSignIn();
+      return;
+    }
+
     const library = pageHeaderLibraryTpl();
 
     changePage(library);
