@@ -87,7 +87,17 @@
 }
 
 @media screen and (min-width: 1024px) {
+  .movie__list {
+    margin-left: -15px;
+    margin-top: -15px;
+  }
+
   .movie__item {
-    width: calc(100% / 3 - 30px);
+    width: calc(100% / 4 - 15px);
+    margin-left: 15px;
+    margin-top: 15px;
+  }
+  .movie__photo {
+    height: 298px;
   }
 }
