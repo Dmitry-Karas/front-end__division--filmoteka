@@ -3,6 +3,7 @@ import 'firebase/database';
 import firebase from 'firebase/app';
 import { authBtnRef } from './common/refs';
 import { AuthMessage } from './sweetAlert';
+import { saveCurrentUser, getCurrentUser, removeCurrentUser } from './authentication';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBYSrEIV_a6q1SjawRWqEforeGVAaOm1g4',
@@ -16,15 +17,16 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-// const database = firebase.database();
+const database = firebase.database();
+const dbRef = database.ref();
 
 export class Authentication {
   static async signUp(email, password) {
+    if (password.length < 6) {
+      return;
+    }
+
     try {
-      if (password.length < 6) {
-        console.log('menshe');
-        return;
-      }
       await firebase.auth().createUserWithEmailAndPassword(email, password);
 
       AuthMessage.signedUp();
@@ -48,6 +50,7 @@ export class Authentication {
       await firebase.auth().signInWithEmailAndPassword(email, password);
 
       AuthMessage.signedIn();
+      Database.getUserLibrary();
     } catch (error) {
       const errorCode = error.code;
 
@@ -67,40 +70,63 @@ export class Authentication {
     }
   }
 
-  static signOut() {
-    firebase.auth().signOut();
+  static async signOut() {
+    await firebase.auth().signOut();
 
+    removeUserLibraryFromLocalStorage();
     AuthMessage.signedOut();
   }
 
-  static getUser() {
-    return firebase.auth().onAuthStateChanged(user => {
+  static async checkUser() {
+    return await firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        console.log('~ user', user.uid);
-        // const name = user.displayName;
-        // const email = user.email;
-        // const photoUrl = user.photoURL;
-        // const emailVerified = user.emailVerified;
-
+        saveCurrentUser(user);
         authBtnRef.textContent = 'Sign out';
       } else {
+        removeCurrentUser();
         authBtnRef.textContent = 'Sign in';
       }
     });
   }
 }
 
-// Authentication.getUser()
+export class Database {
+  static writeUserData(userId, email) {
+    firebase
+      .database()
+      .ref('users/' + userId)
+      .set({
+        email: email,
+      });
+  }
 
-// function writeUserData(userId, name, email, imageUrl) {
-//   firebase
-//     .database()
-//     .ref('users/' + userId)
-//     .set({
-//       username: name,
-//       email: email,
-//       profile_picture: imageUrl,
-//     });
-// }
+  static async writeUserLibrary(watched) {
+    await firebase
+      .database()
+      .ref(`library/${userId}`)
+      .set({
+        watched: watched,
+        queue: ['movie', 'movie', 'movie'],
+      });
+  }
 
-// console.log(Authentication.getUser());
+  static async getUserLibrary() {
+    const user = getCurrentUser();
+
+    if (!user) {
+      return;
+    }
+
+    const movies = await dbRef.child('movies').child(user.uid).get().val();
+
+    if (!movies) {
+      return;
+    }
+
+    const { watched, queue } = movies;
+
+    addUserLibraryToLocalStorage(watched, queue);
+  }
+}
+
+Database.getUserLibrary();

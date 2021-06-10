@@ -33,3 +33,18 @@
   background-color: transparent;
   text-decoration: underline;
 }
+
+.auth-modal__button {
+  padding: 10px 30px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: var(--color-accent);
+  color: var(--color-light);
+  background-color: var(--color-accent);
+
+  transition: all 250ms var(--timing-function);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}

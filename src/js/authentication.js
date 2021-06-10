@@ -3,14 +3,36 @@ import { Authentication } from './firebase';
 import { authBtnRef } from './common/refs';
 import { authModal } from './sweetAlert';
 
-Authentication.getUser();
+Authentication.checkUser();
 
 authBtnRef.addEventListener('click', onAuthBtnClick);
 
-function onAuthBtnClick(e) {
-  const signed = e.currentTarget.textContent === 'Sign out';
+export function saveCurrentUser({ uid, email }) {
+  return localStorage.setItem('user', JSON.stringify({ uid, email }));
+}
 
-  if (signed) {
+export function getCurrentUser() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
+export function removeCurrentUser() {
+  return localStorage.removeItem('user');
+}
+
+export function addUserLibraryToLocalStorage(watched, queue) {
+  localStorage.setItem('watched', JSON.stringify(watched));
+  localStorage.setItem('queue', JSON.stringify(queue));
+}
+
+export function removeUserLibraryFromLocalStorage() {
+  localStorage.removeItem('watched');
+  localStorage.removeItem('queue');
+}
+
+function onAuthBtnClick(e) {
+  const user = getCurrentUser();
+
+  if (user) {
     return Authentication.signOut();
   }
 
