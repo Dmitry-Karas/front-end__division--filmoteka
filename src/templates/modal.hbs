@@ -1,4 +1,4 @@
-<div class="modal-window">
+<div class="modal-window ">
   <div class="cl-btn">
     <div>
       <div class="leftright"></div>
@@ -26,10 +26,9 @@
         </li>
         <li class="card-item">
           <p class="card-item__about">Genre</p>
-          <ul>
+          <ul class="card-list-genres">
             {{#each genres}}
-            <li>{{name}}</li>
-
+            <li class="card-item-genre">{{ name}}</li>
             {{/each}}
           </ul>
         </li>

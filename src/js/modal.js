@@ -16,7 +16,7 @@ async function openModal(e) {
       return;
     }
     backdrop.classList.remove('is-hidden');
-    body.classList.add('body');
+    body.classList.add('scroll-hidden');
 
     const film = await newFetchApiFilms
       .fetchMovieById(movieId)
@@ -24,7 +24,9 @@ async function openModal(e) {
       .catch(error => {
         console.log(error);
       });
+
     renderModalCard(film);
+
     clickIconClose();
   } catch (error) {
     console.log(error);
@@ -50,13 +52,14 @@ function clickIconClose() {
   closeBtn.addEventListener('click', closeModal);
 }
 
-function closeModal(e) {
+function closeModal() {
   backdrop.classList.add('is-hidden');
-  body.classList.remove('body');
+  body.classList.remove('scroll-hidden');
   clearMarkup(backdrop);
 }
 
 function renderModalCard(film) {
   const markup = modalCard(film);
+
   renderMarkup(backdrop, markup);
 }
