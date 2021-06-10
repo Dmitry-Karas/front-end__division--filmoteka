@@ -36,6 +36,15 @@
   margin-right: 3px;
 }
 
+.page-footer__develops {
+  display: flex;
+
+  & .material-icons {
+    font-size: 18px;
+    color: var(--color-accent);
+  }
+}
+
 .icon-heart {
   position: relative;
   top: 3px;
@@ -53,7 +62,6 @@
 
 .team {
   display: flex;
-  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
@@ -62,7 +70,7 @@
   height: 100vh;
   opacity: 0;
   pointer-events: none;
-  overflow: auto;
+  // overflow: hidden;
   transition: opacity var(--animation-duration) var(--timing-function);
   z-index: 999;
 }
@@ -73,11 +81,14 @@
 }
 
 .team__overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  margin: auto;
   width: 100%;
-  height: 290%;
+  height: 100%;
+
+  overflow-y: scroll;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -88,7 +99,7 @@
   border-radius: 10px;
   background-color: #ffffff;
   max-width: 760px;
-  top: 3%;
+
   transition: transform var(--animation-duration) var(--timing-function);
 }
 
@@ -147,7 +158,6 @@
   margin-bottom: 5px;
   color: #ff6b01;
   font-weight: bold;
-  /* text-shadow: 1px 1px 2px #ff6b01; */
 }
 
 .team-item__name {
@@ -158,21 +168,18 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  margin: 0;
-  background-color: transparent;
-  color: #fff;
-  outline: none;
-  border-radius: 50%;
-  transition: background-color var(--animation-duration) var(--timing-function),
-    transform 0.5s var(--timing-function);
 
-  // background-image: url('../images/team/close_icon.png');
-  background-position: center;
-  background-size: 50%;
-  background-repeat: no-repeat;
-  cursor: pointer;
+  background-color: transparent;
   border: none;
+
+  cursor: pointer;
+
+  & .material-icons {
+    font-size: 18px;
+    color: var(--color-accent);
+  }
+  &:hover .material-icons {
+    font-size: 18px;
+    color: #bd5d19;
+  }
 }
