@@ -14,7 +14,7 @@ const opts = {
     direction: 1, // 1: clockwise, -1: counterclockwise
     color: '#ff6b01', // CSS color or array of colors
     fadeColor: 'transparent', // CSS color or array of colors
-    top: '50%', // Top position relative to parent
+    top: '70%', // Top position relative to parent
     left: '50%', // Left position relative to parent
     shadow: '0 5 5px transparent', // Box-shadow for the lines
     zIndex: 2000000000, // The z-index (defaults to 2e9)
@@ -22,47 +22,50 @@ const opts = {
     position: 'absolute', // Element positioning
   };
 
-const spinnerForMovieList = document.querySelector('.movie__list');
-const spinner = new Spinner(opts).spin(spinnerForMovieList);
+const spinnerForMovieListEl = document.querySelector('.movie__list');
+const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
 window.addEventListener("load", stopSpinner);
 
-// console.log(spinnerForMovieList);
 // const spinnerClass = document.querySelector('.spinner');
 // document.addEventListener("DOMContentLoaded", stopSpinner);
-// document.addEventListener("DOMContentLoaded", spinnersForMoviesPhotos);
-// window.onload = stopSpinner;
 
-
-
-const spinnerForMoviesPhotos = document.querySelectorAll('.movie__photo');
-console.log(spinnerForMoviesPhotos);
-
-export default function spinnersForMoviesItems(){    
-    const spinnerForMoviesItems = document.querySelectorAll('.movie__item');
-    spinnerForMoviesItems.forEach(bla);
+//вешаем слушателя на элемент списка и для каждого элемента создаем экземпляр спиннера
+export default function addSpinners(){  
+    addSpinnersForMoviesItems();
+    // addSpinnerForModalWindow();
 };
 
-function bla(item) {
+function addSpinnersForMoviesItems(){
+    const spinnerForMoviesItemsEl = document.querySelectorAll('.movie__item');
+    spinnerForMoviesItemsEl.forEach(addSpinnerForMovieItem);
+};
+
+//функция для добавления спиннера на каждый элемент
+function addSpinnerForMovieItem(item) {    
     let spinnerForItem = new Spinner({...opts, scale: 0.3, top: '20%', position: 'relative'}).spin(item);
-    item.childNodes[2].onload = spinnerForItem.stop();
+    
+    setTimeout(() => {
+        spinnerForItem.stop();
+    }, 500); 
+    
+    // item.childNodes[2].onload = spinnerForItem.stop();
+
     // if(item.childNodes[2].src !== ''){
     //     console.log(item);
     //     // spinner1.stop();
-    // }
-    
-    
-    // .onload = spinner1.stop();
-    // setTimeout(() => {
-    //     spinner1.stop();
-    // }, 1000); 
+    // }  
   };
 
+function addSpinnerForModalWindow(){
+    const spinnerForModalWindowEl = document.querySelectorAll('.modal-window');
+    // console.log(spinnerForModalWindowEl);
+    const spinnerForModalWindow = new Spinner(opts).spin(spinnerForModalWindowEl);
+};
 
 function stopSpinner(){
     spinner.stop();
 };
-
 
 
 // setTimeout(() => {
