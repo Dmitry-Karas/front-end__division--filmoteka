@@ -7,28 +7,6 @@ Authentication.checkUser();
 
 authBtnRef.addEventListener('click', onAuthBtnClick);
 
-export function saveCurrentUser({ uid, email }) {
-  return localStorage.setItem('user', JSON.stringify({ uid, email }));
-}
-
-export function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('user'));
-}
-
-export function removeCurrentUser() {
-  return localStorage.removeItem('user');
-}
-
-export function addUserLibraryToLocalStorage(watched, queue) {
-  localStorage.setItem('watched', JSON.stringify(watched));
-  localStorage.setItem('queue', JSON.stringify(queue));
-}
-
-export function removeUserLibraryFromLocalStorage() {
-  localStorage.removeItem('watched');
-  localStorage.removeItem('queue');
-}
-
 function onAuthBtnClick(e) {
   const user = getCurrentUser();
 
@@ -83,7 +61,7 @@ function onAuthModalOpen(e) {
         return;
       }
 
-      switch (target.textContent) {
+      switch (confirmBtnRef.textContent) {
         case 'Sign in':
           Authentication.signIn(email, password);
           break;
@@ -94,3 +72,32 @@ function onAuthModalOpen(e) {
       }
   }
 }
+
+export function saveCurrentUser({ uid, email }) {
+  return localStorage.setItem('user', JSON.stringify({ uid, email }));
+}
+
+export function getCurrentUser() {
+  return JSON.parse(localStorage.getItem('user'));
+}
+
+export function removeCurrentUser() {
+  return localStorage.removeItem('user');
+}
+
+// export function addUserLibraryToLocalStorage(watched, queue) {
+//   localStorage.setItem('watched', JSON.stringify(watched));
+//   localStorage.setItem('queue', JSON.stringify(queue));
+// }
+
+// export function getUserLibraryFromLocalStorage() {
+//   const watched = JSON.parse(localStorage.getItem('watched'));
+//   const queue = JSON.parse(localStorage.getItem('queue'));
+
+//   return { watched, queue };
+// }
+
+// export function removeUserLibraryFromLocalStorage() {
+//   localStorage.removeItem('watched');
+//   localStorage.removeItem('queue');
+// }

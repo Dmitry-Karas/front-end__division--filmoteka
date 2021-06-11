@@ -2,13 +2,13 @@ import 'firebase/auth';
 import 'firebase/database';
 import firebase from 'firebase/app';
 import { authBtnRef } from './common/refs';
-import { AuthMessage } from './sweetAlert';
+import { Notify } from './sweetAlert';
 import {
   saveCurrentUser,
   getCurrentUser,
   removeCurrentUser,
-  addUserLibraryToLocalStorage,
-  removeUserLibraryFromLocalStorage,
+  // addUserLibraryToLocalStorage,
+  // removeUserLibraryFromLocalStorage,
 } from './authentication';
 
 const firebaseConfig = {
@@ -35,17 +35,19 @@ export class Authentication {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-      AuthMessage.signedUp();
+      // Database.writeUserLibrary([], []);
+
+      Notify.signedUp();
     } catch (error) {
       const errorCode = error.code;
 
       switch (errorCode) {
         case 'auth/email-already-in-use':
-          AuthMessage.alreadyExists();
+          Notify.emailAlreadyInUse();
           break;
 
         case 'auth/invalid-email':
-          AuthMessage.invalidEmail();
+          Notify.invalidEmail();
           break;
       }
     }
@@ -55,22 +57,22 @@ export class Authentication {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
 
-      AuthMessage.signedIn();
+      Notify.signedIn();
       Database.getUserLibrary();
     } catch (error) {
       const errorCode = error.code;
 
       switch (errorCode) {
         case 'auth/wrong-password':
-          AuthMessage.incorrectPassword();
+          Notify.incorrectPassword();
           break;
 
         case 'auth/invalid-email':
-          AuthMessage.invalidEmail();
+          Notify.invalidEmail();
           break;
 
         case 'auth/user-not-found':
-          AuthMessage.notFound();
+          Notify.notFound();
           break;
       }
     }
@@ -79,8 +81,8 @@ export class Authentication {
   static async signOut() {
     await firebase.auth().signOut();
 
-    removeUserLibraryFromLocalStorage();
-    AuthMessage.signedOut();
+    // removeUserLibraryFromLocalStorage();
+    Notify.signedOut();
   }
 
   static async checkUser() {
@@ -97,82 +99,20 @@ export class Authentication {
 }
 
 export class Database {
-  static async writeUserLibrary(watched, queue) {
-    const user = getCurrentUser();
+  static async writeUserLibrary(user, library) {
+    await firebase.database().ref(`library/${user.uid}`).set(library);
 
-    if (!user) {
-      return;
-    }
-
-    await firebase.database().ref(`library/${user.uid}`).set({
-      watched: watched,
-      queue: queue,
-    });
-
-    addUserLibraryToLocalStorage(watched, queue);
+    // addUserLibraryToLocalStorage(watched, queue);
   }
 
-  static async getUserLibrary() {
-    const user = getCurrentUser();
-
+  static async getUserLibrary(user) {
     if (!user) {
       return;
     }
 
-    const movies = await dbRef.child('library').child(user.uid).get();
+    const library = (await dbRef.child('library').child(user.uid).get()).val();
+    const { watched, queue } = library || [];
 
-    if (!movies) {
-      return;
-    }
-
-    const { watched, queue } = movies.val();
-
-    addUserLibraryToLocalStorage(watched, queue);
+    // addUserLibraryToLocalStorage(watched || [], queue || []);
   }
 }
-
-// const watched = [
-//   {
-//     title: 'title',
-//     genre: 'genre',
-//     poster: 'poster',
-//     rating: 'rating',
-//   },
-//   {
-//     title: 'title',
-//     genre: 'genre',
-//     poster: 'poster',
-//     rating: 'rating',
-//   },
-//   {
-//     title: 'title',
-//     genre: 'genre',
-//     poster: 'poster',
-//     rating: 'rating',
-//   },
-// ];
-
-// const queue = [
-//   {
-//     title: 'title',
-//     genre: 'genre',
-//     poster: 'poster',
-//     rating: 'rating',
-//   },
-//   {
-//     title: 'title',
-//     genre: 'genre',
-//     poster: 'poster',
-//     rating: 'rating',
-//   },
-//   {
-//     title: 'title',
-//     genre: 'genre',
-//     poster: 'poster',
-//     rating: 'rating',
-//   },
-// ];
-
-// Database.writeUserLibrary(watched, queue);
-
-// Database.getUserLibrary();

@@ -45,7 +45,7 @@ export const authModal = {
   },
 };
 
-export class AuthMessage {
+export class Notify {
   static async incorrectPassword() {
     const Toast = Swal.mixin({
       toast: true,
@@ -102,7 +102,7 @@ export class AuthMessage {
     });
   }
 
-  static async alreadyExists() {
+  static async emailAlreadyInUse() {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-right',
@@ -177,9 +177,7 @@ export class AuthMessage {
       text: 'You are signed out. Come back soon ;)',
     });
   }
-}
 
-export class Notify {
   static async needToSignIn() {
     const Toast = Swal.mixin({
       toast: true,
@@ -218,3 +216,7 @@ export class Notify {
     });
   }
 }
+
+// export class Notify {
+
+// }
