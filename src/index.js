@@ -4,3 +4,4 @@ import './js/theme-switcher';
 import './js/provideFilms';
 import './js/teamModal';
 import './js/modal';
+import './js/localStorage';
