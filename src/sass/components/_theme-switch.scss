@@ -5,6 +5,18 @@
   align-items: center;
 
   transition: color 150ms var(--timing-function);
+
+  @include mobile-only {
+    left: calc(50% + 44px);
+  }
+
+  @include tablet-only {
+    left: calc(50% + 210px);
+  }
+
+  @include desktop-only {
+    left: calc(50% + 340px);
+  }
 }
 
 .theme-switch__icon {
