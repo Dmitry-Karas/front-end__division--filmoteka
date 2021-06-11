@@ -136,6 +136,39 @@
   }
 }
 
+// ========== AUTH ==========
+
+.auth-button {
+  position: absolute;
+  top: 10px;
+
+  padding: 4px 10px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: var(--color-accent);
+  color: var(--color-light);
+  background-color: transparent;
+
+  transition: all 250ms var(--timing-function);
+
+  @include mobile-only {
+    right: calc(50% - 140px);
+  }
+
+  @include tablet-only {
+    right: calc(50% - 310px);
+  }
+
+  @include desktop-only {
+    right: calc(50% - 440px);
+  }
+
+  &:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+  }
+}
+
 // ========== SEARCH FORM ==========
 
 .search-form {
@@ -195,7 +228,8 @@
 
   transition: transform 250ms var(--timing-function), color 250ms var(--timing-function);
 
-  .search-form__input:focus + & {
+  .search-form__input:focus + &,
+  .search-form__input:not(:placeholder-shown) + & {
     cursor: default;
     color: var(--color-accent);
     transform: translateY(-20px);

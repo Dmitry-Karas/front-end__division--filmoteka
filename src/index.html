@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,6 +24,7 @@
     <main class="main">
       <section class="movie">
         <div class="container">
+          <h1 class="visually-hidden">Movies</h1>
           <ul class="movie__list"></ul>
         </div>
       </section>
@@ -32,7 +33,6 @@
     <include src="./partials/footer.html"></include>
 
     <div class="backdrop is-hidden" data-modal></div>
-
     <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
     <script src="./index.js"></script>
   </body>

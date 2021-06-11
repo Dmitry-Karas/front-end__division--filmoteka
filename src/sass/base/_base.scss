@@ -12,26 +12,79 @@ body {
 
   transition: color 150ms var(--timing-function), background-color 250ms var(--timing-function);
 
-  &.light-theme {
-    background-color: #ffffff;
-
-    & .theme-switch {
-      color: #f7f7f7aa;
-    }
-  }
-
-  &.dark-theme {
-    background-color: #333333;
-    color: #fff;
-
-    & .theme-switch {
-      color: #ff6b01aa;
-    }
-  }
-
   &.modal-open,
   &.menu-open {
     overflow: hidden;
+  }
+}
+
+body.light-theme {
+  background-color: #ffffff;
+
+  & .theme-switch {
+    color: #f7f7f7aa;
+  }
+}
+
+body.dark-theme {
+  color: var(--color-light);
+  background-color: #333333;
+
+  & .theme-switch {
+    color: #ff6b01aa;
+  }
+
+  & .modal-window,
+  .auth-modal {
+    background-color: #333333;
+  }
+
+  & .auth-modal__title,
+  .auth-form__text {
+    color: var(--color-light);
+  }
+
+  & .auth-form__input,
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-light);
+    -webkit-box-shadow: 0 0 0px 1000px #292929 inset;
+    background-color: #333333;
+  }
+
+  & .button-modal {
+    color: var(--color-light);
+    background-color: #333333;
+    border-color: var(--color-light);
+
+    &:hover {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent);
+    }
+  }
+
+  & .leftright,
+  .rightleft {
+    background-color: var(--color-light);
+  }
+
+  & .movie__name {
+    color: var(--color-light);
+  }
+
+  & .page-footer__container {
+    background-color: #292929;
+  }
+
+  & .button-team,
+  .auth-form__button {
+    color: var(--color-accent);
+  }
+
+  & .swal2-validation-message {
+    background-color: #292929;
+    color: var(--color-error);
   }
 }
 
