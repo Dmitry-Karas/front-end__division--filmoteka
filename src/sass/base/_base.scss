@@ -77,11 +77,6 @@ body.dark-theme {
     background-color: #292929;
   }
 
-  & .button-team,
-  .auth-form__button {
-    color: var(--color-accent);
-  }
-
   & .swal2-validation-message {
     background-color: #292929;
     color: var(--color-error);

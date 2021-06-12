@@ -1,7 +1,5 @@
 import Swal from 'sweetalert2';
 import authForm from '../templates/authForm.hbs';
-// import Swal from 'sweetalert2/dist/sweetalert2.js';
-// import 'sweetalert2/src/sweetalert2.scss';
 
 export const authModal = {
   title: 'Sign in',
@@ -34,6 +32,16 @@ export const authModal = {
   preConfirm: () => {
     const email = Swal.getPopup().querySelector('#email').value;
     const password = Swal.getPopup().querySelector('#password').value;
+    const confirmBtn = Swal.getPopup().querySelector('.auth-modal__button');
+    const resetBtn = confirmBtn.textContent === 'Reset';
+
+    if (resetBtn && !email) {
+      return Swal.showValidationMessage(`Please enter email`);
+    }
+
+    if (resetBtn && !password) {
+      return;
+    }
 
     if (!email || !password) {
       return Swal.showValidationMessage(`Please enter email and password`);
@@ -60,7 +68,6 @@ export class Notify {
     });
     await Toast.fire({
       icon: 'error',
-      // title: 'Error',
       title: 'Incorrect password!',
     });
   }
@@ -117,7 +124,6 @@ export class Notify {
     await Toast.fire({
       icon: 'error',
       title: 'Email is already registered!',
-      // text: 'Sign in or try another email',
     });
   }
 
@@ -178,6 +184,25 @@ export class Notify {
     });
   }
 
+  static async resetPassword() {
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-right',
+      iconColor: 'white',
+      customClass: {
+        popup: 'colored-toast',
+      },
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true,
+    });
+    await Toast.fire({
+      icon: 'info',
+      title: 'Email sent!',
+      text: 'Check your inbox for a password reset link',
+    });
+  }
+
   static async needToSignIn() {
     const Toast = Swal.mixin({
       toast: true,
@@ -197,7 +222,7 @@ export class Notify {
     });
   }
 
-  static async thereIsNothingHere() {
+  static async toManyRequests() {
     const Toast = Swal.mixin({
       toast: true,
       position: 'top-right',
@@ -206,17 +231,33 @@ export class Notify {
         popup: 'colored-toast',
       },
       showConfirmButton: false,
-      timer: 3000,
+      timer: 5000,
       timerProgressBar: true,
     });
     await Toast.fire({
-      icon: 'info',
-      title: 'Oops.',
-      text: 'There is nothing here yet',
+      icon: 'warning',
+      title: 'Too many requests!',
+      text:
+        'We have blocked all requests from this device due to unusual activity. Try again later.',
     });
   }
+
+  // static async thereIsNothingHere() {
+  //   const Toast = Swal.mixin({
+  //     toast: true,
+  //     position: 'top-right',
+  //     iconColor: 'white',
+  //     customClass: {
+  //       popup: 'colored-toast',
+  //     },
+  //     showConfirmButton: false,
+  //     timer: 3000,
+  //     timerProgressBar: true,
+  //   });
+  //   await Toast.fire({
+  //     icon: 'info',
+  //     title: 'Oops.',
+  //     text: 'There is nothing here yet',
+  //   });
+  // }
 }
-
-// export class Notify {
-
-// }

@@ -96,6 +96,31 @@ export class Authentication {
       }
     });
   }
+
+  static async resetPassword(email) {
+    return await firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        console.log('sended');
+        Notify.resetPassword();
+        // notify
+      })
+      .catch(error => {
+        console.log(error);
+        const errorCode = error.code;
+
+        switch (errorCode) {
+          case 'auth/invalid-email':
+            Notify.invalidEmail();
+            break;
+
+          case 'auth/too-many-requests':
+            Notify.toManyRequests();
+            break;
+        }
+      });
+  }
 }
 
 export class Database {
