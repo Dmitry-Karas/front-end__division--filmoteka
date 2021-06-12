@@ -25,7 +25,13 @@ const opts = {
 const spinnerForMovieListEl = document.querySelector('.movie__list');
 const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
-window.addEventListener("load", stopSpinner);
+window.addEventListener("load", function stopSpinner(){
+    spinner.stop();
+});
+
+// function stopSpinner(){
+//     spinner.stop();
+// };
 
 export default function addSpinners(){  
     addSpinnersForMoviesItems();
@@ -54,12 +60,11 @@ function addSpinnerForModalWindow(){
     const spinnerForModalWindow = new Spinner(opts).spin(spinnerForModalWindowEl);
 };
 
-function stopSpinner(){
-    spinner.stop();
-};
 
 
 // setTimeout(() => {
 //     // spinnerClass1.classList.add('is-hidden');
 //     spinner1.stop();
 // }, 1000); 
+
+ // document.addEventListener("DOMContentLoaded", stopSpinner);
