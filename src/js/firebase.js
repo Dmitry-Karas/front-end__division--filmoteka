@@ -7,9 +7,9 @@ import {
   saveCurrentUser,
   getCurrentUser,
   removeCurrentUser,
-  // addUserLibraryToLocalStorage,
-  // removeUserLibraryFromLocalStorage,
-} from './authentication';
+  addUserLibraryToLocalStorage,
+  removeUserLibraryFromLocalStorage,
+} from './localStorage';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBYSrEIV_a6q1SjawRWqEforeGVAaOm1g4',
@@ -35,7 +35,7 @@ export class Authentication {
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
 
-      // Database.writeUserLibrary([], []);
+      Database.writeUserLibrary([], []);
 
       Notify.signedUp();
     } catch (error) {
@@ -56,9 +56,10 @@ export class Authentication {
   static async signIn(email, password) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
+      const user = getCurrentUser();
 
       Notify.signedIn();
-      Database.getUserLibrary();
+      Database.getUserLibrary(user);
     } catch (error) {
       const errorCode = error.code;
 
@@ -81,7 +82,7 @@ export class Authentication {
   static async signOut() {
     await firebase.auth().signOut();
 
-    // removeUserLibraryFromLocalStorage();
+    removeUserLibraryFromLocalStorage();
     Notify.signedOut();
   }
 
@@ -138,6 +139,6 @@ export class Database {
     const library = (await dbRef.child('library').child(user.uid).get()).val();
     const { watched, queue } = library || [];
 
-    // addUserLibraryToLocalStorage(watched || [], queue || []);
+    addUserLibraryToLocalStorage(watched || [], queue || []);
   }
 }

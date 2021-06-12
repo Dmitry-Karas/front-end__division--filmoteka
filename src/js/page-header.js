@@ -2,7 +2,7 @@ import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
 import listenInput from './provideFilms';
-import { getCurrentUser } from './authentication';
+import { getCurrentUser } from './localStorage';
 import {
   headerRef,
   logoRef,
@@ -39,6 +39,7 @@ function onPageChange(e) {
     const home = pageHeaderHomeTpl();
 
     changePage(home);
+    clearMarkup(listFilmsRef);
     listenInput();
   }
 

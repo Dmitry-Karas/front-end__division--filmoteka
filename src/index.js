@@ -6,3 +6,4 @@ import './js/authentication';
 import './js/sweetAlert';
 import './js/teamModal';
 import './js/modal';
+import './js/localStorage';
