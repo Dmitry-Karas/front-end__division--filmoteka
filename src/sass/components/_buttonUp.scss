@@ -6,7 +6,7 @@
   width: 70px;
   height: 70px;
   border: none;
-  border-radius: var(--rad);
+  border-radius: 20px;
   cursor: pointer;
   opacity: 0;
 
@@ -15,7 +15,7 @@
 
   transition: opacity 250ms ease-in-out, background-color 250ms ease-in-out,
     transform 250ms ease-in-out;
-  background-color: var(--color-light);
+  background-color: #ec8c5c;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 5px;
 
   &.show {

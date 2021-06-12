@@ -10,8 +10,8 @@ function onEntryBack2top(entries) {
     }
   });
 }
-// элемент за котрый надо следить
-back2topObserver.observe('#container');
+// элемент за который нужно наблюдать
+back2topObserver.observe('#main');
 
 // ссылка на кнопку Вверх
 const back2TopBtnRef = document.querySelector('.back2top');
