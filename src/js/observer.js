@@ -1,3 +1,4 @@
+import { headerRef } from './common/refs';
 // регистрация обзервера
 const back2topObserver = new intersectionObserver(onEntryBack2top);
 
@@ -11,7 +12,7 @@ function onEntryBack2top(entries) {
   });
 }
 // элемент за который нужно наблюдать
-back2topObserver.observe('#main');
+back2topObserver.observe(headerRef);
 
 // ссылка на кнопку Вверх
 const back2TopBtnRef = document.querySelector('.back2top');
