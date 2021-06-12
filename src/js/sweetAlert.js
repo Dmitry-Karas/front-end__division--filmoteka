@@ -9,7 +9,6 @@ export const authModal = {
     popup: 'auth-modal',
     // header: '...',
     title: 'auth-modal__title',
-    // closeButton: '',
     // icon: '...',
     // image: '...',
     // content: '...',
@@ -18,7 +17,7 @@ export const authModal = {
     // inputLabel: '...',
     // validationMessage: '...',
     // actions: '...',
-    confirmButton: 'auth-modal__button',
+    confirmButton: 'auth-modal__confirm-btn',
     // denyButton: '...',
     // cancelButton: '...',
     // loader: '...',
@@ -27,12 +26,11 @@ export const authModal = {
   confirmButtonText: 'Sign in',
   buttonsStyling: false,
   allowEnterKey: true,
-  // showCloseButton: true,
 
   preConfirm: () => {
     const email = Swal.getPopup().querySelector('#email').value;
     const password = Swal.getPopup().querySelector('#password').value;
-    const confirmBtn = Swal.getPopup().querySelector('.auth-modal__button');
+    const confirmBtn = Swal.getPopup().querySelector('.auth-modal__confirm-btn');
     const resetBtn = confirmBtn.textContent === 'Reset';
 
     if (resetBtn && !email) {

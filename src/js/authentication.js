@@ -24,18 +24,30 @@ function onAuthBtnClick(e) {
 function onAuthModalOpen(e) {
   const target = e.target;
   const modalTitleRef = document.querySelector('.auth-modal__title');
-  const confirmBtnRef = document.querySelector('.auth-modal__button');
+  const confirmBtnRef = document.querySelector('.auth-modal__confirm-btn');
   const formTextRef = document.querySelector('.auth-form__text');
   const formTextPwdRef = document.querySelector('.auth-form__text-password');
   const regBtnRef = document.querySelector('.auth-form__reg-button');
   const resetPwdBtnRef = document.querySelector('.auth-form__reset-button');
+  const closeBtnRef = document.querySelector('.cl-btn');
   const emailInputRef = document.querySelector('#email');
   const passwordInputRef = document.querySelector('#password');
   const email = emailInputRef.value;
   const password = passwordInputRef.value;
+  const closeBtnChildren = target.parentElement === closeBtnRef;
 
-  if (target !== regBtnRef && target !== confirmBtnRef && target !== resetPwdBtnRef) {
+  if (
+    target !== regBtnRef &&
+    target !== confirmBtnRef &&
+    target !== resetPwdBtnRef &&
+    target !== closeBtnRef &&
+    !closeBtnChildren
+  ) {
     return;
+  }
+
+  if (target === closeBtnRef || closeBtnChildren) {
+    Swal.close();
   }
 
   switch (target) {

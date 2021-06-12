@@ -243,12 +243,7 @@
   cursor: pointer;
   width: 30px;
   height: 30px;
-}
-
-.cl-btn div {
-  position: relative;
-  height: 20px;
-  width: 20px;
+  white-space: nowrap;
 }
 
 .cl-btn .leftright {
@@ -274,7 +269,7 @@
 }
 
 .cl-btn .close-btn {
-  margin: 25px 0 0 -5px;
+  margin: 30px 0 0 0;
   position: absolute;
   color: var(--color-accent);
   font-family: Tahoma, sans-serif;
