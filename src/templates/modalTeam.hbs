@@ -7,28 +7,29 @@
         </span>
       </button>
     </div>
-    <ul class='team-list'>
-      {{#each this}}
-        <li class='team-item'>
-          <a class='team-item__link' href="{{github}}" target='_blank'>
-            <img
-              class='team-item__img'
-              src="{{photo}}"
-              width='180'
-              height='180'
-              alt="{{name}} {{surname}}"
-            />
-          </a>
-          <p class='team-item__about'>
-            <span class='team-item__name'>
-              {{name}}
-            </span>
-            <span class='team-item__surname'>
-              {{surname}}
-            </span>
-          </p>
+    <div class="containe">
+      <ul class="row">
+        {{#each this}}
+        <li class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="our-team">
+            <div class="picture">
+              <img class="img-fluid" src="{{photo}}" width="100px" height="100px" alt="{{name}} {{surname}}">
+            </div>
+            <div class="team-content">
+              <h3 class="name">{{name}} {{surname}}</h3>
+              <h4 class="title">Front-end Developer</h4>
+            </div>
+            <ul class="social">
+              <li><a class='team-item__link' href="{{github}}" target='_blank'>
+              <img align="left" class="github" alt="GitHub" width="32px"
+                src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />
+              </a></li>
+            </ul>
+          </div>
         </li>
-      {{/each}}
-    </ul>
+        {{/each}}
+      </ul>
+    </div>
   </div>
 </div>
+
