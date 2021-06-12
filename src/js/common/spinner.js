@@ -14,7 +14,7 @@ const opts = {
     direction: 1, // 1: clockwise, -1: counterclockwise
     color: '#ff6b01', // CSS color or array of colors
     fadeColor: 'transparent', // CSS color or array of colors
-    top: '70%', // Top position relative to parent
+    top: '80%', // Top position relative to parent
     left: '50%', // Left position relative to parent
     shadow: '0 5 5px transparent', // Box-shadow for the lines
     zIndex: 2000000000, // The z-index (defaults to 2e9)
@@ -27,10 +27,6 @@ const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
 window.addEventListener("load", stopSpinner);
 
-// const spinnerClass = document.querySelector('.spinner');
-// document.addEventListener("DOMContentLoaded", stopSpinner);
-
-//вешаем слушателя на элемент списка и для каждого элемента создаем экземпляр спиннера
 export default function addSpinners(){  
     addSpinnersForMoviesItems();
     // addSpinnerForModalWindow();
@@ -43,18 +39,13 @@ function addSpinnersForMoviesItems(){
 
 //функция для добавления спиннера на каждый элемент
 function addSpinnerForMovieItem(item) {    
-    let spinnerForItem = new Spinner({...opts, scale: 0.3, top: '20%', position: 'relative'}).spin(item);
+    const spinnerForItem = new Spinner({...opts, scale: 0.3, top: '20%', position: 'relative'}).spin(item);
     
-    setTimeout(() => {
-        spinnerForItem.stop();
-    }, 500); 
-    
-    // item.childNodes[2].onload = spinnerForItem.stop();
+    item.childNodes[2].addEventListener("load", stopSpinner);
 
-    // if(item.childNodes[2].src !== ''){
-    //     console.log(item);
-    //     // spinner1.stop();
-    // }  
+    function stopSpinner(){
+        spinnerForItem.stop();
+    };
   };
 
 function addSpinnerForModalWindow(){
