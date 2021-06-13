@@ -19,7 +19,7 @@ async function openModal(e) {
     }
 
     backdrop.classList.remove('is-hidden');
-    body.classList.add('scroll-hidden');
+    body.classList.add('modal-open');
 
     const film = await newFetchApiFilms
       .fetchMovieById(movieId)
@@ -70,7 +70,7 @@ function clickIconClose() {
 
 function closeModal() {
   backdrop.classList.add('is-hidden');
-  body.classList.remove('scroll-hidden');
+  body.classList.remove('modal-open');
   clearMarkup(backdrop);
 }
 

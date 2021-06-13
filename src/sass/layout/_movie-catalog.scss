@@ -22,6 +22,7 @@
 }
 
 .movie__name {
+  // height: 32px;
   margin-bottom: 5px;
 
   font-style: normal;
@@ -38,6 +39,7 @@
 }
 
 .movie__genres {
+  display: inline-block;
   margin-right: 10px;
 
   font-style: normal;
@@ -49,7 +51,7 @@
 }
 
 .movie__rating {
-  width: 36px;
+  min-width: 36px;
   height: 16px;
   border-radius: 5px;
 
