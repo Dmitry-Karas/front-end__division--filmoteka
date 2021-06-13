@@ -34,6 +34,18 @@ body.dark-theme {
     color: #ff6b01aa;
   }
 
+  & .our-team {
+    background-color: #333333;
+
+    & .name {
+      color: var(--color-light);
+    }
+
+    & .title {
+      color: var(--color-accent);
+    }
+  }
+
   & .modal-window,
   .auth-modal {
     background-color: #333333;
