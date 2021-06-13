@@ -1,6 +1,7 @@
 import { headerRef } from './common/refs';
+
 // регистрация обзервера
-const back2topObserver = new intersectionObserver(onEntryBack2top);
+const back2topObserver = new IntersectionObserver(onEntryBack2top);
 
 function onEntryBack2top(entries) {
   back2TopBtnRef.classList.add('show');

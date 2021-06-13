@@ -28,6 +28,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "lodash.debounce": "^4.0.8",
+    "smoothscroll-polyfill": "^0.4.4",
     "spin.js": "^4.1.0",
     "src": "^1.1.2",
     "templates": "^1.2.9"

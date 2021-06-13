@@ -3,8 +3,8 @@
 
   bottom: 60px;
   right: 30px;
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   border: none;
   border-radius: 20px;
   cursor: pointer;
@@ -15,7 +15,7 @@
 
   transition: opacity 250ms ease-in-out, background-color 250ms ease-in-out,
     transform 250ms ease-in-out;
-  background-color: #ec8c5c;
+  background-color: #ff6b01;
   box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 5px;
 
   &.show {
