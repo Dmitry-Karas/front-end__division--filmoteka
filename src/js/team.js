@@ -50,13 +50,13 @@ export default [
   {
     name: 'Andrey',
     surname: 'Lesik',
-    photo: 'https://picsum.photos/130/130?image=836',
-    github: '',
+    photo: 'https://avatars.githubusercontent.com/u/74345435?v=4',
+    github: 'https://github.com/Andriy-Lesyk',
   },
   {
     name: 'Olga',
     surname: 'Pobedynska',
-    photo: 'https://picsum.photos/130/130?image=836',
-    github: '',
+    photo: 'https://avatars.githubusercontent.com/u/72923832?v=4',
+    github: 'https://github.com/23birola',
   },
 ];
