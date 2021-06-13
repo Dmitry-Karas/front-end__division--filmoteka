@@ -60,6 +60,10 @@ class Lib {
 new Lib(libraryRef);
 
 async function onModalWindow(e) {
+  if (e.target.nodeName !== 'BUTTON') {
+    return;
+  }
+
   try {
     const modalContainer = document.querySelector('.modal-window');
     const movieId = modalContainer.dataset.id;
@@ -67,10 +71,6 @@ async function onModalWindow(e) {
     const queueBtn = e.target.classList.contains('button-queue');
     const user = getCurrentUser();
     const { watched, queue } = getUserLibraryFromLocalStorage();
-
-    if (e.target.nodeName !== 'BUTTON') {
-      return;
-    }
 
     if (!user) {
       return Notify.needToSignIn();
@@ -129,6 +129,10 @@ async function onModalWindow(e) {
 }
 
 export function checkFilm(arr, movieId) {
+  if (!arr) {
+    return;
+  }
+
   return arr.find(element => {
     if (element.id === Number(movieId)) {
       return element;
