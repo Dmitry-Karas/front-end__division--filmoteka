@@ -34,8 +34,9 @@ export class Authentication {
 
     try {
       await firebase.auth().createUserWithEmailAndPassword(email, password);
+      const user = getCurrentUser();
 
-      Database.writeUserLibrary([], []);
+      Database.getUserLibrary(user);
 
       Notify.signedUp();
     } catch (error) {
@@ -105,7 +106,6 @@ export class Authentication {
       .then(() => {
         console.log('sended');
         Notify.resetPassword();
-        // notify
       })
       .catch(error => {
         console.log(error);
@@ -127,8 +127,6 @@ export class Authentication {
 export class Database {
   static async writeUserLibrary(user, library) {
     await firebase.database().ref(`library/${user.uid}`).set(library);
-
-    // addUserLibraryToLocalStorage(watched, queue);
   }
 
   static async getUserLibrary(user) {
@@ -137,8 +135,8 @@ export class Database {
     }
 
     const library = (await dbRef.child('library').child(user.uid).get()).val();
-    const { watched, queue } = library || [];
+    const { watched, queue } = library || { watched: [], queue: [] };
 
-    addUserLibraryToLocalStorage(watched || [], queue || []);
+    addUserLibraryToLocalStorage(watched, queue);
   }
 }

@@ -3,11 +3,13 @@ import { renderMarkup, clearMarkup } from './common/functions';
 import movieCatalogTpl from '../templates/movieСatalog.hbs';
 import { listFilmsRef } from './common/refs';
 import { Database } from './firebase';
+import { Notify } from './sweetAlert';
 
 const libraryRef = document.querySelector('.js-dynamic-container');
-const { watched, queue } = getUserLibraryFromLocalStorage();
+// const { watched, queue } = getUserLibraryFromLocalStorage();
 const newFetchApiFilm = new NewFetchApiFilms();
 const backdrop = document.querySelector('.backdrop');
+
 backdrop.addEventListener('click', onModalWindow);
 
 class Lib {
@@ -18,13 +20,13 @@ class Lib {
 
   watched() {
     clearMarkup(listFilmsRef);
-    library.watched = JSON.parse(localStorage.getItem('watched'));
+    library.watched = JSON.parse(localStorage.getItem('watched')); // use function
     renderMarkup(listFilmsRef, movieCatalogTpl(library.watched));
   }
 
   queue() {
     clearMarkup(listFilmsRef);
-    library.queue = JSON.parse(localStorage.getItem('queue'));
+    library.queue = JSON.parse(localStorage.getItem('queue')); // use function
     renderMarkup(listFilmsRef, movieCatalogTpl(library.queue));
   }
 
@@ -32,8 +34,15 @@ class Lib {
     const watchLibBtn = document.querySelector('[data-action="watched"]');
     const queueLibBtn = document.querySelector('[data-action="queue"]');
 
-    let action = event.target.dataset.action;
+    let action = event.target.dataset.action; // let ???
+
+    if (event.target.nodeName !== 'BUTTON') {
+      return;
+    }
+
     event.target.classList.add('button--active');
+
+    // switch refactoring
     if (event.target === watchLibBtn) {
       event.target.classList.add('button--active');
       queueLibBtn.classList.remove('button--active');
@@ -57,9 +66,14 @@ async function onModalWindow(e) {
     const watchedBtn = e.target.classList.contains('button-watched');
     const queueBtn = e.target.classList.contains('button-queue');
     const user = getCurrentUser();
+    const { watched, queue } = getUserLibraryFromLocalStorage();
 
     if (e.target.nodeName !== 'BUTTON') {
       return;
+    }
+
+    if (!user) {
+      return Notify.needToSignIn();
     }
 
     const film = await newFetchApiFilm
@@ -68,22 +82,20 @@ async function onModalWindow(e) {
       .catch(error => {
         console.log(error);
       });
+    const watchedFilm = checkFilm(watched, movieId);
+    const queuedFilm = checkFilm(queue, movieId);
 
     if (watchedBtn) {
       e.target.textContent === 'add to watched'
         ? (e.target.textContent = 'remove')
         : (e.target.textContent = 'add to watched');
-      const findFilm = watched.find(element => {
-        if (element.id === Number(movieId)) {
-          return true;
-        }
-      });
 
-      if (findFilm) {
-        const index = watched.indexOf(findFilm);
+      if (watchedFilm) {
+        const index = watched.indexOf(watchedFilm);
+
         watched.splice(index, 1);
-        localStorage.setItem('watched', JSON.stringify(watched));
         Database.writeUserLibrary(user, { watched, queue });
+        addUserLibraryToLocalStorage(watched, queue);
         return;
       }
 
@@ -95,20 +107,19 @@ async function onModalWindow(e) {
       e.target.textContent === 'add to queue'
         ? (e.target.textContent = 'remove')
         : (e.target.textContent = 'add to queue');
-      const findFilm = queue.find(element => {
-        if (element.id === Number(movieId)) {
-          return true;
-        }
-      });
 
-      if (findFilm) {
-        const index = queue.indexOf(findFilm);
+      if (queuedFilm) {
+        const index = queue.indexOf(queuedFilm);
+
         queue.splice(index, 1);
-        localStorage.setItem('queue', JSON.stringify(queue));
+
+        Database.writeUserLibrary(user, { watched, queue });
+        addUserLibraryToLocalStorage(watched, queue);
         return;
       }
 
       queue.unshift(film);
+      Database.writeUserLibrary(user, { watched, queue });
     }
 
     addUserLibraryToLocalStorage(watched, queue);
@@ -117,13 +128,21 @@ async function onModalWindow(e) {
   }
 }
 
+export function checkFilm(arr, movieId) {
+  return arr.find(element => {
+    if (element.id === Number(movieId)) {
+      return element;
+    }
+  });
+}
+
 export function getUserLibraryFromLocalStorage() {
   const watched = JSON.parse(localStorage.getItem('watched'));
   const queue = JSON.parse(localStorage.getItem('queue'));
   return { watched, queue };
 }
 
-export function addUserLibraryToLocalStorage(watched, queue) {
+export function addUserLibraryToLocalStorage(watched = [], queue = []) {
   localStorage.setItem('watched', JSON.stringify(watched));
   localStorage.setItem('queue', JSON.stringify(queue));
 }

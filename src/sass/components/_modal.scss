@@ -106,8 +106,7 @@
   transition: all 250ms var(--timing-function);
 }
 
-.button-modal:hover,
-.button-modal:focus {
+.button-modal:hover {
   border: 1px solid var(--color-accent);
   color: white;
   background-color: var(--color-accent);
