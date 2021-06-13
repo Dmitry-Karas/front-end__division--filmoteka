@@ -5,7 +5,6 @@ import { openedModal, modal, body, backdrop } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
 
 const newFetchApiFilms = new NewFetchApiFilms();
-const user = getCurrentUser();
 
 openedModal.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
@@ -32,15 +31,16 @@ async function openModal(e) {
     renderModalCard(film);
     clickIconClose();
 
-    if (!user) {
-      return;
-    }
-
     const watchedBtn = document.querySelector('.button-modal');
     const queueBtn = document.querySelector('.button-queue');
     const { watched, queue } = getUserLibraryFromLocalStorage();
     const watchedFilm = checkFilm(watched, movieId);
     const queueFilm = checkFilm(queue, movieId);
+    const user = getCurrentUser();
+
+    if (!user) {
+      return;
+    }
 
     watchedFilm ? (watchedBtn.textContent = 'remove') : (watchedBtn.textContent = 'add to watched');
     queueFilm ? (queueBtn.textContent = 'remove') : (queueBtn.textContent = 'add to queue');
