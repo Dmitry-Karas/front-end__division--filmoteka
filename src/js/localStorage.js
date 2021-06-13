@@ -87,7 +87,7 @@ async function onModalWindow(e) {
 
     if (watchedBtn) {
       e.target.textContent === 'add to watched'
-        ? (e.target.textContent = 'remove')
+        ? (e.target.textContent = 'remove from watched')
         : (e.target.textContent = 'add to watched');
 
       if (watchedFilm) {
@@ -105,7 +105,7 @@ async function onModalWindow(e) {
 
     if (queueBtn) {
       e.target.textContent === 'add to queue'
-        ? (e.target.textContent = 'remove')
+        ? (e.target.textContent = 'remove from queue')
         : (e.target.textContent = 'add to queue');
 
       if (queuedFilm) {

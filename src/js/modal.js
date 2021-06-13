@@ -42,8 +42,12 @@ async function openModal(e) {
       return;
     }
 
-    watchedFilm ? (watchedBtn.textContent = 'remove') : (watchedBtn.textContent = 'add to watched');
-    queueFilm ? (queueBtn.textContent = 'remove') : (queueBtn.textContent = 'add to queue');
+    watchedFilm
+      ? (watchedBtn.textContent = 'remove from watched')
+      : (watchedBtn.textContent = 'add to watched');
+    queueFilm
+      ? (queueBtn.textContent = 'remove from queue')
+      : (queueBtn.textContent = 'add to queue');
   } catch (error) {
     console.log(error);
   }
