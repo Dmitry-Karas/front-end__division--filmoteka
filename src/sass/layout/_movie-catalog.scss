@@ -2,6 +2,7 @@
   padding-top: 60px;
   padding-bottom: 60px;
 }
+
 .movie__list {
   display: flex;
   flex-wrap: wrap;
@@ -19,6 +20,15 @@
   width: 100%;
   margin-bottom: 10px;
   border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: all 500ms;
+    -webkit-box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+    box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+  }
 }
 
 .movie__name {
