@@ -9,9 +9,9 @@ openedModal.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
 window.addEventListener('keydown', onPressEscKey);
 
-async function openModal(e) {
+export async function openModal(e) {
   try {
-    const movieId = e.target.dataset.src;
+    const movieId = e.target.dataset.movieId;
     if (e.target.nodeName !== 'IMG') {
       return;
     }
