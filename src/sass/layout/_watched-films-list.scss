@@ -1,0 +1,30 @@
+.watched_movie__photo {
+  @include tablet-only {
+    width: 120px;
+    max-height: 160px;
+  }
+
+  @include desktop-only {
+    width: 171.19px;
+    max-height: 230px;
+  }
+}
+
+.watched-films {
+  @include mobile-only {
+    display: none;
+  }
+
+  @include tablet-only {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 4px;
+  }
+
+  @include desktop-only {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: 7px;
+    grid-template-rows: minmax(100px, min-content);
+  }
+}

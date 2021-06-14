@@ -3,6 +3,7 @@ import { clearMarkup, renderMarkup } from './common/functions';
 import NewFetchApiFilms from './apiService';
 import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
+import { addSpinnerForModalWindow } from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -10,10 +11,9 @@ listFilmsRef.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
 window.addEventListener('keydown', onPressEscKey);
 
-async function openModal(e) {
+export async function openModal(e) {
   try {
     const movieId = e.target.dataset.movieId;
-
     if (e.target.nodeName !== 'IMG') {
       return;
     }
@@ -82,4 +82,5 @@ function renderModalCard(film) {
   const markup = modalCard(film);
 
   renderMarkup(backdrop, markup);
+  addSpinnerForModalWindow();
 }
