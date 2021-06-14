@@ -1,12 +1,12 @@
 import modalCard from '../templates/modal.hbs';
 import { clearMarkup, renderMarkup } from './common/functions';
 import NewFetchApiFilms from './apiService';
-import { openedModal, modal, body, backdrop } from './common/refs';
+import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
-openedModal.addEventListener('click', openModal);
+listFilmsRef.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
 window.addEventListener('keydown', onPressEscKey);
 
@@ -19,7 +19,7 @@ async function openModal(e) {
     }
 
     backdrop.classList.remove('is-hidden');
-    body.classList.add('modal-open');
+    document.body.classList.add('modal-open');
 
     const film = await newFetchApiFilms
       .fetchMovieById(movieId)
@@ -74,7 +74,7 @@ function clickIconClose() {
 
 function closeModal() {
   backdrop.classList.add('is-hidden');
-  body.classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
   clearMarkup(backdrop);
 }
 
