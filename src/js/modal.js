@@ -2,12 +2,14 @@ import modalCard from '../templates/modal.hbs';
 import { clearMarkup, renderMarkup } from './common/functions';
 import NewFetchApiFilms from './apiService';
 import { openedModal, modal, body, backdrop } from './common/refs';
+import { addSpinnerForModalWindow } from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
 openedModal.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
 window.addEventListener('keydown', onPressEscKey);
+
 
 export async function openModal(e) {
   try {
@@ -30,7 +32,7 @@ export async function openModal(e) {
     clickIconClose();
   } catch (error) {
     console.log(error);
-  }
+  };
 }
 
 function onOverlayClick(e) {
@@ -62,4 +64,5 @@ function renderModalCard(film) {
   const markup = modalCard(film);
 
   renderMarkup(backdrop, markup);
+  addSpinnerForModalWindow();
 }

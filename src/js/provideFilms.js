@@ -3,6 +3,7 @@ import filmsGalleryTmp from '../templates/movieСatalog.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
 import { listFilmsRef } from './common/refs';
 import debounce from 'lodash.debounce';
+import { addSpinnersForMoviesItems, stopSpinner } from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -21,6 +22,7 @@ export async function showPopularFilms(e) {
     console.log(films);
 
     addGenreToFilm(films);
+    stopSpinner();
   } catch (error) {
     console.log(error);
   }
@@ -57,4 +59,5 @@ export async function addGenreToFilm(films) {
   });
 
   renderMarkup(listFilmsRef, filmsGalleryTmp(filmsWithGenre));
+  addSpinnersForMoviesItems();
 }
