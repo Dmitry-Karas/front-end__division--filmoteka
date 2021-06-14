@@ -22,20 +22,20 @@ const opts = {
     position: 'absolute', // Element positioning
   };
 
-const spinnerForMovieListEl = document.querySelector('.movie__list');
-const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
+// const spinnerForMovieListEl = document.querySelector('.movie__list');
+// const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
-window.addEventListener("load", function stopSpinner(){
-    spinner.stop();
-});
+// window.addEventListener("load", function stopSpinner(){
+//     spinner.stop();
+// });
 
 // function stopSpinner(){
 //     spinner.stop();
 // };
 
 export default function addSpinners(){  
-    addSpinnersForMoviesItems();
-    // addSpinnerForModalWindow();
+    // addSpinnersForMoviesItems();
+    addSpinnerForModalWindow();
 };
 
 function addSpinnersForMoviesItems(){
@@ -47,19 +47,39 @@ function addSpinnersForMoviesItems(){
 function addSpinnerForMovieItem(item) {    
     const spinnerForItem = new Spinner({...opts, scale: 0.3, top: '20%', position: 'relative'}).spin(item);
     
-    item.childNodes[2].addEventListener("load", stopSpinner);
+    item.childNodes[2].addEventListener('load', stopSpinner);
 
     function stopSpinner(){
         spinnerForItem.stop();
     };
   };
 
-function addSpinnerForModalWindow(){
-    const spinnerForModalWindowEl = document.querySelectorAll('.modal-window');
-    // console.log(spinnerForModalWindowEl);
-    const spinnerForModalWindow = new Spinner(opts).spin(spinnerForModalWindowEl);
+function addSpinnersForMoviesItems(){
+    const spinnerForMoviesItemsEl = document.querySelectorAll('.movie__item');
+    spinnerForMoviesItemsEl.forEach(addSpinnerForMovieItem);
 };
 
+//функция для добавления спиннера на модальное окно
+function addSpinnerForModalWindow(){
+    //спиннер для класса modal-window
+    const spinnerForModalWindowEl = document.querySelector('.modal-window');
+    const spinnerForModalWindow = new Spinner({...opts, scale: 0.5, top: '40%'}).spin(spinnerForModalWindowEl);
+
+    //спиннер для класса картинки в модальном окне
+    console.log(spinnerForModalWindowEl.childNodes[4]);
+    const spinnerForModalWindowImage = new Spinner({...opts, scale: 0.3, top: '20%'}).spin(spinnerForModalWindowEl.childNodes[4]);
+
+    spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
+    
+    function stopSpinner(){
+        spinnerForModalWindow.stop();
+        console.log('spinnerForModalWindow.stop()');
+    }; 
+
+    // setTimeout(() => {
+    //     spinnerForModalWindow.stop();
+    // }, 2000); 
+};
 
 
 // setTimeout(() => {
