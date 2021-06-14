@@ -1,26 +1,25 @@
 import modalCard from '../templates/modal.hbs';
 import { clearMarkup, renderMarkup } from './common/functions';
 import NewFetchApiFilms from './apiService';
-import { openedModal, modal, body, backdrop } from './common/refs';
+import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
+import { addSpinnerForModalWindow } from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
-const user = getCurrentUser();
 
-openedModal.addEventListener('click', openModal);
+listFilmsRef.addEventListener('click', openModal);
 backdrop.addEventListener('click', onOverlayClick);
 window.addEventListener('keydown', onPressEscKey);
 
-async function openModal(e) {
+export async function openModal(e) {
   try {
     const movieId = e.target.dataset.movieId;
-
     if (e.target.nodeName !== 'IMG') {
       return;
     }
 
     backdrop.classList.remove('is-hidden');
-    body.classList.add('scroll-hidden');
+    document.body.classList.add('modal-open');
 
     const film = await newFetchApiFilms
       .fetchMovieById(movieId)
@@ -32,18 +31,23 @@ async function openModal(e) {
     renderModalCard(film);
     clickIconClose();
 
-    if (!user) {
-      return;
-    }
-
     const watchedBtn = document.querySelector('.button-modal');
     const queueBtn = document.querySelector('.button-queue');
     const { watched, queue } = getUserLibraryFromLocalStorage();
     const watchedFilm = checkFilm(watched, movieId);
     const queueFilm = checkFilm(queue, movieId);
+    const user = getCurrentUser();
 
-    watchedFilm ? (watchedBtn.textContent = 'remove') : (watchedBtn.textContent = 'add to watched');
-    queueFilm ? (queueBtn.textContent = 'remove') : (queueBtn.textContent = 'add to queue');
+    if (!user) {
+      return;
+    }
+
+    watchedFilm
+      ? (watchedBtn.textContent = 'remove from watched')
+      : (watchedBtn.textContent = 'add to watched');
+    queueFilm
+      ? (queueBtn.textContent = 'remove from queue')
+      : (queueBtn.textContent = 'add to queue');
   } catch (error) {
     console.log(error);
   }
@@ -70,7 +74,7 @@ function clickIconClose() {
 
 function closeModal() {
   backdrop.classList.add('is-hidden');
-  body.classList.remove('scroll-hidden');
+  document.body.classList.remove('modal-open');
   clearMarkup(backdrop);
 }
 
@@ -78,4 +82,5 @@ function renderModalCard(film) {
   const markup = modalCard(film);
 
   renderMarkup(backdrop, markup);
+  addSpinnerForModalWindow();
 }

@@ -3,6 +3,7 @@ import filmsGalleryTmp from '../templates/movieСatalog.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
 import { listFilmsRef, searchErrRef } from './common/refs';
 import debounce from 'lodash.debounce';
+import { addSpinnersForMoviesItems, stopSpinner } from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -20,6 +21,7 @@ export async function showPopularFilms(e) {
       .then(response => response.data.results);
 
     addGenreToFilm(films);
+    stopSpinner();
   } catch (error) {
     console.log(error);
   }
@@ -58,8 +60,13 @@ export async function addGenreToFilm(films) {
         return genres.find(genre => genre.id == id).name;
       })
       .join(', ');
-    return { ...film, genre: genreArray, release_date: Number.parseInt(film.release_date) };
+    return {
+      ...film,
+      genre: genreArray,
+      release_date: parseInt(film.release_date) || '\u2015',
+    };
   });
 
   renderMarkup(listFilmsRef, filmsGalleryTmp(filmsWithGenre));
+  addSpinnersForMoviesItems();
 }

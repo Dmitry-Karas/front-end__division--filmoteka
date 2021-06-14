@@ -138,6 +138,8 @@
 }
 
 .site-nav__button--current {
+  cursor: default;
+
   &::after {
     content: '';
     position: absolute;

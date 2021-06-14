@@ -12,9 +12,9 @@ body {
 
   transition: color 150ms var(--timing-function), background-color 250ms var(--timing-function);
 
-  &.modal-open,
-  &.menu-open {
+  &.modal-open {
     overflow: hidden;
+    transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -32,6 +32,18 @@ body.dark-theme {
 
   & .theme-switch {
     color: #ff6b01aa;
+  }
+
+  & .our-team {
+    background-color: #333333;
+
+    & .name {
+      color: var(--color-light);
+    }
+
+    & .title {
+      color: var(--color-accent);
+    }
   }
 
   & .modal-window,

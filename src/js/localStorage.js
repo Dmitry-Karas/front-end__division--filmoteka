@@ -66,6 +66,10 @@ class Lib {
 new Lib(libraryRef);
 
 async function onModalWindow(e) {
+  if (e.target.nodeName !== 'BUTTON') {
+    return;
+  }
+
   try {
     const modalContainer = document.querySelector('.modal-window');
     const movieId = modalContainer.dataset.id;
@@ -74,10 +78,6 @@ async function onModalWindow(e) {
     const user = getCurrentUser();
     const { watched, queue } = getUserLibraryFromLocalStorage();
     const activeLibrary = libraryButtonRef.classList.contains('site-nav__button--current');
-
-    if (e.target.nodeName !== 'BUTTON') {
-      return;
-    }
 
     if (!user) {
       return Notify.needToSignIn();
@@ -94,7 +94,7 @@ async function onModalWindow(e) {
 
     if (watchedBtn) {
       e.target.textContent === 'add to watched'
-        ? (e.target.textContent = 'remove')
+        ? (e.target.textContent = 'remove from watched')
         : (e.target.textContent = 'add to watched');
 
       if (watchedFilm) {
@@ -119,7 +119,7 @@ async function onModalWindow(e) {
 
     if (queueBtn) {
       e.target.textContent === 'add to queue'
-        ? (e.target.textContent = 'remove')
+        ? (e.target.textContent = 'remove from queue')
         : (e.target.textContent = 'add to queue');
 
       if (queuedFilm) {
@@ -158,6 +158,10 @@ function removeFilmFromLocalStorage(arr, index) {
 }
 
 export function checkFilm(arr, movieId) {
+  if (!arr) {
+    return;
+  }
+
   return arr.find(element => {
     if (element.id === Number(movieId)) {
       return element;

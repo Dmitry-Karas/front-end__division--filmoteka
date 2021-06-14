@@ -1,30 +1,9 @@
 .theme-switch {
-  position: absolute;
-  top: 10px;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 
   transition: color 150ms var(--timing-function);
-
-  @include mobile-only {
-    left: calc(50% + 44px);
-  }
-
-  @include tablet-only {
-    left: calc(50% + 210px);
-  }
-
-  @include desktop-only {
-    left: calc(50% + 340px);
-  }
-}
-
-.theme-switch__icon {
-  height: 20px;
-  width: 20px;
-  margin-right: 8px;
-  margin-left: 8px;
-  color: currentColor;
 }
 
 .theme-switch__control {
@@ -32,8 +11,8 @@
   align-items: center;
   flex-shrink: 0;
   position: relative;
-  width: 58px;
-  height: 26px;
+  width: 50px;
+  height: 20px;
   border-radius: 50em;
   padding: 3px 0;
 }
@@ -61,31 +40,35 @@
   border-radius: inherit;
   z-index: 1;
   cursor: pointer;
-  background-color: #545454aa;
+  background-color: #ccc;
 
   transition: background-color 150ms var(--timing-function);
 }
 
 .theme-switch__marker {
   position: relative;
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   z-index: 2;
   pointer-events: none;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
-  transform: translateX(3px);
-  background-color: #f7f7f7aa;
+  // border: 2px solid var(--color-accent);
+  // background-color: var(--color-accent);
 
-  transition: transform 300ms cubic-bezier(0.32, 2, 0.55, 0.27),
-    background-color 300ms cubic-bezier(0.32, 2, 0.55, 0.27);
+  transition: transform 0.4s, background-color 300ms cubic-bezier(0.32, 2, 0.55, 0.27);
+
+  background: white url('https://i.ibb.co/7JfqXxB/sunny.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .theme-switch__toggle:checked + .theme-switch__track {
-  background-color: #ff6b0144;
+  background-color: var(--color-accent);
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {
-  transform: translateX(33px);
-  //   background-color: #ff6b01aa;
+  border: 2px solid #ccc;
+  transform: translateX(20px);
+  background-image: url("data:image/svg+xml,%3Csvg   viewBox='0 0 512 512'  xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m512 256c0 141.386719-114.613281 256-256 256s-256-114.613281-256-256 114.613281-256 256-256 256 114.613281 256 256zm0 0' fill='%23414952'/%3E%3Cpath d='m493.394531 351.945312-281.136719-281.132812-88.921874 74.191406 2.996093 250.335938 116.320313 116.316406c4.417968.226562 8.871094.34375 13.347656.34375 107.453125 0 199.429688-66.210938 237.394531-160.054688zm0 0' fill='%23333940'/%3E%3Cpath d='m126.332031 395.339844-2.796875-2.800782zm0 0' fill='%23333940'/%3E%3Cpath d='m325.601562 348.296875c-89.414062 0-161.898437-72.484375-161.898437-161.898437 0-45.277344 18.597656-86.207032 48.558594-115.585938-83.988281 19.761719-146.511719 95.167969-146.511719 185.1875 0 105.070312 85.179688 190.25 190.25 190.25 90.019531 0 165.425781-62.523438 185.1875-146.507812-29.378906 29.957031-70.308594 48.554687-115.585938 48.554687zm0 0' fill='%23fff'/%3E%3Cpath d='m325.601562 348.296875c-44.914062 0-85.554687-18.296875-114.882812-47.832031l-89.648438 89.648437c34.457032 34.667969 82.1875 56.136719 134.929688 56.136719 90.019531 0 165.425781-62.523438 185.1875-146.507812-29.378906 29.957031-70.308594 48.554687-115.585938 48.554687zm0 0' fill='%23e9edf5'/%3E%3C/svg%3E");
 }

@@ -7,3 +7,7 @@ import './js/sweetAlert';
 import './js/teamModal';
 import './js/modal';
 import './js/localStorage';
+import './js/common/spinner';
+import './js/teamModal';
+import './js/modal';
+import './js/watchedFilmsList';
