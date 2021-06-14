@@ -1,6 +1,6 @@
 import modalTeam from '../templates/modalTeam.hbs';
 import teamList from './team.js';
-// import { clearMarkup, renderMarkup } from './common/functions';
+import { body } from './common/refs';
 
 const refs = {
   team: document.querySelector('.team'),
@@ -24,6 +24,7 @@ modalTeamOverlay.addEventListener('click', onOverlayClick);
 function onOpenModal() {
   refs.modalFooterEl.classList.add('is-open');
   window.addEventListener('keydown', onKeyPress);
+  body.classList.add('scroll-hidden');
 }
 
 function onKeyPress(event) {
@@ -35,6 +36,7 @@ function onKeyPress(event) {
 function onCloseModal() {
   refs.modalFooterEl.classList.remove('is-open');
   window.removeEventListener('keydown', onKeyPress);
+  body.classList.remove('scroll-hidden');
 }
 
 function onOverlayClick(event) {
