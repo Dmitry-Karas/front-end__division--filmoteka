@@ -19,6 +19,7 @@ export async function showPopularFilms(e) {
     const films = await newFetchApiFilms
       .fetchApiPopularFilms()
       .then(response => response.data.results);
+    console.log(films);
 
     addGenreToFilm(films);
     stopSpinner();
