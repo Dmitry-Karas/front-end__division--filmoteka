@@ -25,9 +25,7 @@ const opts = {
 const spinnerForMovieListEl = document.querySelector('.movie__list');
 const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
-window.addEventListener("load", stopSpinner);
-
-function stopSpinner(){
+export function stopSpinner(){
     spinner.stop();
 };
 
@@ -58,22 +56,9 @@ export function addSpinnerForModalWindow(){
     const spinnerForModalWindowEl = document.querySelector('.modal-window');
     const spinnerForModalWindow = new Spinner({...opts, scale: 0.5, top: '40%'}).spin(spinnerForModalWindowEl);
 
-    //спиннер для картинки в модальном окне
-    // console.log(spinnerForModalWindowEl);
-    // const spinnerForModalWindowImage = new Spinner({...opts, scale: 0.3, top: '20%'}).spin(spinnerForModalWindowEl.childNodes[4]);
-
     spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
     
     function stopSpinner(){
         spinnerForModalWindow.stop();
     }; 
 };
-
-
-
-// setTimeout(() => {
-//     // spinnerClass1.classList.add('is-hidden');
-//     spinner1.stop();
-// }, 1000); 
-
- // document.addEventListener("DOMContentLoaded", stopSpinner);
