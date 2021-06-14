@@ -65,20 +65,15 @@ function addSpinnerForModalWindow(){
     const spinnerForModalWindowEl = document.querySelector('.modal-window');
     const spinnerForModalWindow = new Spinner({...opts, scale: 0.5, top: '40%'}).spin(spinnerForModalWindowEl);
 
-    //спиннер для класса картинки в модальном окне
-    console.log(spinnerForModalWindowEl.childNodes[4]);
-    const spinnerForModalWindowImage = new Spinner({...opts, scale: 0.3, top: '20%'}).spin(spinnerForModalWindowEl.childNodes[4]);
+    //спиннер для картинки в модальном окне
+    console.log(spinnerForModalWindowEl);
+    // const spinnerForModalWindowImage = new Spinner({...opts, scale: 0.3, top: '20%'}).spin(spinnerForModalWindowEl.childNodes[4]);
 
-    spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
+    // spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
     
     function stopSpinner(){
         spinnerForModalWindow.stop();
-        console.log('spinnerForModalWindow.stop()');
     }; 
-
-    // setTimeout(() => {
-    //     spinnerForModalWindow.stop();
-    // }, 2000); 
 };
 
 

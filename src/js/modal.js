@@ -29,8 +29,7 @@ async function openModal(e) {
     clickIconClose();
   } catch (error) {
     console.log(error);
-  };
-  
+  }  
 }
 
 function onOverlayClick(e) {
