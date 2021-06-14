@@ -4,9 +4,7 @@ import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs';
 import { listFilmsRef, libraryButtonRef } from './common/refs';
 import { Database } from './firebase';
 import { Notify } from './sweetAlert';
-
-console.log(libraryButtonRef);
-const homeBtn = document.querySelector('[data-button="home"]');
+// !!!!дальше не отменять
 
 const libraryRef = document.querySelector('.js-dynamic-container');
 const newFetchApiFilm = new NewFetchApiFilms();
@@ -99,11 +97,15 @@ async function onModalWindow(e) {
 
       if (watchedFilm) {
         const index = watched.indexOf(watchedFilm);
+        // const watchLibBtn = document.querySelector('[data-action="watched"]');
+        // const activeWatchLibBtn = watchLibBtn.classList.contains('button--active');
 
         removeFilmFromLocalStorage(watched, index);
-        Database.writeUserLibrary(user, { watched, queue });
-        await addUserLibraryToLocalStorage(watched, queue);
+        await Database.writeUserLibrary(user, { watched, queue });
+        addUserLibraryToLocalStorage(watched, queue);
+
         if (activeLibrary) {
+          //&& activeWatchLibBtn
           renderMarkupAfterChosenFilm(watched);
         }
 
@@ -125,10 +127,15 @@ async function onModalWindow(e) {
       if (queuedFilm) {
         const index = queue.indexOf(queuedFilm);
 
+        // const queueLibBtn = document.querySelector('[data-action="queue"]');
+        // const activeQueueLibBtn = queueLibBtn.classList.contains('button--active');
+
         removeFilmFromLocalStorage(queue, index);
-        Database.writeUserLibrary(user, { watched, queue });
-        await addUserLibraryToLocalStorage(watched, queue);
+        await Database.writeUserLibrary(user, { watched, queue });
+        addUserLibraryToLocalStorage(watched, queue);
+
         if (activeLibrary) {
+          // && activeQueueLibBtn
           renderMarkupAfterChosenFilm(queue);
         }
 
