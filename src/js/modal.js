@@ -2,7 +2,7 @@ import modalCard from '../templates/modal.hbs';
 import { clearMarkup, renderMarkup } from './common/functions';
 import NewFetchApiFilms from './apiService';
 import { openedModal, modal, body, backdrop } from './common/refs';
-import {addSpinnerForModalWindow} from './common/spinner';
+import { addSpinnerForModalWindow } from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 

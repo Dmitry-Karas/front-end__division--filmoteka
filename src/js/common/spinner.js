@@ -25,26 +25,19 @@ const opts = {
 const spinnerForMovieListEl = document.querySelector('.movie__list');
 const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
-window.addEventListener("load", function stopSpinner(){
+window.addEventListener("load", stopSpinner);
+
+function stopSpinner(){
     spinner.stop();
-});
-
-// function stopSpinner(){
-//     spinner.stop();
-// };
-
-export default function addSpinners(){  
-    addSpinnersForMoviesItems();
-    // addSpinnerForModalWindow();
 };
 
-function addSpinnersForMoviesItems(){
+export function addSpinnersForMoviesItems(){
     const spinnerForMoviesItemsEl = document.querySelectorAll('.movie__item');
     spinnerForMoviesItemsEl.forEach(addSpinnerForMovieItem);
 };
 
-//функция для добавления спиннера на каждый элемент
-function addSpinnerForMovieItem(item) {    
+//функция для добавления экземляра спиннера на каждый элемент, остановка спиннера после загрузки картинки
+function addSpinnerForMovieItem(item) {
     const spinnerForItem = new Spinner({...opts, scale: 0.3, top: '20%', position: 'relative'}).spin(item);
     
     item.childNodes[2].addEventListener('load', stopSpinner);
@@ -60,13 +53,13 @@ function addSpinnersForMoviesItems(){
 };
 
 //функция для добавления спиннера на модальное окно
-function addSpinnerForModalWindow(){
+export function addSpinnerForModalWindow(){
     //спиннер для класса modal-window
     const spinnerForModalWindowEl = document.querySelector('.modal-window');
     const spinnerForModalWindow = new Spinner({...opts, scale: 0.5, top: '40%'}).spin(spinnerForModalWindowEl);
 
     //спиннер для картинки в модальном окне
-    console.log(spinnerForModalWindowEl);
+    // console.log(spinnerForModalWindowEl);
     // const spinnerForModalWindowImage = new Spinner({...opts, scale: 0.3, top: '20%'}).spin(spinnerForModalWindowEl.childNodes[4]);
 
     spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
@@ -75,6 +68,7 @@ function addSpinnerForModalWindow(){
         spinnerForModalWindow.stop();
     }; 
 };
+
 
 
 // setTimeout(() => {
