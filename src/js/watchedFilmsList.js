@@ -1,10 +1,8 @@
 import watchedFilmsCard from '../templates/watchedFilmsCard.hbs';
-import NewFetchApiFilms from './apiService';
 import { openedModal, watchedFilmList } from './common/refs';
 import { openModal } from './modal';
 
 
-const newFetchApiFilms = new NewFetchApiFilms();
 openedModal.addEventListener('click', createWatchedFilmList);
 window.addEventListener('DOMContentLoaded', renderWatchedFilmsList);
 
@@ -30,16 +28,8 @@ function createWatchedFilmList(e) {
 
 function renderWatchedFilmsList(){
     const watchedFilmsInLS = JSON.parse(localStorage.getItem("watchedFilms"));
-    renderWatchedFilm(watchedFilmsInLS);
-}
-
-function renderWatchedFilm(film){
-    const markupWatchedFilms = watchedFilmsCard(film);
-    if (watchedFilmList.childElementCount === 5) {
-        document.querySelector('.watched-films li:last-child').remove();
-    }
+    const markupWatchedFilms = watchedFilmsCard(watchedFilmsInLS);
     watchedFilmList.innerHTML = markupWatchedFilms;
 }
 
 watchedFilmList.addEventListener('click', openModal);
-// watchedFilmList.addEventListener('click', console.log);
