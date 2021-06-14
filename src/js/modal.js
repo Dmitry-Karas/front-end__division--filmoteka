@@ -2,7 +2,7 @@ import modalCard from '../templates/modal.hbs';
 import { clearMarkup, renderMarkup } from './common/functions';
 import NewFetchApiFilms from './apiService';
 import { openedModal, modal, body, backdrop } from './common/refs';
-import addSpinners from './common/spinner';
+import {addSpinnerForModalWindow} from './common/spinner';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -29,7 +29,7 @@ async function openModal(e) {
     clickIconClose();
   } catch (error) {
     console.log(error);
-  }  
+  };
 }
 
 function onOverlayClick(e) {
@@ -60,5 +60,5 @@ function closeModal(e) {
 function renderModalCard(film) {
   const markup = modalCard(film);
   renderMarkup(backdrop, markup);
-  addSpinners();
+  addSpinnerForModalWindow();
 }

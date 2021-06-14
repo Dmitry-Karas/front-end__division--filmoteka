@@ -22,20 +22,20 @@ const opts = {
     position: 'absolute', // Element positioning
   };
 
-// const spinnerForMovieListEl = document.querySelector('.movie__list');
-// const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
+const spinnerForMovieListEl = document.querySelector('.movie__list');
+const spinner = new Spinner(opts).spin(spinnerForMovieListEl);
 
-// window.addEventListener("load", function stopSpinner(){
-//     spinner.stop();
-// });
+window.addEventListener("load", function stopSpinner(){
+    spinner.stop();
+});
 
 // function stopSpinner(){
 //     spinner.stop();
 // };
 
 export default function addSpinners(){  
-    // addSpinnersForMoviesItems();
-    addSpinnerForModalWindow();
+    addSpinnersForMoviesItems();
+    // addSpinnerForModalWindow();
 };
 
 function addSpinnersForMoviesItems(){
@@ -69,7 +69,7 @@ function addSpinnerForModalWindow(){
     console.log(spinnerForModalWindowEl);
     // const spinnerForModalWindowImage = new Spinner({...opts, scale: 0.3, top: '20%'}).spin(spinnerForModalWindowEl.childNodes[4]);
 
-    // spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
+    spinnerForModalWindowEl.childNodes[4].addEventListener('load', stopSpinner);
     
     function stopSpinner(){
         spinnerForModalWindow.stop();
