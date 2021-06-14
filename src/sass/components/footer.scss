@@ -106,7 +106,11 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: -20px;
+
+    &:nth-child(n + 4) {
+      margin-top: -20px;
+    }
+
     margin-left: -20px;
   }
 }
@@ -118,14 +122,20 @@
 
   @include tablet-only {
     width: calc(100% / 3 - 20px);
-    margin-top: 50px;
+
+    &:nth-child(n + 4) {
+      margin-top: 50px;
+    }
     margin-left: 20px;
   }
 
   @include desktop-only {
     width: calc(100% / 5 - 20px);
-    margin-top: 50px;
     margin-left: 20px;
+
+    &:nth-child(n + 6) {
+      margin-top: 50px;
+    }
   }
 }
 
@@ -243,6 +253,7 @@
   transition: all 0.3s ease 0s;
   text-decoration: none;
 }
+
 .github {
   background-color: #f7f5ec;
   border-radius: 50%;
@@ -250,8 +261,8 @@
 
 .team__button-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 8px;
+  right: 8px;
 
   padding: 5px;
   border: none;
