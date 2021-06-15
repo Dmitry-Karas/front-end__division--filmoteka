@@ -4,7 +4,7 @@ import NewFetchApiFilms from './apiService';
 import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
 import { addSpinnerForModalWindow } from './common/spinner';
-import trailer from '../templates/trailer.hbs';
+import trailerTmp from '../templates/trailer.hbs';
 // import { async } from 'fast-glob';
 
 const newFetchApiFilms = new NewFetchApiFilms();
@@ -102,7 +102,7 @@ async function deth(e) {
     const trailer = await newFetchApiFilms.fetchTrailerById(id).then(res => res.data.results);
 
     if (trailer.length > 0) {
-      renderMarkup(markup, trailer(trailer));
+      renderMarkup(markup, trailerTmp(trailer));
 
       stopSliderModal();
     }

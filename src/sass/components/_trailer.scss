@@ -29,11 +29,13 @@
 .carousel-control-next {
   right: 10px;
 }
-
+.carousel-item {
+  display: block;
+}
 .carousel-inner,
 .carousel-item iframe {
-  width: 725px;
-  height: 408px;
+  width: 380px;
+  height: 180px;
 
   @media screen and (min-width: 768px) and (max-width: 1023px) {
     width: 420px;
