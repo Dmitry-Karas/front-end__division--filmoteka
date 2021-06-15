@@ -103,7 +103,6 @@ async function deth(e) {
 
     if (trailer.length > 0) {
       renderMarkup(markup, trailerTmp(trailer));
-
       stopSliderModal();
     }
   }
