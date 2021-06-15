@@ -3,7 +3,7 @@
     <img
       class='movie__photo'
       src="https://image.tmdb.org/t/p/w300/{{poster_path}}"
-      data-src="{{id}}"
+      data-src="{{poster_path}}"
       alt="{{title}}"
       data-movie-id="{{id}}"
     />
@@ -12,7 +12,6 @@
     </h2>
     <div class='movie__info'>
       <p class='movie__genres'>
-        {{!-- {{genre}} --}}
         {{#each genres}}
           <span class='genre'>
             {{name}}
