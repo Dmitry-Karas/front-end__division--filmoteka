@@ -17,7 +17,7 @@ function createWatchedFilmList(e) {
   if (watchedMovieList && watchedMovieList.some(film => film.id === watchedMovieData.id)) {
     return;
   }
-  if (watchedMovieList && watchedMovieList.length === 5) {
+  if (watchedMovieList && watchedMovieList.length === 9) {
     watchedMovieList.pop();
   }
   watchedMovieList.unshift(watchedMovieData);

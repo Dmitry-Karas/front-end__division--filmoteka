@@ -31,7 +31,7 @@
     "lodash.debounce": "^4.0.8",
     "spin.js": "^4.1.0",
     "src": "^1.1.2",
-    "sweetalert2": "^11.0.16",
+    "sweetalert2": "^11.0.17",
     "templates": "^1.2.9"
   }
 }
