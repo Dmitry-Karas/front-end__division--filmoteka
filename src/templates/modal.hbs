@@ -1,19 +1,14 @@
-<div class="modal-window" data-id='{{id}}'>
+<div class="modal-window ">
   <div class="cl-btn">
+    <div>
       <div class="leftright"></div>
       <div class="rightleft"></div>
       <span class="close-btn">close</span>
+    </div>
   </div>
-  <img 
-  class="card-poster"
-  {{#if poster_path}}
-  src='https://image.tmdb.org/t/p/w500{{poster_path}}'
-  {{else}}
-  src='https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available.png'
-  {{/if}}
-  alt="{{original_title}}">
+  <img class="card-poster" src='https://image.tmdb.org/t/p/w500{{poster_path}}' alt="poster" {{original_title}}>
 
-  <div class="card-content-container">
+  <div>
     <div class="card-details">
       <h2 class="card-title">{{title}}</h2>
       <ul class="card-list">
@@ -38,8 +33,15 @@
           </ul>
         </li>
       </ul>
-      <h3 class="card-about">About</h3>
-      <p class="card-description">{{overview}}</p>
+      <div class="card-headlines">
+          <h3 class="card-about active">About</h3>
+          <h3 class="card-about">Trailer</h3>
+            <div>
+               <p class="card-description">{{overview}}</p>
+            </div>        
+      </div>
+      
+     
 
     </div>
     <div class="card-button-modal">
