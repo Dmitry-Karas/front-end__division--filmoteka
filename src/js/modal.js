@@ -38,6 +38,10 @@ export async function openModal(e) {
     const queueFilm = checkFilm(queue, movieId);
     const user = getCurrentUser();
 
+    const cardTitle = document.querySelector('.card-about-title', deth);
+    // const
+    cardTitle.addEventListener('click');
+
     if (!user) {
       return;
     }
@@ -84,3 +88,5 @@ function renderModalCard(film) {
   renderMarkup(backdrop, markup);
   addSpinnerForModalWindow();
 }
+
+function deth(params) {}
