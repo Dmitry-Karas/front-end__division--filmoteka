@@ -64,10 +64,3 @@ function closeModal() {
   trailerBackdropRef.classList.add('is-hidden');
   clearMarkup(trailerModalRef);
 }
-
-function stopSliderModal() {
-  const myCarousel = document.querySelector('#carouselExampleControls');
-  const carousel = new bootstrap.Carousel(myCarousel, {
-    pause: true,
-  });
-}

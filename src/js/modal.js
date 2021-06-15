@@ -4,6 +4,8 @@ import NewFetchApiFilms from './apiService';
 import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
 import { addSpinnerForModalWindow } from './common/spinner';
+import trailer from '../templates/trailer.hbs';
+// import { async } from 'fast-glob';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -38,9 +40,9 @@ export async function openModal(e) {
     const queueFilm = checkFilm(queue, movieId);
     const user = getCurrentUser();
 
-    const cardTitle = document.querySelector('.card-about-title', deth);
+    const cardTitle = document.querySelector('.card-about-title');
     // const
-    cardTitle.addEventListener('click');
+    cardTitle.addEventListener('click', deth);
 
     if (!user) {
       return;
@@ -89,4 +91,46 @@ function renderModalCard(film) {
   addSpinnerForModalWindow();
 }
 
-function deth(params) {}
+async function deth(e) {
+  if (e.target.classList.contains('card-about-desc')) {
+  }
+  if (e.target.classList.contains('card-about-trailer')) {
+    const markup = document.querySelector('.more');
+    clearMarkup(markup);
+
+    const id = e.target.getAttribute('data-movie-id');
+    const trailer = await newFetchApiFilms.fetchTrailerById(id).then(res => res.data.results);
+
+    if (trailer.length > 0) {
+      renderMarkup(markup, trailer(trailer));
+
+      stopSliderModal();
+    }
+  }
+}
+
+function stopSliderModal() {
+  const myCarousel = document.querySelector('#carouselExampleControls');
+  const carousel = new bootstrap.Carousel(myCarousel, {
+    pause: true,
+  });
+}
+
+//делает запрос
+
+// if (trailer.length === 1) {
+//   const controllerPrev = document.querySelector('.carousel-control-prev');
+//   const controllerNext = document.querySelector('.carousel-control-next');
+//   controllerPrev.classList.add('visually-hidden');
+//   controllerNext.classList.add('visually-hidden');
+// }
+// if (trailer.length === 0) {
+//   const lol = document.querySelector('movie__button-youtube');
+//   console.log('lol', lol);
+//   backdrop.classList.remove('is-hidden');
+//   renderMarkup(trailerModalRef, trailerFilmTmp(trailer));
+// }
+// }
+// } catch (error) {
+// console.log(error);
+// }
