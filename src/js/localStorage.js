@@ -4,7 +4,6 @@ import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs';
 import { listFilmsRef, libraryButtonRef, homeButtonRef } from './common/refs';
 import { Database } from './firebase';
 import { Notify } from './sweetAlert';
-// !!!!дальше не отменять
 
 const libraryRef = document.querySelector('.js-dynamic-container');
 const newFetchApiFilm = new NewFetchApiFilms();
@@ -42,7 +41,6 @@ class Lib {
 
     event.target.classList.add('button--active');
 
-    // switch refactoring
     switch (event.target) {
       case watchLibBtn:
         event.target.classList.add('button--active');
@@ -92,134 +90,118 @@ async function onModalWindow(e) {
     const watchedFilm = checkFilm(watched, movieId);
     const queuedFilm = checkFilm(queue, movieId);
 
-    // if (activeHome) {
-    if (watchedBtn) {
-      e.target.textContent === 'add to watched'
-        ? (e.target.textContent = 'remove from watched')
-        : (e.target.textContent = 'add to watched');
+    if (activeHome) {
+      if (watchedBtn) {
+        e.target.textContent === 'add to watched'
+          ? (e.target.textContent = 'remove from watched')
+          : (e.target.textContent = 'add to watched');
 
-      if (watchedFilm) {
-        const index = watched.indexOf(watchedFilm);
+        if (watchedFilm) {
+          const index = watched.indexOf(watchedFilm);
 
-        removeFilmFromLocalStorage(watched, index);
+          removeFilmFromLocalStorage(watched, index);
 
-        await Database.writeUserLibrary(user, { watched, queue });
+          await Database.writeUserLibrary(user, { watched, queue });
 
-        addUserLibraryToLocalStorage(watched, queue);
+          addUserLibraryToLocalStorage(watched, queue);
 
-        if (activeLibrary) {
-          renderMarkupAfterChosenFilm(watched);
+          return;
         }
 
-        return;
+        watched.unshift(film);
+
+        await Database.writeUserLibrary(user, { watched, queue });
       }
 
-      watched.unshift(film);
+      if (queueBtn) {
+        e.target.textContent === 'add to queue'
+          ? (e.target.textContent = 'remove from queue')
+          : (e.target.textContent = 'add to queue');
 
-      await Database.writeUserLibrary(user, { watched, queue });
+        if (queuedFilm) {
+          const index = queue.indexOf(queuedFilm);
 
-      if (activeLibrary) {
-        renderMarkupAfterChosenFilm(watched);
+          removeFilmFromLocalStorage(queue, index);
+
+          await Database.writeUserLibrary(user, { watched, queue });
+
+          addUserLibraryToLocalStorage(watched, queue);
+
+          return;
+        }
+
+        queue.unshift(film);
+
+        await Database.writeUserLibrary(user, { watched, queue });
       }
     }
 
-    if (queueBtn) {
-      e.target.textContent === 'add to queue'
-        ? (e.target.textContent = 'remove from queue')
-        : (e.target.textContent = 'add to queue');
+    if (activeLibrary) {
+      const watchLibBtn = document.querySelector('[data-action="watched"]');
+      const queueLibBtn = document.querySelector('[data-action="queue"]');
+      const activeWatchLibBtn = watchLibBtn.classList.contains('button--active');
+      const activeQueueLibBtn = queueLibBtn.classList.contains('button--active');
 
-      if (queuedFilm) {
-        const index = queue.indexOf(queuedFilm);
+      if (watchedBtn) {
+        e.target.textContent === 'add to watched'
+          ? (e.target.textContent = 'remove from watched')
+          : (e.target.textContent = 'add to watched');
 
-        removeFilmFromLocalStorage(queue, index);
+        if (watchedFilm) {
+          const index = watched.indexOf(watchedFilm);
 
-        await Database.writeUserLibrary(user, { watched, queue });
+          removeFilmFromLocalStorage(watched, index);
 
-        addUserLibraryToLocalStorage(watched, queue);
+          await Database.writeUserLibrary(user, { watched, queue });
 
-        if (activeLibrary) {
-          renderMarkupAfterChosenFilm(queue);
+          addUserLibraryToLocalStorage(watched, queue);
+
+          if (activeLibrary && !activeQueueLibBtn) {
+            renderMarkupAfterChosenFilm(watched);
+          }
+
+          return;
         }
 
-        return;
-      }
-
-      queue.unshift(film);
-
-      await Database.writeUserLibrary(user, { watched, queue });
-
-      if (activeLibrary) {
-        renderMarkupAfterChosenFilm(queue);
-      }
-    }
-    // }
-
-    // if (activeLibrary) {
-    const watchLibBtn = document.querySelector('[data-action="watched"]');
-    const queueLibBtn = document.querySelector('[data-action="queue"]');
-    const activeWatchLibBtn = watchLibBtn.classList.contains('button--active');
-    const activeQueueLibBtn = queueLibBtn.classList.contains('button--active');
-
-    if (watchedBtn) {
-      e.target.textContent === 'add to watched'
-        ? (e.target.textContent = 'remove from watched')
-        : (e.target.textContent = 'add to watched');
-
-      if (watchedFilm) {
-        const index = watched.indexOf(watchedFilm);
-
-        removeFilmFromLocalStorage(watched, index);
+        watched.unshift(film);
 
         await Database.writeUserLibrary(user, { watched, queue });
-
-        addUserLibraryToLocalStorage(watched, queue);
 
         if (activeLibrary && !activeQueueLibBtn) {
           renderMarkupAfterChosenFilm(watched);
         }
-
-        return;
       }
 
-      watched.unshift(film);
+      if (queueBtn) {
+        e.target.textContent === 'add to queue'
+          ? (e.target.textContent = 'remove from queue')
+          : (e.target.textContent = 'add to queue');
 
-      await Database.writeUserLibrary(user, { watched, queue });
+        if (queuedFilm) {
+          const index = queue.indexOf(queuedFilm);
 
-      if (activeLibrary && !activeQueueLibBtn) {
-        renderMarkupAfterChosenFilm(watched);
-      }
-    }
+          removeFilmFromLocalStorage(queue, index);
 
-    if (queueBtn) {
-      e.target.textContent === 'add to queue'
-        ? (e.target.textContent = 'remove from queue')
-        : (e.target.textContent = 'add to queue');
+          await Database.writeUserLibrary(user, { watched, queue });
 
-      if (queuedFilm) {
-        const index = queue.indexOf(queuedFilm);
+          addUserLibraryToLocalStorage(watched, queue);
 
-        removeFilmFromLocalStorage(queue, index);
+          if (activeLibrary && !activeWatchLibBtn) {
+            renderMarkupAfterChosenFilm(queue);
+          }
+
+          return;
+        }
+
+        queue.unshift(film);
 
         await Database.writeUserLibrary(user, { watched, queue });
-
-        addUserLibraryToLocalStorage(watched, queue);
 
         if (activeLibrary && !activeWatchLibBtn) {
           renderMarkupAfterChosenFilm(queue);
         }
-
-        return;
-      }
-
-      queue.unshift(film);
-
-      await Database.writeUserLibrary(user, { watched, queue });
-
-      if (activeLibrary && !activeWatchLibBtn) {
-        renderMarkupAfterChosenFilm(queue);
       }
     }
-    // }
 
     addUserLibraryToLocalStorage(watched, queue);
   } catch (error) {
