@@ -1,8 +1,14 @@
 .section_watched_films {
-  padding-top: 10px;
+  padding-top: 20px;
   background-color: var(--color-light);
+
+  body.dark-theme &{
+    background-color: #292929;
+  }
 }
 .watched_movie__photo {
+  object-fit: cover;
+
   @include tablet-only {
     width: 65px;
     max-height: 87px;
@@ -16,8 +22,8 @@
 
 .watched-films {
   padding: 10px 0;
-  border-top: 3px solid white;
-  border-bottom: 3px solid white;
+  border-top: 3px solid var(--color-light);
+  border-bottom: 3px solid var(--color-light);
   @include mobile-only {
     display: none;
   }
@@ -37,21 +43,27 @@
 }
 
 .watched-films-title {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   text-align: center;
   text-transform: uppercase;
+
+  @include mobile-only{
+    display: none;
+  }
 }
 
 .watched_movie__item {
   border-radius: 5px;
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
     0 2px 1px -1px rgb(0 0 0 / 12%);
+  transition: box-shadow 250ms var(--timing-function); 
 
   & img {
     border-radius: 5px;
   }
 
   &:hover {
+    box-shadow: 0px 5px 14px 2px rgb(0 0 0 / 55%);
     cursor: pointer;
   }
 }
