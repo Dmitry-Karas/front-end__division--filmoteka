@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "firebase": "^8.6.7",
     "lodash.debounce": "^4.0.8",
     "smoothscroll-polyfill": "^0.4.4",
     "spin.js": "^4.1.0",
