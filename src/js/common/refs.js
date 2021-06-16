@@ -12,3 +12,4 @@ export const teamBtn = document.querySelector('.button-team');
 export const backdrop = document.querySelector('.backdrop');
 export const searchErrRef = document.querySelector('.search-error');
 export const watchedFilmList = document.querySelector('.watched-films');
+export const paginationRef = document.querySelector('.pagination');
