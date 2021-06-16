@@ -12,7 +12,7 @@ import './js/observer';
 import './js/localStorage';
 import './js/common/spinner';
 import './js/teamModal';
-import './js/modal';
+import './js/pagination';
 import './js/watchedFilmsList';
 
 smoothscroll.polyfill();
