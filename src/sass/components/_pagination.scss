@@ -26,6 +26,10 @@
     color: inherit;
     border-radius: 5px;
     border: none;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 
   & .pagination__number:hover,

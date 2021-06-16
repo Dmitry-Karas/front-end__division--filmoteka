@@ -7,11 +7,21 @@ const newFetchApiFilms = new NewFetchApiFilms();
 export function pagination() {
   const linkArrowLeftRef = document.querySelector('.pagination__arrow--left');
   const linkArrowRightRef = document.querySelector('.pagination__arrow--right');
-  const paginationListRef = document.querySelector('.pagination__number-list');
+  const paginationListRef = document.querySelector('.pagination__list');
+  const paginationNumberListRef = document.querySelector('.pagination__number-list');
 
-  paginationListRef.addEventListener('click', switchesPagesFilms);
+  paginationNumberListRef.addEventListener('click', switchesPagesFilms);
   linkArrowRightRef.addEventListener('click', switchesPagesFilms);
   linkArrowLeftRef.addEventListener('click', switchesPagesFilms);
+  paginationListRef.addEventListener('click', scrollToTop);
+
+  function scrollToTop(e) {
+    if (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+      return;
+    }
+
+    window.scrollTo({ top: 220, behavior: 'smooth' });
+  }
 
   async function switchesPagesFilms(e) {
     e.preventDefault();
@@ -46,7 +56,7 @@ export function pagination() {
 
         toggleClassActive(e);
 
-        if (paginationListRef.lastElementChild.textContent < newFetchApiFilms.page) {
+        if (paginationNumberListRef.lastElementChild.textContent < newFetchApiFilms.page) {
           const numbers = document.querySelectorAll('.pagination__number');
 
           numbers.forEach(num => {
@@ -110,7 +120,6 @@ export function pagination() {
       e.target.classList.contains('pagination__number') ||
       e.target.classList.contains('site-nav__button')
     ) {
-      console.log(newFetchApiFilms.page);
       document.querySelectorAll('.pagination__number').forEach(item => {
         item.classList.remove('pagination__number--active');
 

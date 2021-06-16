@@ -1,4 +1,5 @@
 import smoothscroll from 'smoothscroll-polyfill';
+import 'animate.css';
 import './sass/main.scss';
 import './js/page-header';
 import './js/theme-switcher';

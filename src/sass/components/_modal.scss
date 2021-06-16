@@ -31,7 +31,7 @@
 }
 
 .card-poster {
-  // object-fit: cover;
+  object-fit: cover;
 }
 
 .card-list {
@@ -252,12 +252,12 @@
   cursor: pointer;
   width: 30px;
   height: 30px;
-}
+  white-space: nowrap;
 
-.cl-btn div {
-  position: relative;
-  height: 20px;
-  width: 20px;
+  @include mobile-only {
+    top: 2px;
+    right: 5px;
+  }
 }
 
 .cl-btn .leftright {
