@@ -13,18 +13,10 @@ export function pagination() {
   paginationNumberListRef.addEventListener('click', switchesPagesFilms);
   linkArrowRightRef.addEventListener('click', switchesPagesFilms);
   linkArrowLeftRef.addEventListener('click', switchesPagesFilms);
-  paginationListRef.addEventListener('click', scrollToTop);
-
-  function scrollToTop(e) {
-    if (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
-      return;
-    }
-
-    window.scrollTo({ top: 220, behavior: 'smooth' });
-  }
 
   async function switchesPagesFilms(e) {
     e.preventDefault();
+    window.scrollTo({ top: 220, behavior: 'smooth' });
 
     try {
       if (e.target.nodeName !== 'DIV') {
