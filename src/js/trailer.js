@@ -6,7 +6,7 @@ import { listFilmsRef, trailerModalRef, trailerBackdropRef } from './common/refs
 const newFetchApiFilms = new NewFetchApiFilms();
 
 listFilmsRef.addEventListener('click', openModalTrailer);
-trailerBackdropRef.addEventListener('click', onOverlayClick);
+
 window.addEventListener('keydown', onPressEscKey);
 
 async function openModalTrailer(e) {
