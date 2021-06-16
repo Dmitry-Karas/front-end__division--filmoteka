@@ -5,7 +5,6 @@ import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
 import { addSpinnerForModalWindow } from './common/spinner';
 import trailerTmp from '../templates/trailer.hbs';
-// import { async } from 'fast-glob';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -39,10 +38,9 @@ export async function openModal(e) {
     const watchedFilm = checkFilm(watched, movieId);
     const queueFilm = checkFilm(queue, movieId);
     const user = getCurrentUser();
-
     const cardTitle = document.querySelector('.card-about-title');
-    // const
-    cardTitle.addEventListener('click', deth);
+
+    cardTitle.addEventListener('click', addTrailerToModal);
 
     if (!user) {
       return;
@@ -91,18 +89,33 @@ function renderModalCard(film) {
   addSpinnerForModalWindow();
 }
 
-async function deth(e) {
+async function addTrailerToModal(e) {
+  const aboutRef = document.querySelector('.card-about-desc');
+  const trailerRef = document.querySelector('.card-about-trailer');
+  const cardDescRef = document.querySelector('.card-description');
+  const cardTrailerRef = document.querySelector('.card-trailer');
+
   if (e.target.classList.contains('card-about-desc')) {
+    aboutRef.classList.add('active');
+    trailerRef.classList.remove('active');
+
+    clearMarkup(cardTrailerRef);
+    cardDescRef.classList.remove('visually-hidden');
   }
   if (e.target.classList.contains('card-about-trailer')) {
-    const markup = document.querySelector('.more');
-    clearMarkup(markup);
+    cardDescRef.classList.add('visually-hidden');
+    aboutRef.classList.remove('active');
+    trailerRef.classList.add('active');
 
     const id = e.target.getAttribute('data-movie-id');
     const trailer = await newFetchApiFilms.fetchTrailerById(id).then(res => res.data.results);
 
     if (trailer.length > 0) {
-      renderMarkup(markup, trailerTmp(trailer));
+      renderMarkup(cardTrailerRef, trailerTmp(trailer));
+
+      const parent = document.querySelector('.carousel-inner');
+      parent.firstElementChild.classList.add('active');
+
       stopSliderModal();
     }
     if (trailer.length === 1) {
@@ -110,6 +123,12 @@ async function deth(e) {
       const controllerNext = document.querySelector('.carousel-control-next');
       controllerPrev.classList.add('visually-hidden');
       controllerNext.classList.add('visually-hidden');
+    }
+    if (trailer.length === 0) {
+      renderMarkup(
+        cardTrailerRef,
+        `<img src="https://images.squarespace-cdn.com/content/v1/5384dff5e4b0f0364dee7a5e/1548952305143-LBRXYGNCV4IY7GM8BAIZ/ke17ZwdGBToddI8pDm48kKlnEJe-S6O_EkCaG3agFGRZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIoZZj1IxCyoFOvqhbL3p5Vd7WCUv4osST93yOtHyFrwEKMshLAGzx4R3EDFOm1kBS/trailer+coming+soon.jpg" alt="No trailer" class="card-trailer-cover">`,
+      );
     }
   }
 }
@@ -120,25 +139,6 @@ function stopSliderModal() {
     pause: true,
   });
 }
-
-//делает запрос
-
-// if (trailer.length === 0) {
-//   const lol = document.querySelector('movie__button-youtube');
-//   console.log('lol', lol);
-//   backdrop.classList.remove('is-hidden');
-//   renderMarkup(trailerModalRef, trailerFilmTmp(trailer));
-// }
-// }
-// } catch (error) {
-// console.log(error);
-// }
-
-// const newFetchApiFilms = new NewFetchApiFilms();
-
-// listFilmsRef.addEventListener('click', openModalTrailer);
-// trailerBackdropRef.addEventListener('click', onOverlayClick);
-// window.addEventListener('keydown', onPressEscKey);
 
 // async function openModalTrailer(e) {
 //   try {
@@ -164,12 +164,7 @@ function stopSliderModal() {
 //         controllerPrev.classList.add('visually-hidden');
 //         controllerNext.classList.add('visually-hidden');
 //       }
-//       if (trailer.length === 0) {
-//         const lol = document.querySelector('movie__button-youtube');
-//         console.log('lol', lol);
-//         backdrop.classList.remove('is-hidden');
-//         renderMarkup(trailerModalRef, trailerFilmTmp(trailer));
-//       }
+//
 //     }
 //   } catch (error) {
 //     console.log(error);
