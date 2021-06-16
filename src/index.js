@@ -14,6 +14,5 @@ import './js/common/spinner';
 import './js/teamModal';
 import './js/pagination';
 import './js/watchedFilmsList';
-import './js/trailer';
 
 smoothscroll.polyfill();

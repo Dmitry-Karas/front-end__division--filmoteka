@@ -19,19 +19,21 @@
 .carousel-control-next {
   width: 20px;
   height: 20px;
-  top: 65%;
+  top: 50%;
   transform: translateY(-50%);
 }
 
+.card-trailer {
+  position: relative;
+}
+
 .carousel-control-prev {
-  left: 49%;
+  left: 20px;
 }
 .carousel-control-next {
-  right: 60px;
+  right: 20px;
 }
-.carousel-item {
-  // display: block;
-}
+
 .card-trailer-cover,
 .carousel-inner,
 .carousel-item iframe {
