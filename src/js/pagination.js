@@ -27,72 +27,74 @@ export function pagination() {
     e.preventDefault();
 
     try {
-      clearMarkup(listFilmsRef);
+      if (e.target.nodeName !== 'DIV') {
+        clearMarkup(listFilmsRef);
 
-      if (e.target.classList.contains('pagination__number')) {
-        const num = e.target.textContent;
+        if (e.target.classList.contains('pagination__number')) {
+          const num = e.target.textContent;
 
-        newFetchApiFilms.selectsPageNumber(Number(num));
-        linkArrowLeftRef.removeAttribute('disabled');
-        toggleClassActive(e);
+          newFetchApiFilms.selectsPageNumber(Number(num));
+          linkArrowLeftRef.removeAttribute('disabled');
+          toggleClassActive(e);
 
-        if (e.target.textContent != 1) {
+          if (e.target.textContent != 1) {
+            linkArrowLeftRef.classList.remove('disabled');
+          }
+          if (e.target.textContent == 1) {
+            linkArrowLeftRef.classList.add('disabled');
+          }
+          if (e.target.textContent != 500) {
+            linkArrowRightRef.classList.remove('disabled');
+          }
+          if (e.target.textContent == 500) {
+            linkArrowRightRef.classList.add('disabled');
+          }
+        }
+        if (e.target.hasAttribute('data-arrow-right')) {
+          newFetchApiFilms.incrementPage();
+          linkArrowLeftRef.removeAttribute('disabled');
           linkArrowLeftRef.classList.remove('disabled');
-        }
-        if (e.target.textContent == 1) {
-          linkArrowLeftRef.classList.add('disabled');
-        }
-        if (e.target.textContent != 500) {
-          linkArrowRightRef.classList.remove('disabled');
-        }
-        if (e.target.textContent == 500) {
-          linkArrowRightRef.classList.add('disabled');
-        }
-      }
-      if (e.target.hasAttribute('data-arrow-right')) {
-        newFetchApiFilms.incrementPage();
-        linkArrowLeftRef.removeAttribute('disabled');
-        linkArrowLeftRef.classList.remove('disabled');
 
-        toggleClassActive(e);
+          toggleClassActive(e);
 
-        if (paginationNumberListRef.lastElementChild.textContent < newFetchApiFilms.page) {
-          const numbers = document.querySelectorAll('.pagination__number');
+          if (paginationNumberListRef.lastElementChild.textContent < newFetchApiFilms.page) {
+            const numbers = document.querySelectorAll('.pagination__number');
 
-          numbers.forEach(num => {
-            num.textContent = Number(num.textContent) + 1;
-            toggleClassActive(e);
-          });
-          if (newFetchApiFilms.page === 500) {
+            numbers.forEach(num => {
+              num.textContent = Number(num.textContent) + 1;
+              toggleClassActive(e);
+            });
+            if (newFetchApiFilms.page === 500) {
+              linkArrowLeftRef.setAttribute('disabled', true);
+              linkArrowLeftRef.classList.add('disabled');
+            }
+          }
+        }
+        if (e.target.hasAttribute('data-arrow-left')) {
+          newFetchApiFilms.decrementPage();
+          toggleClassActive(e);
+
+          if (newFetchApiFilms.page < document.querySelector('.first').textContent) {
+            const numbers = document.querySelectorAll('.pagination__number');
+
+            numbers.forEach(num => {
+              num.textContent = Number(num.textContent) - 1;
+              toggleClassActive(e);
+            });
+          }
+
+          if (newFetchApiFilms.page === 1) {
             linkArrowLeftRef.setAttribute('disabled', true);
             linkArrowLeftRef.classList.add('disabled');
           }
         }
+
+        const films = await newFetchApiFilms
+          .fetchApiPopularFilms()
+          .then(response => response.data.results);
+
+        addGenreToFilm(films);
       }
-      if (e.target.hasAttribute('data-arrow-left')) {
-        newFetchApiFilms.decrementPage();
-        toggleClassActive(e);
-
-        if (newFetchApiFilms.page < document.querySelector('.first').textContent) {
-          const numbers = document.querySelectorAll('.pagination__number');
-
-          numbers.forEach(num => {
-            num.textContent = Number(num.textContent) - 1;
-            toggleClassActive(e);
-          });
-        }
-
-        if (newFetchApiFilms.page === 1) {
-          linkArrowLeftRef.setAttribute('disabled', true);
-          linkArrowLeftRef.classList.add('disabled');
-        }
-      }
-
-      const films = await newFetchApiFilms
-        .fetchApiPopularFilms()
-        .then(response => response.data.results);
-
-      addGenreToFilm(films);
     } catch (error) {
       console.log(error);
     }

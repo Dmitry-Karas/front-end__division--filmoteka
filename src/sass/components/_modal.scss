@@ -14,6 +14,11 @@
   overflow-y: auto;
 }
 
+.scroll-hidden {
+  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
 .modal-window {
   position: relative;
   margin: auto;
@@ -26,7 +31,7 @@
 }
 
 .card-poster {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card-list {
@@ -65,12 +70,22 @@
 }
 
 .card-about {
-  font-style: normal;
+  display: inline-block;
+  padding: 5px;
 
+  font-style: normal;
   font-size: 12px;
   line-height: 1.33;
   margin-bottom: 10px;
   text-transform: uppercase;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &.active {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    pointer-events: none;
+  }
 }
 
 .card-description {
@@ -101,7 +116,8 @@
   transition: all 250ms var(--timing-function);
 }
 
-.button-modal:hover {
+.button-modal:hover,
+.button-modal:focus {
   border: 1px solid var(--color-accent);
   color: white;
   background-color: var(--color-accent);
@@ -166,7 +182,7 @@
   .modal-window {
     display: flex;
     width: 618px;
-    min-height: 562px;
+    // min-height: 562px;
     padding-top: 42px;
     padding-bottom: 40px;
     padding-right: 30px;
@@ -179,10 +195,6 @@
     min-width: 264px;
     height: 374px;
     margin-right: 32px;
-  }
-
-  .card-content-container {
-    width: 264px;
   }
 
   .card-details {
@@ -207,14 +219,10 @@
   }
 
   .card-poster {
-    min-width: 396px;
+    min-width: 360px;
     height: 478px;
 
     margin-right: 30px;
-  }
-
-  .card-content-container {
-    width: 396px;
   }
 
   .card-item__about {
@@ -237,7 +245,6 @@
 
 // кнопка-иконка закрыть
 .cl-btn {
-  display: flex;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -276,7 +283,7 @@
 }
 
 .cl-btn .close-btn {
-  margin: 30px 0 0 0;
+  margin: 25px 0 0 -5px;
   position: absolute;
   color: var(--color-accent);
   font-family: Tahoma, sans-serif;
