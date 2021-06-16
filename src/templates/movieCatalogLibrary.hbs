@@ -2,22 +2,25 @@
   <li class='movie__item'>
     <img
       class='movie__photo'
-      {{#if poster_path}}
-      src="https://image.tmdb.org/t/p/w300{{poster_path}}"
-      {{else}}
-      src='https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available.png'
-      {{/if}}
+      src="https://image.tmdb.org/t/p/w300/{{poster_path}}"
       data-src="{{poster_path}}"
       alt="{{title}}"
       data-movie-id="{{id}}"
-      tabindex="0"
     />
     <h2 class='movie__name'>
       {{title}}
     </h2>
     <div class='movie__info'>
       <p class='movie__genres'>
-        {{genre}} ❘ {{release_date}}
+        {{#each genres}}
+          <span class='genre'>
+            {{name}}
+          </span>
+        {{/each}}
+        ❘
+        <span class='release-date'>
+          {{release_date}}
+        </span>
       </p>
       <p class='movie__rating'>
         {{vote_average}}

@@ -1,14 +1,19 @@
-<div class="modal-window ">
+<div class="modal-window" data-id='{{id}}'>
   <div class="cl-btn">
-    <div>
       <div class="leftright"></div>
       <div class="rightleft"></div>
       <span class="close-btn">close</span>
-    </div>
   </div>
-  <img class="card-poster" src='https://image.tmdb.org/t/p/w500{{poster_path}}' alt="poster" {{original_title}}>
+  <img 
+  class="card-poster"
+  {{#if poster_path}}
+  src='https://image.tmdb.org/t/p/w500{{poster_path}}'
+  {{else}}
+  src='https://westsiderc.org/wp-content/uploads/2019/08/Image-Not-Available.png'
+  {{/if}}
+  alt="{{original_title}}">
 
-  <div>
+  <div class="card-content-container">
     <div class="card-details">
       <h2 class="card-title">{{title}}</h2>
       <ul class="card-list">

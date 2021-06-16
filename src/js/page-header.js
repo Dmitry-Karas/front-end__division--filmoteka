@@ -1,7 +1,10 @@
 import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
+// import movieCatalogTpl from '../templates/movieСatalog.hbs';
+import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs'; //!!!! Настя
 import listenInput from './provideFilms';
+import { getCurrentUser } from './localStorage';
 import {
   headerRef,
   logoRef,
@@ -11,6 +14,8 @@ import {
   headerDynamicContainerRef,
   listFilmsRef,
 } from './common/refs';
+import { Notify } from './sweetAlert';
+import { getUserLibraryFromLocalStorage } from './localStorage'; //!!!! Добавила для получения масива из лс - Настя
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();
@@ -18,34 +23,54 @@ listenInput();
 // Меняет интерфейс хэдэра при выборе страницы
 function onPageChange(e) {
   const target = e.target; // Кликнутый элемент
-  const currentButton = navListRef.querySelector('.site-nav__button--current'); // Кнопка текущей страницы
-
+  const currentButtonRef = navListRef.querySelector('.site-nav__button--current'); // Кнопка текущей страницы
+  const currentButtonTarget = target === currentButtonRef;
+  const logoTarget = target.closest('a') === logoRef;
+  const navButtonTarget = target.className === 'site-nav__button';
+  const signOutBtnTarget = target.textContent === 'Sign out';
   // Выход из функции, если...
   if (
     // Клик по текущей кнопке
-    target === currentButton ||
-    // Клик не по кнопкам навигации
-    (target.closest('a') !== logoRef && target.className !== 'site-nav__button') ||
+    currentButtonTarget ||
+    // Клик не по кнопкам навигации и ЛК
+    (!logoTarget && !navButtonTarget && !signOutBtnTarget) ||
     // Клик по лого на домашней странице
-    (target.closest('a') === logoRef && homeButtonRef === currentButton)
+    (logoTarget && homeButtonRef === currentButtonRef) ||
+    // Выход из ЛК на домашней странице
+    (signOutBtnTarget && homeButtonRef === currentButtonRef)
   ) {
     return;
   }
 
   // Рендер разметки домашней страницы при клике на кнопку home или логотип
-  if (target === homeButtonRef || target.closest('a') === logoRef) {
+  if (target === homeButtonRef || logoTarget || signOutBtnTarget) {
     const home = pageHeaderHomeTpl();
 
     changePage(home);
+    clearMarkup(listFilmsRef);
     listenInput();
   }
 
   // Рендер разметки библиотеки при клике на кнопку my library
   if (target === libraryButtonRef) {
+    const user = getCurrentUser();
+
+    if (!user) {
+      Notify.needToSignIn();
+      return;
+    }
+
     const library = pageHeaderLibraryTpl();
 
     changePage(library);
     clearMarkup(listFilmsRef);
+
+    // Разметка очереди - Настя
+    const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
+    renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
+    // Активная кнопка Queue - Настя
+    const queueLibBtn = document.querySelector('.library__button--Queue'); // !!!! Настя
+    queueLibBtn.classList.add('button--active'); // !!!! Настя
   }
 
   // Смена класса активной кнопки

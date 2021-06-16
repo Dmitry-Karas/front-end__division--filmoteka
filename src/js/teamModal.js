@@ -1,30 +1,21 @@
 import modalTeam from '../templates/modalTeam.hbs';
 import teamList from './team.js';
-import { body } from './common/refs';
+import { backdrop, teamBtn } from './common/refs';
+import { renderMarkup, clearMarkup } from './common/functions';
 
-const refs = {
-  team: document.querySelector('.team'),
-  modalFooterEl: document.querySelector('.js-team'),
-  teamBtn: document.querySelector('.button-team'),
-};
-
-function renderModalTeam() {
-  const markup = modalTeam(teamList);
-  refs.modalFooterEl.insertAdjacentHTML('beforeend', markup);
-}
-
-refs.teamBtn.addEventListener('click', onOpenModal);
-renderModalTeam();
-
-const closeTeamBtn = document.querySelector('[data-action="close-btn-team"]');
-const modalTeamOverlay = document.querySelector('.team__overlay');
-closeTeamBtn.addEventListener('click', onCloseModal);
-modalTeamOverlay.addEventListener('click', onOverlayClick);
+teamBtn.addEventListener('click', onOpenModal);
+backdrop.addEventListener('click', onOverlayClick);
 
 function onOpenModal() {
-  refs.modalFooterEl.classList.add('is-open');
+  renderModalTeam();
+
+  const closeTeamBtn = document.querySelector('[data-action="close-btn-team"]');
+
+  backdrop.classList.remove('is-hidden');
+  document.body.classList.add('modal-open');
+
   window.addEventListener('keydown', onKeyPress);
-  body.classList.add('scroll-hidden');
+  closeTeamBtn.addEventListener('click', onCloseModal);
 }
 
 function onKeyPress(event) {
@@ -34,13 +25,22 @@ function onKeyPress(event) {
 }
 
 function onCloseModal() {
-  refs.modalFooterEl.classList.remove('is-open');
+  backdrop.classList.add('is-hidden');
+  document.body.classList.remove('modal-open');
+
+  clearMarkup(backdrop);
+
   window.removeEventListener('keydown', onKeyPress);
-  body.classList.remove('scroll-hidden');
 }
 
 function onOverlayClick(event) {
   if (event.currentTarget === event.target) {
     onCloseModal();
   }
+}
+
+function renderModalTeam() {
+  const markup = modalTeam(teamList);
+
+  renderMarkup(backdrop, markup);
 }
