@@ -13,9 +13,12 @@ import {
   libraryButtonRef,
   headerDynamicContainerRef,
   listFilmsRef,
+  paginationRef,
 } from './common/refs';
 import { Notify } from './sweetAlert';
 import { getUserLibraryFromLocalStorage } from './localStorage'; //!!!! Добавила для получения масива из лс - Настя
+import { pagination } from './pagination';
+import paginationTmp from '../templates/pagination.hbs';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();
@@ -49,6 +52,8 @@ function onPageChange(e) {
     changePage(home);
     clearMarkup(listFilmsRef);
     listenInput();
+    paginationRef.classList.remove('visually-hidden');
+    normalizePaginationPage();
   }
 
   // Рендер разметки библиотеки при клике на кнопку my library
@@ -64,6 +69,7 @@ function onPageChange(e) {
 
     changePage(library);
     clearMarkup(listFilmsRef);
+    paginationRef.classList.add('visually-hidden');
 
     // Разметка очереди - Настя
     const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
@@ -95,3 +101,11 @@ function changePageHeaderClass() {
 }
 
 headerRef.addEventListener('click', onPageChange);
+
+function normalizePaginationPage() {
+  const paginationRef = document.querySelector('.pagination');
+
+  clearMarkup(paginationRef);
+  renderMarkup(paginationRef, paginationTmp());
+  pagination();
+}
