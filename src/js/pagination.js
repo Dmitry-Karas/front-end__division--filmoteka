@@ -20,7 +20,7 @@ export function pagination() {
       return;
     }
 
-    window.scrollTo({ top: 220, behavior: 'smooth' });
+    window.scrollTo({ top: 240, behavior: 'smooth' });
   }
 
   async function switchesPagesFilms(e) {
