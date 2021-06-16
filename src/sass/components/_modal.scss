@@ -27,18 +27,6 @@
 
 .card-poster {
   object-fit: cover;
-
-  // @include mobile-only {
-  //   width: 240px;
-  // }
-
-  // @include tablet-only {
-  //   width: 264px;
-  // }
-
-  // @include desktop-only {
-  //   width: 396px;
-  // }
 }
 
 .card-list {
@@ -258,6 +246,11 @@
   width: 30px;
   height: 30px;
   white-space: nowrap;
+
+  @include mobile-only {
+    top: 2px;
+    right: 5px;
+  }
 }
 
 .cl-btn .leftright {

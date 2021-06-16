@@ -1,7 +1,6 @@
 import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
-// import movieCatalogTpl from '../templates/movieСatalog.hbs';
 import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs'; //!!!! Настя
 import listenInput from './provideFilms';
 import { getCurrentUser } from './localStorage';
@@ -49,10 +48,18 @@ function onPageChange(e) {
   if (target === homeButtonRef || logoTarget || signOutBtnTarget) {
     const home = pageHeaderHomeTpl();
 
-    changePage(home);
-    clearMarkup(listFilmsRef);
-    listenInput();
-    paginationRef.classList.remove('visually-hidden');
+    document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeOut;';
+
+    setTimeout(() => {
+      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      paginationRef.classList.remove('visually-hidden');
+
+      changePage(home);
+      clearMarkup(listFilmsRef);
+      listenInput();
+      changeCurrentButtonClass();
+    }, 350);
+
     normalizePaginationPage();
   }
 
@@ -65,22 +72,25 @@ function onPageChange(e) {
       return;
     }
 
+    document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeOut;';
+
     const library = pageHeaderLibraryTpl();
+    setTimeout(() => {
+      const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
+      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      paginationRef.classList.add('visually-hidden');
 
-    changePage(library);
-    clearMarkup(listFilmsRef);
-    paginationRef.classList.add('visually-hidden');
+      changePage(library);
+      clearMarkup(listFilmsRef);
+      changeCurrentButtonClass();
 
-    // Разметка очереди - Настя
-    const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
-    renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
-    // Активная кнопка Queue - Настя
-    const queueLibBtn = document.querySelector('.library__button--Queue'); // !!!! Настя
-    queueLibBtn.classList.add('button--active'); // !!!! Настя
+      // Разметка очереди - Настя
+      renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
+      // Активная кнопка Queue - Настя
+      const queueLibBtn = document.querySelector('.library__button--Queue'); // !!!! Настя
+      queueLibBtn.classList.add('button--active'); // !!!! Настя
+    }, 350);
   }
-
-  // Смена класса активной кнопки
-  changeCurrentButtonClass();
 }
 
 function changePage(markup) {

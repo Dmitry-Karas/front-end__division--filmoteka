@@ -81,10 +81,13 @@ export class Authentication {
   }
 
   static async signOut() {
-    await firebase.auth().signOut();
+    setTimeout(() => {
+      firebase.auth().signOut();
 
-    removeUserLibraryFromLocalStorage();
-    Notify.signedOut();
+      removeUserLibraryFromLocalStorage();
+
+      Notify.signedOut();
+    }, 700);
   }
 
   static async checkUser() {
