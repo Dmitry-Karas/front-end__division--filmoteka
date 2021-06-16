@@ -31,7 +31,7 @@
 }
 
 .card-poster {
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card-list {
@@ -84,6 +84,7 @@
   &.active {
     background-color: var(--color-accent);
     color: #ffffff;
+    pointer-events: none;
   }
 }
 

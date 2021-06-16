@@ -5,6 +5,7 @@ import { backdrop, listFilmsRef } from './common/refs';
 import { getCurrentUser, getUserLibraryFromLocalStorage, checkFilm } from './localStorage';
 import { addSpinnerForModalWindow } from './common/spinner';
 import trailerTmp from '../templates/trailer.hbs';
+import bootstrap from 'bootstrap';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -115,7 +116,7 @@ async function addTrailerToModal(e) {
 
       const parent = document.querySelector('.carousel-inner');
       parent.firstElementChild.classList.add('active');
-      stopSliderModal();
+      // stopSliderModal();
     }
     if (trailer.length === 1) {
       const controllerPrev = document.querySelector('.carousel-control-prev');
