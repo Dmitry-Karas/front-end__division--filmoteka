@@ -26,6 +26,8 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "animate.min.css": "^0.0.3",
     "axios": "^0.21.1",
     "firebase": "^8.6.3",
     "lodash.debounce": "^4.0.8",
