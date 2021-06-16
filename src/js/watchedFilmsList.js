@@ -1,9 +1,9 @@
-// import watchedFilmsCard from '../templates/watchedFilmsCard.hbs';
-// import { listFilmsRef, watchedFilmList } from './common/refs';
-// import { openModal } from './modal';
+import watchedFilmsCard from '../templates/watchedFilmsCard.hbs';
+import { listFilmsRef, watchedFilmList } from './common/refs';
+import { openModal } from './modal';
 
-// listFilmsRef.addEventListener('click', createWatchedFilmList);
-// window.addEventListener('DOMContentLoaded', renderWatchedFilmsList);
+listFilmsRef.addEventListener('click', createWatchedFilmList);
+window.addEventListener('DOMContentLoaded', renderWatchedFilmsList);
 
 function createWatchedFilmList(e) {
   let watchedMovieList = JSON.parse(localStorage.getItem('watchedFilms')) || [];
