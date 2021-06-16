@@ -29,6 +29,7 @@
     "axios": "^0.21.1",
     "firebase": "^8.6.3",
     "lodash.debounce": "^4.0.8",
+    "smoothscroll-polyfill": "^0.4.4",
     "spin.js": "^4.1.0",
     "src": "^1.1.2",
     "sweetalert2": "^11.0.17",

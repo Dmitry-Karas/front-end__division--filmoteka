@@ -1,0 +1,29 @@
+.back2top {
+  position: fixed;
+
+  bottom: 60px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  opacity: 0;
+
+  font-size: 42px;
+  background-color: transparent;
+
+  transition: opacity 250ms ease-in-out, background-color 250ms ease-in-out,
+    transform 250ms ease-in-out;
+  background-color: #ff6b01;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 10px 5px;
+
+  &.show {
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.15);
+    }
+  }
+}
