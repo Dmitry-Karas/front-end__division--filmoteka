@@ -21,16 +21,16 @@ function createWatchedFilmList(e) {
     watchedMovieList.pop();
   }
   watchedMovieList.unshift(watchedMovieData);
-    localStorage.setItem('watchedFilms', JSON.stringify(watchedMovieList));
-    renderWatchedFilmsList(watchedMovieList);
+  localStorage.setItem('watchedFilms', JSON.stringify(watchedMovieList));
+  renderWatchedFilmsList(watchedMovieList);
 }
 
 function renderWatchedFilmsList() {
-    const watchedFilmsInLS = JSON.parse(localStorage.getItem('watchedFilms')) || [];
+  const watchedFilmsInLS = JSON.parse(localStorage.getItem('watchedFilms')) || [];
   if (watchedFilmsInLS.length === 0) {
     document.querySelector('.section_watched_films').style.display = 'none';
   } else {
-      document.querySelector('.section_watched_films').style.display = 'block';
+    document.querySelector('.section_watched_films').style.display = 'block';
   }
   const markupWatchedFilms = watchedFilmsCard(watchedFilmsInLS);
   watchedFilmList.innerHTML = markupWatchedFilms;

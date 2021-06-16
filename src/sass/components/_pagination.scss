@@ -26,6 +26,7 @@
     color: inherit;
     border-radius: 5px;
     border: none;
+    transition: background-color 250ms linear;
 
     &:not(:last-child) {
       margin-right: 10px;
@@ -36,12 +37,11 @@
   & button:hover {
     background-color: var(--color-accent);
     color: #ffffff;
-    transition: background-color 250ms linear;
   }
 
   & > button:hover .material-icons,
   & > a:hover .material-icons {
-    color: #ffffff;
+    // color: #ffffff;
   }
   & .material-icons {
     font-size: 16px;

@@ -7,25 +7,19 @@ const newFetchApiFilms = new NewFetchApiFilms();
 export function pagination() {
   const linkArrowLeftRef = document.querySelector('.pagination__arrow--left');
   const linkArrowRightRef = document.querySelector('.pagination__arrow--right');
-  const paginationListRef = document.querySelector('.pagination__list');
   const paginationNumberListRef = document.querySelector('.pagination__number-list');
 
   paginationNumberListRef.addEventListener('click', switchesPagesFilms);
   linkArrowRightRef.addEventListener('click', switchesPagesFilms);
   linkArrowLeftRef.addEventListener('click', switchesPagesFilms);
-  paginationListRef.addEventListener('click', scrollToTop);
 
-  function scrollToTop(e) {
-    if (e.target.nodeName !== 'A' && e.target.nodeName !== 'BUTTON') {
+  async function switchesPagesFilms(e) {
+    e.preventDefault();
+    if (e.target.nodeName === 'DIV') {
       return;
     }
 
     window.scrollTo({ top: 240, behavior: 'smooth' });
-  }
-
-  async function switchesPagesFilms(e) {
-    e.preventDefault();
-
     try {
       clearMarkup(listFilmsRef);
 

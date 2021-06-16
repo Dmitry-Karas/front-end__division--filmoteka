@@ -25,6 +25,10 @@ export default class NewFetchApiFilms {
     return await axios(`${this.url}movie/${id}?api_key=${this.key}&language=en-US`);
   }
 
+  async fetchTrailerById(id) {
+    return await axios(`${this.url}movie/${id}/videos?api_key=${this.key}&language=en-US`);
+  }
+
   async fetchGenreList() {
     return await axios(`${this.url}genre/movie/list?api_key=${this.key}`);
   }
