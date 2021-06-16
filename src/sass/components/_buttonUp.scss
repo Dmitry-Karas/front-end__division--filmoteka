@@ -1,0 +1,55 @@
+.back2top {
+  position: fixed;
+
+  padding: 6px 0;
+  bottom: 50px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  opacity: 0;
+  border: 2px solid #ff6b01aa;
+  font-size: 32px;
+
+  color: #ff6b01aa;
+
+  background-color: transparent;
+
+  transition: all 250ms var(--timing-function);
+
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%);
+
+  @include mobile-only {
+    width: 35px;
+    height: 35px;
+    right: 20px;
+
+    font-size: 28px;
+  }
+
+  @include tablet-only {
+    right: calc(50% - 367px);
+  }
+
+  @include desktop-only {
+    right: calc(50% - 497px);
+  }
+
+  &.show {
+    opacity: 0.6;
+
+    body.dark-theme & {
+      color: var(--color-light);
+    }
+
+    &:hover {
+      opacity: 0.9;
+      transform: scale(1.1);
+      color: var(--color-light);
+      background-color: var(--color-accent);
+    }
+  }
+}
