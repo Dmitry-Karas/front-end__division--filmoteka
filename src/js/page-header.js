@@ -46,15 +46,18 @@ function onPageChange(e) {
 
   // Рендер разметки домашней страницы при клике на кнопку home или логотип
   if (target === homeButtonRef || logoTarget || signOutBtnTarget) {
-    document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeOut;';
     const home = pageHeaderHomeTpl();
+
+    document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeOut;';
+
     setTimeout(() => {
+      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      paginationRef.classList.remove('visually-hidden');
+
       changePage(home);
       clearMarkup(listFilmsRef);
       listenInput();
-      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
       changeCurrentButtonClass();
-      paginationRef.classList.remove('visually-hidden');
     }, 350);
 
     normalizePaginationPage();
@@ -73,24 +76,21 @@ function onPageChange(e) {
 
     const library = pageHeaderLibraryTpl();
     setTimeout(() => {
+      const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
+      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      paginationRef.classList.add('visually-hidden');
+
       changePage(library);
       clearMarkup(listFilmsRef);
-      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      changeCurrentButtonClass();
 
       // Разметка очереди - Настя
-      const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
       renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
       // Активная кнопка Queue - Настя
       const queueLibBtn = document.querySelector('.library__button--Queue'); // !!!! Настя
       queueLibBtn.classList.add('button--active'); // !!!! Настя
-      changeCurrentButtonClass();
-      changePage(library);
-      clearMarkup(listFilmsRef);
-      paginationRef.classList.add('visually-hidden');
     }, 350);
   }
-
-  // Смена класса активной кнопки
 }
 
 function changePage(markup) {
