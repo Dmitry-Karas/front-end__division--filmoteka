@@ -1,11 +1,16 @@
 import NewFetchApiFilms from './apiService';
 import filmsGalleryTmp from '../templates/movieСatalog.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
-import { listFilmsRef, searchErrRef } from './common/refs';
+import { listFilmsRef, searchErrRef, paginationRef } from './common/refs';
 import debounce from 'lodash.debounce';
 import { addSpinnersForMoviesItems, stopSpinner } from './common/spinner';
+import paginationTmp from '../templates/pagination.hbs';
+import { pagination } from './pagination';
 
 const newFetchApiFilms = new NewFetchApiFilms();
+
+renderMarkup(paginationRef, paginationTmp());
+pagination();
 
 export default function listenInput() {
   const inputRef = document.querySelector('.search-form__input');
