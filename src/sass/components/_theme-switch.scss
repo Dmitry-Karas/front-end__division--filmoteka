@@ -1,8 +1,7 @@
 .theme-switch {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
+  position:absolute;
+  top: 15px;
+  right:15px;
   transition: color 150ms var(--timing-function);
 }
 
@@ -64,7 +63,7 @@
 }
 
 .theme-switch__toggle:checked + .theme-switch__track {
-  background-color: var(--color-accent);
+  background-color: #ff6b01aa;
 }
 
 .theme-switch__toggle:checked ~ .theme-switch__marker {

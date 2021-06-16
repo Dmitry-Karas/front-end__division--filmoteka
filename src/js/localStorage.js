@@ -1,12 +1,11 @@
 import NewFetchApiFilms from './apiService';
 import { renderMarkup, clearMarkup } from './common/functions';
-import movieCatalogTpl from '../templates/movieСatalog.hbs';
-import { listFilmsRef } from './common/refs';
+import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs';
+import { listFilmsRef, libraryButtonRef, homeButtonRef } from './common/refs';
 import { Database } from './firebase';
 import { Notify } from './sweetAlert';
 
 const libraryRef = document.querySelector('.js-dynamic-container');
-// const { watched, queue } = getUserLibraryFromLocalStorage();
 const newFetchApiFilm = new NewFetchApiFilms();
 const backdrop = document.querySelector('.backdrop');
 
@@ -20,21 +19,21 @@ class Lib {
 
   watched() {
     clearMarkup(listFilmsRef);
-    library.watched = JSON.parse(localStorage.getItem('watched')); // use function
-    renderMarkup(listFilmsRef, movieCatalogTpl(library.watched));
+    const { watched } = getUserLibraryFromLocalStorage();
+    renderMarkup(listFilmsRef, movieCatalogLibraryTpl(watched));
   }
 
   queue() {
     clearMarkup(listFilmsRef);
-    library.queue = JSON.parse(localStorage.getItem('queue')); // use function
-    renderMarkup(listFilmsRef, movieCatalogTpl(library.queue));
+    const { queue } = getUserLibraryFromLocalStorage();
+    renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue));
   }
 
   onClick(event) {
     const watchLibBtn = document.querySelector('[data-action="watched"]');
     const queueLibBtn = document.querySelector('[data-action="queue"]');
 
-    let action = event.target.dataset.action; // let ???
+    const action = event.target.dataset.action;
 
     if (event.target.nodeName !== 'BUTTON') {
       return;
@@ -42,15 +41,18 @@ class Lib {
 
     event.target.classList.add('button--active');
 
-    // switch refactoring
-    if (event.target === watchLibBtn) {
-      event.target.classList.add('button--active');
-      queueLibBtn.classList.remove('button--active');
+    switch (event.target) {
+      case watchLibBtn:
+        event.target.classList.add('button--active');
+        queueLibBtn.classList.remove('button--active');
+        break;
+
+      case queueLibBtn:
+        event.target.classList.add('button--active');
+        watchLibBtn.classList.remove('button--active');
+        break;
     }
-    if (event.target === queueLibBtn) {
-      event.target.classList.add('button--active');
-      watchLibBtn.classList.remove('button--active');
-    }
+
     if (action) {
       this[action]();
     }
@@ -71,6 +73,8 @@ async function onModalWindow(e) {
     const queueBtn = e.target.classList.contains('button-queue');
     const user = getCurrentUser();
     const { watched, queue } = getUserLibraryFromLocalStorage();
+    const activeLibrary = libraryButtonRef.classList.contains('site-nav__button--current');
+    const activeHome = homeButtonRef.classList.contains('site-nav__button--current');
 
     if (!user) {
       return Notify.needToSignIn();
@@ -82,50 +86,136 @@ async function onModalWindow(e) {
       .catch(error => {
         console.log(error);
       });
+
     const watchedFilm = checkFilm(watched, movieId);
     const queuedFilm = checkFilm(queue, movieId);
 
-    if (watchedBtn) {
-      e.target.textContent === 'add to watched'
-        ? (e.target.textContent = 'remove from watched')
-        : (e.target.textContent = 'add to watched');
+    if (activeHome) {
+      if (watchedBtn) {
+        e.target.textContent === 'add to watched'
+          ? (e.target.textContent = 'remove from watched')
+          : (e.target.textContent = 'add to watched');
 
-      if (watchedFilm) {
-        const index = watched.indexOf(watchedFilm);
+        if (watchedFilm) {
+          const index = watched.indexOf(watchedFilm);
 
-        watched.splice(index, 1);
-        Database.writeUserLibrary(user, { watched, queue });
-        addUserLibraryToLocalStorage(watched, queue);
-        return;
+          removeFilmFromLocalStorage(watched, index);
+
+          await Database.writeUserLibrary(user, { watched, queue });
+
+          addUserLibraryToLocalStorage(watched, queue);
+
+          return;
+        }
+
+        watched.unshift(film);
+
+        await Database.writeUserLibrary(user, { watched, queue });
       }
 
-      watched.unshift(film);
-      Database.writeUserLibrary(user, { watched, queue });
+      if (queueBtn) {
+        e.target.textContent === 'add to queue'
+          ? (e.target.textContent = 'remove from queue')
+          : (e.target.textContent = 'add to queue');
+
+        if (queuedFilm) {
+          const index = queue.indexOf(queuedFilm);
+
+          removeFilmFromLocalStorage(queue, index);
+
+          await Database.writeUserLibrary(user, { watched, queue });
+
+          addUserLibraryToLocalStorage(watched, queue);
+
+          return;
+        }
+
+        queue.unshift(film);
+
+        await Database.writeUserLibrary(user, { watched, queue });
+      }
     }
 
-    if (queueBtn) {
-      e.target.textContent === 'add to queue'
-        ? (e.target.textContent = 'remove from queue')
-        : (e.target.textContent = 'add to queue');
+    if (activeLibrary) {
+      const watchLibBtn = document.querySelector('[data-action="watched"]');
+      const queueLibBtn = document.querySelector('[data-action="queue"]');
+      const activeWatchLibBtn = watchLibBtn.classList.contains('button--active');
+      const activeQueueLibBtn = queueLibBtn.classList.contains('button--active');
 
-      if (queuedFilm) {
-        const index = queue.indexOf(queuedFilm);
+      if (watchedBtn) {
+        e.target.textContent === 'add to watched'
+          ? (e.target.textContent = 'remove from watched')
+          : (e.target.textContent = 'add to watched');
 
-        queue.splice(index, 1);
+        if (watchedFilm) {
+          const index = watched.indexOf(watchedFilm);
 
-        Database.writeUserLibrary(user, { watched, queue });
-        addUserLibraryToLocalStorage(watched, queue);
-        return;
+          removeFilmFromLocalStorage(watched, index);
+
+          await Database.writeUserLibrary(user, { watched, queue });
+
+          addUserLibraryToLocalStorage(watched, queue);
+
+          if (activeLibrary && !activeQueueLibBtn) {
+            renderMarkupAfterChosenFilm(watched);
+          }
+
+          return;
+        }
+
+        watched.unshift(film);
+
+        await Database.writeUserLibrary(user, { watched, queue });
+
+        if (activeLibrary && !activeQueueLibBtn) {
+          renderMarkupAfterChosenFilm(watched);
+        }
       }
 
-      queue.unshift(film);
-      Database.writeUserLibrary(user, { watched, queue });
+      if (queueBtn) {
+        e.target.textContent === 'add to queue'
+          ? (e.target.textContent = 'remove from queue')
+          : (e.target.textContent = 'add to queue');
+
+        if (queuedFilm) {
+          const index = queue.indexOf(queuedFilm);
+
+          removeFilmFromLocalStorage(queue, index);
+
+          await Database.writeUserLibrary(user, { watched, queue });
+
+          addUserLibraryToLocalStorage(watched, queue);
+
+          if (activeLibrary && !activeWatchLibBtn) {
+            renderMarkupAfterChosenFilm(queue);
+          }
+
+          return;
+        }
+
+        queue.unshift(film);
+
+        await Database.writeUserLibrary(user, { watched, queue });
+
+        if (activeLibrary && !activeWatchLibBtn) {
+          renderMarkupAfterChosenFilm(queue);
+        }
+      }
     }
 
     addUserLibraryToLocalStorage(watched, queue);
   } catch (error) {
     console.log(error);
   }
+}
+
+function renderMarkupAfterChosenFilm(arr) {
+  clearMarkup(listFilmsRef);
+  renderMarkup(listFilmsRef, movieCatalogLibraryTpl(arr));
+}
+
+function removeFilmFromLocalStorage(arr, index) {
+  arr.splice(index, 1);
 }
 
 export function checkFilm(arr, movieId) {

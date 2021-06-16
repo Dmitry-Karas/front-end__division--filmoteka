@@ -38,8 +38,7 @@
 }
 
 .movie__name {
-  height: 32px;
-  // margin-bottom: 5px;
+  height: 28px;
 
   font-style: normal;
   font-weight: 500;
@@ -115,7 +114,19 @@
     margin-left: 15px;
     margin-top: 15px;
   }
+
   .movie__photo {
     height: 298px;
   }
+}
+
+.genre:not(:nth-last-child(2))::after {
+  content: ',';
+}
+
+.release-date {
+  display: inline-flex;
+  overflow: hidden;
+  width: 26px;
+  white-space: nowrap;
 }
