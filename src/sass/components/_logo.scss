@@ -1,6 +1,9 @@
 .logo {
   display: inline-block;
   margin-right: auto;
+  cursor: pointer;
+  animation-name: bounceInDown;
+  animation-duration: 1500ms;
 }
 
 .logo__title {

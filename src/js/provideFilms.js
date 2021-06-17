@@ -1,10 +1,17 @@
 import NewFetchApiFilms from './apiService';
 import filmsGalleryTmp from '../templates/movieСatalog.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
-import { listFilmsRef } from './common/refs';
+import { listFilmsRef, searchErrRef, paginationRef } from './common/refs';
 import debounce from 'lodash.debounce';
+import { addSpinnersForMoviesItems, stopSpinner } from './common/spinner';
+import paginationTmp from '../templates/pagination.hbs';
+import { pagination } from './pagination';
+import { normalizePaginationPage } from './page-header';
 
 const newFetchApiFilms = new NewFetchApiFilms();
+
+renderMarkup(paginationRef, paginationTmp());
+pagination();
 
 export default function listenInput() {
   const inputRef = document.querySelector('.search-form__input');
@@ -18,8 +25,8 @@ export async function showPopularFilms(e) {
     const films = await newFetchApiFilms
       .fetchApiPopularFilms()
       .then(response => response.data.results);
-
     addGenreToFilm(films);
+    stopSpinner();
   } catch (error) {
     console.log(error);
   }
@@ -27,15 +34,23 @@ export async function showPopularFilms(e) {
 
 async function searchNewFilm(e) {
   try {
+    searchErrRef.classList.add('visually-hidden');
+
     if (e.target.value === '') {
       clearMarkup(listFilmsRef);
       showPopularFilms();
+      normalizePaginationPage();
     } else {
       newFetchApiFilms.query = e.target.value;
 
       const films = await newFetchApiFilms.fetchApiFilms().then(response => response.data.results);
 
+      if (!films.length) {
+        searchErrRef.classList.remove('visually-hidden');
+      }
+
       clearMarkup(listFilmsRef);
+      clearMarkup(paginationRef);
       addGenreToFilm(films);
     }
   } catch (error) {
@@ -52,9 +67,13 @@ export async function addGenreToFilm(films) {
         return genres.find(genre => genre.id == id).name;
       })
       .join(', ');
-    return { ...film, genre: genreArray, release_date: Number.parseInt(film.release_date) };
+    return {
+      ...film,
+      genre: genreArray,
+      release_date: parseInt(film.release_date) || '\u2015',
+    };
   });
-  console.log('filmsWithGenre', filmsWithGenre);
 
   renderMarkup(listFilmsRef, filmsGalleryTmp(filmsWithGenre));
+  addSpinnersForMoviesItems();
 }

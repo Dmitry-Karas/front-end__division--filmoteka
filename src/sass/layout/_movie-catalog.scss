@@ -2,11 +2,13 @@
   padding-top: 60px;
   padding-bottom: 60px;
 }
+
 .movie__list {
   display: flex;
   flex-wrap: wrap;
   margin-left: -30px;
   margin-top: -30px;
+  min-height: 230px;
 }
 
 .movie__item {
@@ -19,10 +21,26 @@
   width: 100%;
   margin-bottom: 10px;
   border-radius: 5px;
+  outline: none;
+  object-fit: cover;
+
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%);
+
+  transition: all 250ms var(--timing-function);
+
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    transform: scale(1.05) translateY(-5px);
+    -webkit-box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+    -moz-box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+    box-shadow: 0px 5px 14px 2px rgba(0, 0, 0, 0.55);
+  }
 }
 
 .movie__name {
-  margin-bottom: 5px;
+  height: 28px;
 
   font-style: normal;
   font-weight: 500;
@@ -38,6 +56,7 @@
 }
 
 .movie__genres {
+  display: inline-block;
   margin-right: 10px;
 
   font-style: normal;
@@ -49,7 +68,7 @@
 }
 
 .movie__rating {
-  width: 36px;
+  min-width: 36px;
   height: 16px;
   border-radius: 5px;
 
@@ -71,6 +90,7 @@
 
   .movie__item {
     &:not(:last-child) {
+      width: 100%;
       margin-bottom: 20px;
     }
   }
@@ -86,7 +106,52 @@
 }
 
 @media screen and (min-width: 1024px) {
+  .movie__list {
+    margin-left: -15px;
+    margin-top: -15px;
+  }
+
   .movie__item {
-    width: calc(100% / 3 - 30px);
+    width: calc(100% / 4 - 15px);
+    margin-left: 15px;
+    margin-top: 15px;
+  }
+
+  .movie__photo {
+    height: 298px;
+  }
+}
+
+.genre:not(:nth-last-child(2))::after {
+  content: ',';
+}
+
+.release-date {
+  display: inline-flex;
+  overflow: hidden;
+  width: 26px;
+  white-space: nowrap;
+}
+
+.nothing-here-img {
+  border-radius: 20px;
+
+  box-shadow: 0px 5px 14px 2px rgb(0 0 0 / 55%);
+
+  @include mobile-only {
+    margin-top: 50px;
+    margin-bottom: auto;
+    margin-left: 15px;
+    height: 200px;
+  }
+
+  @include tablet-only {
+    margin-top: 30px;
+    margin-bottom: auto;
+    margin-left: 15px;
+  }
+
+  @include desktop-only {
+    margin-left: 5px;
   }
 }

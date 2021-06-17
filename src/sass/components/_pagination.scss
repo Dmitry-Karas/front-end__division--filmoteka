@@ -1,0 +1,112 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination__list {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 50px;
+  font-weight: 500;
+
+  & .pagination__number-list {
+    display: flex;
+  }
+
+  & .pagination__number:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  & .pagination__number,
+  & > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
+
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 5px;
+    border: none;
+
+    transition: all 250ms var(--timing-function);
+  }
+
+  & a.pagination__number:hover,
+  & button:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+
+  & > button:hover .material-icons,
+  & > a:hover .material-icons {
+    color: #ffffff;
+  }
+  & .material-icons {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    transition: all 250ms var(--timing-function);
+  }
+}
+.pagination__arrow {
+  background: #f7f7f7;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%);
+
+  body.dark-theme & {
+    background-color: #292929;
+
+    & .material-icons {
+      color: var(--color-light);
+    }
+
+    &:hover {
+      background-color: var(--color-accent);
+    }
+  }
+}
+
+.pagination__arrow.disabled {
+  pointer-events: none;
+  background-color: #f7f7f7;
+
+  box-shadow: none;
+  &:hover {
+    background-color: #f7f7f7;
+  }
+  & .material-icons,
+  &:hover .material-icons {
+    color: #bdbdbd;
+
+    body.dark-theme & {
+      color: var(--color-dark);
+    }
+  }
+}
+
+.pagination__arrow--left {
+  margin-right: 40px;
+}
+
+.pagination__arrow--right {
+  margin-left: 40px;
+}
+
+.pointer-events {
+  pointer-events: none;
+}
+
+a.pagination__number.pagination__number--active {
+  background-color: var(--color-accent);
+  color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 2px 1px -1px rgb(0 0 0 / 12%);
+}

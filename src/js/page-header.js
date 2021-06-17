@@ -1,7 +1,9 @@
 import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
 import { renderMarkup, clearMarkup } from './common/functions';
+import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs'; //!!!! Настя
 import listenInput from './provideFilms';
+import { getCurrentUser } from './localStorage';
 import {
   headerRef,
   logoRef,
@@ -10,7 +12,13 @@ import {
   libraryButtonRef,
   headerDynamicContainerRef,
   listFilmsRef,
+  paginationRef,
 } from './common/refs';
+import { Notify } from './sweetAlert';
+import { getUserLibraryFromLocalStorage } from './localStorage'; //!!!! Добавила для получения масива из лс - Настя
+import { pagination } from './pagination';
+import paginationTmp from '../templates/pagination.hbs';
+import nothingHereImg from '../images/nothing-here.jpg';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();
@@ -18,38 +26,79 @@ listenInput();
 // Меняет интерфейс хэдэра при выборе страницы
 function onPageChange(e) {
   const target = e.target; // Кликнутый элемент
-  const currentButton = navListRef.querySelector('.site-nav__button--current'); // Кнопка текущей страницы
-
+  const currentButtonRef = navListRef.querySelector('.site-nav__button--current'); // Кнопка текущей страницы
+  const currentButtonTarget = target === currentButtonRef;
+  const logoTarget = target.closest('a') === logoRef;
+  const navButtonTarget = target.className === 'site-nav__button';
+  const signOutBtnTarget = target.textContent === 'Sign out';
   // Выход из функции, если...
   if (
     // Клик по текущей кнопке
-    target === currentButton ||
-    // Клик не по кнопкам навигации
-    (target.closest('a') !== logoRef && target.className !== 'site-nav__button') ||
+    currentButtonTarget ||
+    // Клик не по кнопкам навигации и ЛК
+    (!logoTarget && !navButtonTarget && !signOutBtnTarget) ||
     // Клик по лого на домашней странице
-    (target.closest('a') === logoRef && homeButtonRef === currentButton)
+    (logoTarget && homeButtonRef === currentButtonRef) ||
+    // Выход из ЛК на домашней странице
+    (signOutBtnTarget && homeButtonRef === currentButtonRef)
   ) {
     return;
   }
 
   // Рендер разметки домашней страницы при клике на кнопку home или логотип
-  if (target === homeButtonRef || target.closest('a') === logoRef) {
+  if (target === homeButtonRef || logoTarget || signOutBtnTarget) {
     const home = pageHeaderHomeTpl();
 
-    changePage(home);
-    listenInput();
+    document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeOut;';
+
+    setTimeout(() => {
+      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      paginationRef.classList.remove('visually-hidden');
+
+      changePage(home);
+      clearMarkup(listFilmsRef);
+      listenInput();
+      changeCurrentButtonClass();
+    }, 350);
+
+    normalizePaginationPage();
   }
 
   // Рендер разметки библиотеки при клике на кнопку my library
   if (target === libraryButtonRef) {
+    const user = getCurrentUser();
+
+    if (!user) {
+      Notify.needToSignIn();
+      return;
+    }
+
+    document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeOut;';
+
     const library = pageHeaderLibraryTpl();
+    setTimeout(() => {
+      const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
 
-    changePage(library);
-    clearMarkup(listFilmsRef);
+      document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
+      paginationRef.classList.add('visually-hidden');
+
+      changePage(library);
+      clearMarkup(listFilmsRef);
+      changeCurrentButtonClass();
+
+      if (!queue.length) {
+        renderMarkup(
+          listFilmsRef,
+          `<img class="nothing-here-img" src="${nothingHereImg}" alt="nothing-here-yet">`,
+        );
+      }
+      // Разметка очереди - Настя
+      renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
+      // Активная кнопка Queue - Настя
+      const queueLibBtn = document.querySelector('.library__button--Queue'); // !!!! Настя
+      queueLibBtn.classList.add('button--active'); // !!!! Настя
+    }, 350);
   }
-
-  // Смена класса активной кнопки
-  changeCurrentButtonClass();
 }
 
 function changePage(markup) {
@@ -70,3 +119,11 @@ function changePageHeaderClass() {
 }
 
 headerRef.addEventListener('click', onPageChange);
+
+export function normalizePaginationPage() {
+  const paginationRef = document.querySelector('.pagination');
+
+  clearMarkup(paginationRef);
+  renderMarkup(paginationRef, paginationTmp());
+  pagination();
+}

@@ -1,7 +1,7 @@
-export  function renderMarkup(parent, markup) {
+export function renderMarkup(parent, markup) {
   parent.insertAdjacentHTML('beforeend', markup);
 }
 
-export  function clearMarkup (parent) {
+export function clearMarkup(parent) {
   parent.innerHTML = '';
 }

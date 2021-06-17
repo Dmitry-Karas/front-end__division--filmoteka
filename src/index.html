@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,13 +21,26 @@
     <!-- Так добавляются фрагменты в главные HTML-файлы страниц. -->
     <include src="./partials/page-header.html"></include>
 
-    <main>
+    <main class="main">
       <section class="movie">
         <div class="container">
+          <h1 class="visually-hidden">Movies</h1>
           <ul class="movie__list"></ul>
+          <div class="pagination"></div>
         </div>
       </section>
+      <include src="./partials/watchedFilmsList.html"></include>
     </main>
+
+    <include src="./partials/footer.html"></include>
+
+    <button type="button" class="back2top">
+      <span class="material-icons">
+        expand_less
+      </span>
+    </button>
+
+    <div class="backdrop is-hidden" data-modal></div>
 
     <!-- Скрипт идёт последним в разметке. В нём уже подключен главный SASS-файл. -->
     <script src="./index.js"></script>

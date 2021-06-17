@@ -3,10 +3,10 @@
   "version": "1.1.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://dmitry-karas.github.io/front-end__division--filmoteka",
+  "homepage": "https://dmitry-karas.github.io/test-team-project",
   "scripts": {
     "dev": "parcel src/*.html -p 80",
-    "build": "parcel build src/*.html --public-url /front-end__division--filmoteka/"
+    "build": "parcel build src/*.html --public-url /test-team-project/"
   },
   "repository": {
     "type": "git",
@@ -26,10 +26,15 @@
     "sass": "^1.32.8"
   },
   "dependencies": {
+    "animate.css": "^4.1.1",
+    "animate.min.css": "^0.0.3",
     "axios": "^0.21.1",
+    "firebase": "^8.6.3",
     "lodash.debounce": "^4.0.8",
+    "smoothscroll-polyfill": "^0.4.4",
     "spin.js": "^4.1.0",
     "src": "^1.1.2",
+    "sweetalert2": "^11.0.17",
     "templates": "^1.2.9"
   }
 }
