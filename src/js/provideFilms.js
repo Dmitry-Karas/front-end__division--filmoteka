@@ -50,6 +50,7 @@ async function searchNewFilm(e) {
       }
 
       clearMarkup(listFilmsRef);
+      clearMarkup(paginationRef);
       addGenreToFilm(films);
     }
   } catch (error) {
