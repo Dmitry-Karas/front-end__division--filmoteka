@@ -6,6 +6,7 @@ import debounce from 'lodash.debounce';
 import { addSpinnersForMoviesItems, stopSpinner } from './common/spinner';
 import paginationTmp from '../templates/pagination.hbs';
 import { pagination } from './pagination';
+import { normalizePaginationPage } from './page-header';
 
 const newFetchApiFilms = new NewFetchApiFilms();
 
@@ -24,7 +25,6 @@ export async function showPopularFilms(e) {
     const films = await newFetchApiFilms
       .fetchApiPopularFilms()
       .then(response => response.data.results);
-
     addGenreToFilm(films);
     stopSpinner();
   } catch (error) {
@@ -39,6 +39,7 @@ async function searchNewFilm(e) {
     if (e.target.value === '') {
       clearMarkup(listFilmsRef);
       showPopularFilms();
+      normalizePaginationPage();
     } else {
       newFetchApiFilms.query = e.target.value;
 
@@ -49,6 +50,7 @@ async function searchNewFilm(e) {
       }
 
       clearMarkup(listFilmsRef);
+      clearMarkup(paginationRef);
       addGenreToFilm(films);
     }
   } catch (error) {

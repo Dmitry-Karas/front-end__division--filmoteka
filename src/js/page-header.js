@@ -120,7 +120,7 @@ function changePageHeaderClass() {
 
 headerRef.addEventListener('click', onPageChange);
 
-function normalizePaginationPage() {
+export function normalizePaginationPage() {
   const paginationRef = document.querySelector('.pagination');
 
   clearMarkup(paginationRef);
