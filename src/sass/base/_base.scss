@@ -12,9 +12,6 @@ body {
 
   transition: color 150ms var(--timing-function), background-color 250ms var(--timing-function);
 
-  // animation-name: fadeInDownBig;
-  // animation-duration: 2000ms;
-
   &.modal-open {
     overflow: hidden;
     transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);

@@ -35,6 +35,11 @@
     border: none;
 
     transition: all 250ms var(--timing-function);
+
+    @include mobile-only {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   & a.pagination__number:hover,
@@ -94,10 +99,18 @@
 
 .pagination__arrow--left {
   margin-right: 40px;
+
+  @include mobile-only {
+    margin-right: 20px;
+  }
 }
 
 .pagination__arrow--right {
   margin-left: 40px;
+
+  @include mobile-only {
+    margin-left: 20px;
+  }
 }
 
 .pointer-events {
