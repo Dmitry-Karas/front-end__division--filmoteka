@@ -4,6 +4,7 @@ import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs';
 import { listFilmsRef, libraryButtonRef, homeButtonRef } from './common/refs';
 import { Database } from './firebase';
 import { Notify } from './sweetAlert';
+import nothingHereImg from '../images/nothing-here.jpg';
 
 const libraryRef = document.querySelector('.js-dynamic-container');
 const newFetchApiFilm = new NewFetchApiFilms();
@@ -20,12 +21,27 @@ class Lib {
   watched() {
     clearMarkup(listFilmsRef);
     const { watched } = getUserLibraryFromLocalStorage();
+
+    if (!watched.length) {
+      renderMarkup(
+        listFilmsRef,
+        `<img class="nothing-here-img" src="${nothingHereImg}" alt="nothing-here-yet">`,
+      );
+    }
     renderMarkup(listFilmsRef, movieCatalogLibraryTpl(watched));
   }
 
   queue() {
     clearMarkup(listFilmsRef);
     const { queue } = getUserLibraryFromLocalStorage();
+
+    if (!queue.length) {
+      renderMarkup(
+        listFilmsRef,
+        `<img class="nothing-here-img" src="${nothingHereImg}" alt="nothing-here-yet">`,
+      );
+    }
+
     renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue));
   }
 
@@ -160,6 +176,13 @@ async function onModalWindow(e) {
             renderMarkupAfterChosenFilm(watched);
           }
 
+          if (!watched.length) {
+            renderMarkup(
+              listFilmsRef,
+              `<img class="nothing-here-img" src="${nothingHereImg}" alt="nothing-here-yet">`,
+            );
+          }
+
           return;
         }
 
@@ -188,6 +211,13 @@ async function onModalWindow(e) {
 
           if (activeLibrary && !activeWatchLibBtn) {
             renderMarkupAfterChosenFilm(queue);
+          }
+
+          if (!queue.length) {
+            renderMarkup(
+              listFilmsRef,
+              `<img class="nothing-here-img" src="${nothingHereImg}" alt="nothing-here-yet">`,
+            );
           }
 
           return;

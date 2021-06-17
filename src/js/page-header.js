@@ -18,6 +18,7 @@ import { Notify } from './sweetAlert';
 import { getUserLibraryFromLocalStorage } from './localStorage'; //!!!! Добавила для получения масива из лс - Настя
 import { pagination } from './pagination';
 import paginationTmp from '../templates/pagination.hbs';
+import nothingHereImg from '../images/nothing-here.jpg';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();
@@ -77,6 +78,7 @@ function onPageChange(e) {
     const library = pageHeaderLibraryTpl();
     setTimeout(() => {
       const { queue } = getUserLibraryFromLocalStorage(); // !!!! Настя
+
       document.body.style.cssText = 'animation-duration: 350ms; animation-name: fadeIn;';
       paginationRef.classList.add('visually-hidden');
 
@@ -84,6 +86,12 @@ function onPageChange(e) {
       clearMarkup(listFilmsRef);
       changeCurrentButtonClass();
 
+      if (!queue.length) {
+        renderMarkup(
+          listFilmsRef,
+          `<img class="nothing-here-img" src="${nothingHereImg}" alt="nothing-here-yet">`,
+        );
+      }
       // Разметка очереди - Настя
       renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
       // Активная кнопка Queue - Настя

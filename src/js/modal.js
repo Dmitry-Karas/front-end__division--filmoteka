@@ -15,7 +15,10 @@ window.addEventListener('keydown', onPressEscKey);
 export async function openModal(e) {
   try {
     const movieId = e.target.dataset.movieId;
-    if (e.target.nodeName !== 'IMG') {
+    if (
+      !e.target.classList.contains('movie__photo') &&
+      !e.target.classList.contains('watched_movie__photo')
+    ) {
       return;
     }
 
