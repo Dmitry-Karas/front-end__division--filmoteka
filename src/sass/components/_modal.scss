@@ -82,6 +82,8 @@
   border-radius: 5px;
   cursor: pointer;
 
+  transition: all 250ms var(--timing-function);
+
   &.active {
     background-color: var(--color-accent);
     color: #ffffff;
@@ -126,7 +128,9 @@
 
 .card-list-genres {
   display: inline-flex;
+  overflow: scroll;
 }
+
 .card-item-genre:not(:last-child) {
   margin-right: 5px;
 
@@ -183,7 +187,6 @@
   .modal-window {
     display: flex;
     width: 618px;
-    // min-height: 562px;
     padding-top: 42px;
     padding-bottom: 40px;
     padding-right: 30px;
