@@ -112,18 +112,10 @@ async function addTrailerToModal(e) {
 
     const id = e.target.getAttribute('data-movie-id');
     const trailer = await newFetchApiFilms.fetchTrailerById(id).then(res => res.data.results);
+    console.log('trailer', trailer[0]);
 
     if (trailer.length > 0) {
-      renderMarkup(cardTrailerRef, trailerTmp(trailer));
-
-      const parent = document.querySelector('.carousel-inner');
-      parent.firstElementChild.classList.add('active');
-    }
-    if (trailer.length === 1) {
-      const controllerPrev = document.querySelector('.carousel-control-prev');
-      const controllerNext = document.querySelector('.carousel-control-next');
-      controllerPrev.classList.add('visually-hidden');
-      controllerNext.classList.add('visually-hidden');
+      renderMarkup(cardTrailerRef, trailerTmp(trailer[0]));
     }
     if (trailer.length === 0) {
       renderMarkup(
