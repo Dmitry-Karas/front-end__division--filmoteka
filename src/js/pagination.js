@@ -13,6 +13,9 @@ export function pagination() {
   linkArrowRightRef.addEventListener('click', switchesPagesFilms);
   linkArrowLeftRef.addEventListener('click', switchesPagesFilms);
 
+  const num = 1;
+  newFetchApiFilms.selectsPageNumber(num);
+
   async function switchesPagesFilms(e) {
     e.preventDefault();
     if (e.target.nodeName === 'DIV') {
