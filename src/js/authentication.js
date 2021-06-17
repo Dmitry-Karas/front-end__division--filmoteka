@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 import { Authentication } from './firebase';
 import { authBtnRef } from './common/refs';
-import { authModal, Notify } from './sweetAlert';
+import { authModal } from './sweetAlert';
 import { getCurrentUser } from './localStorage';
 
 Authentication.checkUser();
@@ -119,32 +119,3 @@ function onAuthModalOpen(e) {
       }
   }
 }
-
-// export function saveCurrentUser({ uid, email }) {
-//   return localStorage.setItem('user', JSON.stringify({ uid, email }));
-// }
-
-// export function getCurrentUser() {
-//   return JSON.parse(localStorage.getItem('user'));
-// }
-
-// export function removeCurrentUser() {
-//   return localStorage.removeItem('user');
-// }
-
-// export function addUserLibraryToLocalStorage(watched, queue) {
-//   localStorage.setItem('watched', JSON.stringify(watched));
-//   localStorage.setItem('queue', JSON.stringify(queue));
-// }
-
-// export function getUserLibraryFromLocalStorage() {
-//   const watched = JSON.parse(localStorage.getItem('watched'));
-//   const queue = JSON.parse(localStorage.getItem('queue'));
-
-//   return { watched, queue };
-// }
-
-// export function removeUserLibraryFromLocalStorage() {
-//   localStorage.removeItem('watched');
-//   localStorage.removeItem('queue');
-// }

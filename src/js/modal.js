@@ -112,7 +112,6 @@ async function addTrailerToModal(e) {
 
     const id = e.target.getAttribute('data-movie-id');
     const trailer = await newFetchApiFilms.fetchTrailerById(id).then(res => res.data.results);
-    console.log('trailer', trailer[0]);
 
     if (trailer.length > 0) {
       renderMarkup(cardTrailerRef, trailerTmp(trailer[0]));
