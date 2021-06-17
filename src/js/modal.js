@@ -15,7 +15,10 @@ window.addEventListener('keydown', onPressEscKey);
 export async function openModal(e) {
   try {
     const movieId = e.target.dataset.movieId;
-    if (e.target.nodeName !== 'IMG') {
+    if (
+      !e.target.classList.contains('movie__photo') &&
+      !e.target.classList.contains('watched_movie__photo')
+    ) {
       return;
     }
 
@@ -115,7 +118,6 @@ async function addTrailerToModal(e) {
 
       const parent = document.querySelector('.carousel-inner');
       parent.firstElementChild.classList.add('active');
-      // stopSliderModal();
     }
     if (trailer.length === 1) {
       const controllerPrev = document.querySelector('.carousel-control-prev');
@@ -131,10 +133,3 @@ async function addTrailerToModal(e) {
     }
   }
 }
-
-// function stopSliderModal() {
-//   const myCarousel = document.querySelector('#carouselExampleControls');
-//   const carousel = new bootstrap.Carousel(myCarousel, {
-//     interval: 1000,
-//   });
-// }

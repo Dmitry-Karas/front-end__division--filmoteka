@@ -7,7 +7,6 @@ const newFetchApiFilms = new NewFetchApiFilms();
 export function pagination() {
   const linkArrowLeftRef = document.querySelector('.pagination__arrow--left');
   const linkArrowRightRef = document.querySelector('.pagination__arrow--right');
-  const paginationListRef = document.querySelector('.pagination__list');
   const paginationNumberListRef = document.querySelector('.pagination__number-list');
 
   paginationNumberListRef.addEventListener('click', switchesPagesFilms);
@@ -16,77 +15,78 @@ export function pagination() {
 
   async function switchesPagesFilms(e) {
     e.preventDefault();
-    window.scrollTo({ top: 220, behavior: 'smooth' });
+    if (e.target.nodeName === 'DIV') {
+      return;
+    }
 
+    window.scrollTo({ top: 240, behavior: 'smooth' });
     try {
-      if (e.target.nodeName !== 'DIV') {
-        clearMarkup(listFilmsRef);
+      clearMarkup(listFilmsRef);
 
-        if (e.target.classList.contains('pagination__number')) {
-          const num = e.target.textContent;
+      if (e.target.classList.contains('pagination__number')) {
+        const num = e.target.textContent;
 
-          newFetchApiFilms.selectsPageNumber(Number(num));
-          linkArrowLeftRef.removeAttribute('disabled');
-          toggleClassActive(e);
+        newFetchApiFilms.selectsPageNumber(Number(num));
+        linkArrowLeftRef.removeAttribute('disabled');
+        toggleClassActive(e);
 
-          if (e.target.textContent != 1) {
-            linkArrowLeftRef.classList.remove('disabled');
-          }
-          if (e.target.textContent == 1) {
-            linkArrowLeftRef.classList.add('disabled');
-          }
-          if (e.target.textContent != 500) {
-            linkArrowRightRef.classList.remove('disabled');
-          }
-          if (e.target.textContent == 500) {
-            linkArrowRightRef.classList.add('disabled');
-          }
-        }
-        if (e.target.hasAttribute('data-arrow-right')) {
-          newFetchApiFilms.incrementPage();
-          linkArrowLeftRef.removeAttribute('disabled');
+        if (e.target.textContent != 1) {
           linkArrowLeftRef.classList.remove('disabled');
-
-          toggleClassActive(e);
-
-          if (paginationNumberListRef.lastElementChild.textContent < newFetchApiFilms.page) {
-            const numbers = document.querySelectorAll('.pagination__number');
-
-            numbers.forEach(num => {
-              num.textContent = Number(num.textContent) + 1;
-              toggleClassActive(e);
-            });
-            if (newFetchApiFilms.page === 500) {
-              linkArrowLeftRef.setAttribute('disabled', true);
-              linkArrowLeftRef.classList.add('disabled');
-            }
-          }
         }
-        if (e.target.hasAttribute('data-arrow-left')) {
-          newFetchApiFilms.decrementPage();
-          toggleClassActive(e);
+        if (e.target.textContent == 1) {
+          linkArrowLeftRef.classList.add('disabled');
+        }
+        if (e.target.textContent != 500) {
+          linkArrowRightRef.classList.remove('disabled');
+        }
+        if (e.target.textContent == 500) {
+          linkArrowRightRef.classList.add('disabled');
+        }
+      }
+      if (e.target.hasAttribute('data-arrow-right')) {
+        newFetchApiFilms.incrementPage();
+        linkArrowLeftRef.removeAttribute('disabled');
+        linkArrowLeftRef.classList.remove('disabled');
 
-          if (newFetchApiFilms.page < document.querySelector('.first').textContent) {
-            const numbers = document.querySelectorAll('.pagination__number');
+        toggleClassActive(e);
 
-            numbers.forEach(num => {
-              num.textContent = Number(num.textContent) - 1;
-              toggleClassActive(e);
-            });
-          }
+        if (paginationNumberListRef.lastElementChild.textContent < newFetchApiFilms.page) {
+          const numbers = document.querySelectorAll('.pagination__number');
 
-          if (newFetchApiFilms.page === 1) {
+          numbers.forEach(num => {
+            num.textContent = Number(num.textContent) + 1;
+            toggleClassActive(e);
+          });
+          if (newFetchApiFilms.page === 500) {
             linkArrowLeftRef.setAttribute('disabled', true);
             linkArrowLeftRef.classList.add('disabled');
           }
         }
-
-        const films = await newFetchApiFilms
-          .fetchApiPopularFilms()
-          .then(response => response.data.results);
-
-        addGenreToFilm(films);
       }
+      if (e.target.hasAttribute('data-arrow-left')) {
+        newFetchApiFilms.decrementPage();
+        toggleClassActive(e);
+
+        if (newFetchApiFilms.page < document.querySelector('.first').textContent) {
+          const numbers = document.querySelectorAll('.pagination__number');
+
+          numbers.forEach(num => {
+            num.textContent = Number(num.textContent) - 1;
+            toggleClassActive(e);
+          });
+        }
+
+        if (newFetchApiFilms.page === 1) {
+          linkArrowLeftRef.setAttribute('disabled', true);
+          linkArrowLeftRef.classList.add('disabled');
+        }
+      }
+
+      const films = await newFetchApiFilms
+        .fetchApiPopularFilms()
+        .then(response => response.data.results);
+
+      addGenreToFilm(films);
     } catch (error) {
       console.log(error);
     }

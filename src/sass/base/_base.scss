@@ -64,8 +64,8 @@ body.dark-theme {
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
     -webkit-text-fill-color: var(--color-light);
-    -webkit-box-shadow: 0 0 0px 1000px #292929 inset;
-    background-color: #333333;
+    -webkit-box-shadow: 0 0 0px 1000px #292929 inset !important;
+    background-color: #333333 !important;
   }
 
   & .button-modal {

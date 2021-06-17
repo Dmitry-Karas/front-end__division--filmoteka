@@ -36,4 +36,4 @@ function renderWatchedFilmsList() {
   watchedFilmList.innerHTML = markupWatchedFilms;
 }
 
-// watchedFilmList.addEventListener('click', openModal);
+watchedFilmList.addEventListener('click', openModal);
