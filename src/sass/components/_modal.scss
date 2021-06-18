@@ -128,7 +128,7 @@
 
 .card-list-genres {
   display: inline-flex;
-  overflow: scroll;
+  flex-wrap: wrap;
 }
 
 .card-item-genre:not(:last-child) {
