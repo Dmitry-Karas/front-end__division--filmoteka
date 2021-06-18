@@ -39,7 +39,7 @@ function addSpinnerForMovieItem(item) {
   const spinnerForItem = new Spinner({
     ...opts,
     scale: 0.3,
-    top: '20%',
+    top: '43%',
     position: 'relative',
   }).spin(item);
 
@@ -54,7 +54,7 @@ function addSpinnerForMovieItem(item) {
 export function addSpinnerForModalWindow() {
   //спиннер для класса modal-window
   const spinnerForModalWindowEl = document.querySelector('.modal-window');
-  const spinnerForModalWindow = new Spinner({ ...opts, scale: 0.5, top: '40%' }).spin(
+  const spinnerForModalWindow = new Spinner({ ...opts, scale: 0.5, top: '50%' }).spin(
     spinnerForModalWindowEl,
   );
 

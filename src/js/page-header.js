@@ -1,9 +1,11 @@
 import pageHeaderHomeTpl from '../templates/pageHeaderHomeTpl.hbs';
 import pageHeaderLibraryTpl from '../templates/pageHeaderLibraryTpl.hbs';
-import { renderMarkup, clearMarkup } from './common/functions';
 import movieCatalogLibraryTpl from '../templates/movieCatalogLibrary.hbs'; //!!!! Настя
+import paginationTmp from '../templates/pagination.hbs';
 import listenInput from './provideFilms';
-import { getCurrentUser } from './localStorage';
+import nothingHereImg from '../images/nothing-here.jpg';
+import { renderMarkup, clearMarkup } from './common/functions';
+import { getCurrentUser, getUserLibraryFromLocalStorage } from './localStorage';
 import {
   headerRef,
   logoRef,
@@ -15,22 +17,25 @@ import {
   paginationRef,
 } from './common/refs';
 import { Notify } from './sweetAlert';
-import { getUserLibraryFromLocalStorage } from './localStorage'; //!!!! Добавила для получения масива из лс - Настя
 import { pagination } from './pagination';
-import paginationTmp from '../templates/pagination.hbs';
-import nothingHereImg from '../images/nothing-here.jpg';
+import { Database } from './firebase';
+import { addSpinnersForMoviesItems } from './common/spinner';
 
 renderMarkup(headerDynamicContainerRef, pageHeaderHomeTpl()); // Рендер разметки домашней страницы по-умолчанию
 listenInput();
 
 // Меняет интерфейс хэдэра при выборе страницы
-function onPageChange(e) {
+async function onPageChange(e) {
   const target = e.target; // Кликнутый элемент
   const currentButtonRef = navListRef.querySelector('.site-nav__button--current'); // Кнопка текущей страницы
   const currentButtonTarget = target === currentButtonRef;
   const logoTarget = target.closest('a') === logoRef;
   const navButtonTarget = target.className === 'site-nav__button';
   const signOutBtnTarget = target.textContent === 'Sign out';
+  const user = getCurrentUser();
+
+  await Database.getUserLibrary(user);
+
   // Выход из функции, если...
   if (
     // Клик по текущей кнопке
@@ -66,8 +71,6 @@ function onPageChange(e) {
 
   // Рендер разметки библиотеки при клике на кнопку my library
   if (target === libraryButtonRef) {
-    const user = getCurrentUser();
-
     if (!user) {
       Notify.needToSignIn();
       return;
@@ -94,6 +97,7 @@ function onPageChange(e) {
       }
       // Разметка очереди - Настя
       renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue)); // !!!! Настя
+      addSpinnersForMoviesItems();
       // Активная кнопка Queue - Настя
       const queueLibBtn = document.querySelector('.library__button--Queue'); // !!!! Настя
       queueLibBtn.classList.add('button--active'); // !!!! Настя
