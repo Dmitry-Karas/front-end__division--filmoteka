@@ -42,8 +42,8 @@ export default [
     github: 'https://github.com/Arina-Lex-2012',
   },
   {
-    name: 'Vova',
-    surname: 'Guns',
+    name: 'Vladimir',
+    surname: 'Shyriaiev',
     photo: 'https://avatars.githubusercontent.com/u/67137938?v=4',
     github: 'https://github.com/Guns1301',
   },
