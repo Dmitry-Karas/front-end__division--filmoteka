@@ -138,7 +138,10 @@ export class Database {
     }
 
     const library = (await dbRef.child('library').child(user.uid).get()).val();
-    const { watched, queue } = library || { watched: [], queue: [] };
+    let { watched, queue } = library || { watched: [], queue: [] };
+
+    watched = watched ? watched : [];
+    queue = queue ? queue : [];
 
     addUserLibraryToLocalStorage(watched, queue);
   }

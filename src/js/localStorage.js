@@ -5,6 +5,7 @@ import { listFilmsRef, libraryButtonRef, homeButtonRef } from './common/refs';
 import { Database } from './firebase';
 import { Notify } from './sweetAlert';
 import nothingHereImg from '../images/nothing-here.jpg';
+import { addSpinnersForMoviesItems } from './common/spinner';
 
 const libraryRef = document.querySelector('.js-dynamic-container');
 const newFetchApiFilm = new NewFetchApiFilms();
@@ -15,11 +16,15 @@ backdrop.addEventListener('click', onModalWindow);
 class Lib {
   constructor(film) {
     this._film = film;
+    this.user = getCurrentUser();
     film.onclick = this.onClick.bind(this); // (*)
   }
 
-  watched() {
+  async watched() {
+    await Database.getUserLibrary(this.user);
+
     clearMarkup(listFilmsRef);
+
     const { watched } = getUserLibraryFromLocalStorage();
 
     if (!watched.length) {
@@ -29,10 +34,14 @@ class Lib {
       );
     }
     renderMarkup(listFilmsRef, movieCatalogLibraryTpl(watched));
+    addSpinnersForMoviesItems();
   }
 
-  queue() {
+  async queue() {
+    await Database.getUserLibrary(this.user);
+
     clearMarkup(listFilmsRef);
+
     const { queue } = getUserLibraryFromLocalStorage();
 
     if (!queue.length) {
@@ -43,6 +52,7 @@ class Lib {
     }
 
     renderMarkup(listFilmsRef, movieCatalogLibraryTpl(queue));
+    addSpinnersForMoviesItems();
   }
 
   onClick(event) {
