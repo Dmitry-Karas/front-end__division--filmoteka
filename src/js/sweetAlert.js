@@ -7,21 +7,8 @@ export const authModal = {
   customClass: {
     container: '...',
     popup: 'auth-modal',
-    // header: '...',
     title: 'auth-modal__title',
-    // icon: '...',
-    // image: '...',
-    // content: '...',
-    // htmlContainer: 'auth-modal__form',
-    // input: '...',
-    // inputLabel: '...',
-    // validationMessage: '...',
-    // actions: '...',
     confirmButton: 'auth-modal__confirm-btn',
-    // denyButton: '...',
-    // cancelButton: '...',
-    // loader: '...',
-    // footer: '....',
   },
   confirmButtonText: 'Sign in',
   buttonsStyling: false,
@@ -239,23 +226,4 @@ export class Notify {
         'We have blocked all requests from this device due to unusual activity. Try again later.',
     });
   }
-
-  // static async thereIsNothingHere() {
-  //   const Toast = Swal.mixin({
-  //     toast: true,
-  //     position: 'top-right',
-  //     iconColor: 'white',
-  //     customClass: {
-  //       popup: 'colored-toast',
-  //     },
-  //     showConfirmButton: false,
-  //     timer: 3000,
-  //     timerProgressBar: true,
-  //   });
-  //   await Toast.fire({
-  //     icon: 'info',
-  //     title: 'Oops.',
-  //     text: 'There is nothing here yet',
-  //   });
-  // }
 }
